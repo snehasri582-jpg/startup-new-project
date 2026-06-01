@@ -19,9 +19,9 @@ const DEFAULT_PROFILES = {
     linkedin: 'https://linkedin.com',
     image: 'https://cdn-icons-png.flaticon.com/512/2206/2206368.png'
   },
-  'student-pro': {
+    'student-pro': {
     id: 'student-pro',
-    name: 'Amit Mehra',
+    name: 'Karthik',
     role: 'Student Pro',
     type: 'Aspiring Entrepreneur',
     company: 'BITS Pilani',
@@ -33,9 +33,9 @@ const DEFAULT_PROFILES = {
     portfolio: '2',
     success: '1',
     funding: '₹10L+',
-    email: 'amit.mehra@student.edu',
+    email: 'karthik@student.edu',
     phone: '+91 7032139423',
-    linkedin: 'https://linkedin.com/in/amit-mehra',
+    linkedin: 'https://linkedin.com/in/karthik',
     image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&fit=crop&q=80'
   },
   'aman-gupta': {

@@ -614,6 +614,32 @@ body {
   flex-shrink: 0;
 }
 
+/* Initial avatar (single letter) */
+.wa-contact-avatar-initial,
+.wa-chat-header-avatar-initial,
+#infoPanelAvatarInitial {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ff6a00;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.wa-contact-avatar-initial {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.wa-chat-header-avatar-initial {
+  margin-right: 10px;
+}
+
 .message-content {
   flex: 1;
   background: #f1f1f1;
@@ -1232,11 +1258,11 @@ body {
                         <i class="fas fa-arrow-left"></i>
                     </div>
                     <div class="wa-chat-header-profile" onclick="toggleContactInfo()">
-                        <img src="" alt="Profile" class="wa-chat-header-avatar" id="chatHeaderAvatar">
-                        <div class="wa-chat-header-info">
-                            <div class="wa-chat-header-name" id="chatHeaderName">Name</div>
-                            <div class="wa-chat-header-status" id="chatHeaderStatus">online</div>
-                        </div>
+                      <div class="wa-chat-header-avatar-initial" id="chatHeaderAvatarInitial">J</div>
+                      <div class="wa-chat-header-info">
+                        <div class="wa-chat-header-name" id="chatHeaderName">Name</div>
+                        <div class="wa-chat-header-status" id="chatHeaderStatus">online</div>
+                      </div>
                     </div>
                     <div class="wa-chat-header-icons">
                         <i class="fas fa-search" onclick="alert('Search within chat')"></i>
@@ -1282,9 +1308,9 @@ body {
                     </div>
                     <div class="wa-contact-info-content">
                         <div class="wa-contact-info-card">
-                            <img src="" alt="Profile" id="infoPanelAvatar">
-                            <h2 id="infoPanelName">Name</h2>
-                            <p id="infoPanelPhone">+91 xxxxx xxxxx</p>
+                          <div id="infoPanelAvatarInitial" class="wa-contact-avatar-initial">J</div>
+                          <h2 id="infoPanelName">Name</h2>
+                          <p id="infoPanelPhone">+91 xxxxx xxxxx</p>
                         </div>
                         <div class="wa-contact-info-section">
                             <h4>About</h4>

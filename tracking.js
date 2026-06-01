@@ -65,7 +65,7 @@ function submitUpdate() {
     return;
   }
 
-  let studentName = "Amit Mehra";
+  let studentName = "Karthik";
   try {
     const profiles = JSON.parse(localStorage.getItem('collab_profiles'));
     if (profiles && profiles['student-pro'] && profiles['student-pro'].name) {
@@ -93,12 +93,12 @@ function submitUpdate() {
     // If not found in localStorage, fetch DEFAULT_DOCUMENTS array size and save it first
     if (!docs) {
       docs = [
-        { id: 1, name: "Amit Mehra", role: "Student", project: "EcoCharge 🌱", docType: "Weekly Progress PDF", fileName: "Week_3_Metrics_Update.pdf", date: "2026-05-30", status: "Approved" },
-        { id: 2, name: "Sneha Reddy", role: "Student", project: "UPI PayPulse 📱", docType: "Pitch Deck Proposal", fileName: "UPI_PayPulse_PitchDeck.pdf", date: "2026-05-29", status: "Pending" },
+        { id: 1, name: "Karthik", role: "Student", project: "EcoCharge 🌱", docType: "Weekly Progress PDF", fileName: "Week_3_Metrics_Update.pdf", date: "2026-05-30", status: "Approved" },
+        { id: 2, name: "Yamini", role: "Student", project: "UPI PayPulse 📱", docType: "Pitch Deck Proposal", fileName: "UPI_PayPulse_PitchDeck.pdf", date: "2026-05-29", status: "Pending" },
         { id: 3, name: "Namita Thapar", role: "Investor", project: "Emcure Pharmaceuticals", docType: "Accreditation Proof", fileName: "Accreditation_Doc_Namita.pdf", date: "2026-05-28", status: "Approved" },
-        { id: 4, name: "Priya Singh", role: "Student", project: "EcoWeave 🍃", docType: "Weekly Progress PDF", fileName: "Week_1_Materials_Report.pdf", date: "2026-05-27", status: "Pending" },
+        { id: 4, name: "Kalyani", role: "Student", project: "EcoWeave 🍃", docType: "Weekly Progress PDF", fileName: "Week_1_Materials_Report.pdf", date: "2026-05-27", status: "Pending" },
         { id: 5, name: "Aman Gupta", role: "Investor", project: "boAt Lifestyle", docType: "KYC verification", fileName: "Aman_Gupta_KYC_Proof.pdf", date: "2026-05-26", status: "Approved" },
-        { id: 6, name: "Rohan Patel", role: "Student", project: "Swasthya Kiosk 🏥", docType: "Accredited Lab Report", fileName: "Kiosk_Vitals_Certification.pdf", date: "2026-05-25", status: "Rejected" }
+        { id: 6, name: "Sudharshan", role: "Student", project: "Swasthya Kiosk 🏥", docType: "Accredited Lab Report", fileName: "Kiosk_Vitals_Certification.pdf", date: "2026-05-25", status: "Rejected" }
       ];
     }
     docs.unshift(newDoc);

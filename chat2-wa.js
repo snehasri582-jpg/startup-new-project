@@ -3,7 +3,7 @@
 const contacts = [
     {
         id: 1,
-        name: "Arjun Mehta",
+        name: "Jayram",
         phone: "+91 98111 22233",
         avatar: "https://randomuser.me/api/portraits/men/22.jpg",
         lastMessage: "We've deployed the beta version.",
@@ -19,7 +19,7 @@ const contacts = [
     },
     {
         id: 2,
-        name: "Sneha Patil",
+        name: "Yamini",
         phone: "+91 98222 33344",
         avatar: "https://randomuser.me/api/portraits/women/44.jpg",
         lastMessage: "The presentation is ready.",
@@ -35,7 +35,7 @@ const contacts = [
     },
     {
         id: 3,
-        name: "Karan Desai",
+        name: "Keshavaram",
         phone: "+91 98333 44455",
         avatar: "https://randomuser.me/api/portraits/men/32.jpg",
         lastMessage: "User acquisition grew by 15% this week.",
@@ -51,7 +51,7 @@ const contacts = [
     },
     {
         id: 4,
-        name: "Aisha Khan",
+        name: "Archana",
         phone: "+91 98444 55566",
         avatar: "https://randomuser.me/api/portraits/women/28.jpg",
         lastMessage: "We fixed the bug on the checkout page.",
@@ -67,7 +67,7 @@ const contacts = [
     },
     {
         id: 5,
-        name: "Rohit Sharma",
+        name: "Harsha",
         phone: "+91 98555 66677",
         avatar: "https://randomuser.me/api/portraits/men/29.jpg",
         lastMessage: "Looking forward to our sync up.",
@@ -83,7 +83,7 @@ const contacts = [
     },
     {
         id: 6,
-        name: "Priya Singh",
+        name: "Beulah",
         phone: "+91 98666 77788",
         avatar: "https://randomuser.me/api/portraits/women/35.jpg",
         lastMessage: "The new design looks amazing.",
@@ -99,7 +99,7 @@ const contacts = [
     },
     {
         id: 7,
-        name: "Vikas Reddy",
+        name: "Srinath",
         phone: "+91 98777 88899",
         avatar: "https://randomuser.me/api/portraits/men/25.jpg",
         lastMessage: "We need more servers for scaling.",
@@ -170,9 +170,10 @@ function renderContacts(searchQuery = '') {
         const contactEl = document.createElement('div');
         contactEl.className = `wa-contact-item ${isActive}`;
         
-        // Avatar click opens mini DP modal, rest of row selects chat
+        // Render initial circle instead of DP image; rest of row selects chat
+        const initial = (contact.name && contact.name.length) ? contact.name.charAt(0).toUpperCase() : '?';
         contactEl.innerHTML = `
-            <img src="${contact.avatar}" alt="${contact.name}" class="wa-contact-avatar" onclick="openDpModal(${contact.id}, event)">
+            <div class="wa-contact-avatar-initial" onclick="selectContact(${contact.id})">${initial}</div>
             <div class="wa-contact-info" onclick="selectContact(${contact.id})">
                 <div class="wa-contact-top">
                     <div class="wa-contact-name">${contact.name}</div>
@@ -215,8 +216,9 @@ function renderChatArea(contact) {
     if (emptyState) emptyState.style.display = 'none';
     chatArea.style.display = 'flex';
 
-    // Update Header
-    document.getElementById('chatHeaderAvatar').src = contact.avatar;
+    // Update Header - show initial instead of DP
+    const headerInitialEl = document.getElementById('chatHeaderAvatarInitial');
+    if (headerInitialEl) headerInitialEl.textContent = contact.name.charAt(0).toUpperCase();
     document.getElementById('chatHeaderName').textContent = contact.name;
     document.getElementById('chatHeaderStatus').textContent = contact.online ? 'online' : `last seen ${contact.time}`;
 
@@ -244,7 +246,8 @@ function renderChatArea(contact) {
 }
 
 function populateContactInfo(contact) {
-    document.getElementById('infoPanelAvatar').src = contact.avatar;
+    const infoInitial = document.getElementById('infoPanelAvatarInitial');
+    if (infoInitial) infoInitial.textContent = contact.name.charAt(0).toUpperCase();
     document.getElementById('infoPanelName').textContent = contact.name;
     document.getElementById('infoPanelPhone').textContent = contact.phone;
     document.getElementById('infoPanelAbout').textContent = contact.about;

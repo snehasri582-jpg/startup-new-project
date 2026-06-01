@@ -1,6 +1,6 @@
 // USER DATA
 const userData = {
-  name: "Amit Mehra",
+  name: "Karthik",
   university: "Boston University",
   field: "Computer Science"
 };
@@ -25,7 +25,7 @@ const startupsData = [
 const messagesData = [
   {
     id: 1,
-    sender: "Rajesh Kapoor",
+    sender: "Jayram",
     message: "Interested in your AI startup",
     time: "2 hours ago",
     avatar: "👤"
@@ -39,7 +39,7 @@ const messagesData = [
   },
   {
     id: 3,
-    sender: "Priya Singh",
+    sender: "Archana",
     message: "Great work on the TechInnovate pitch",
     time: "1 day ago",
     avatar: "👩"

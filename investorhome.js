@@ -49,7 +49,7 @@ const projects = [
     purposeOfFunds: "Hiring NLP engineers and UI/UX design.",
     spendingCategory: "Software Development", demoLink: "",
     funding: "₹15,00,000", investments: 21, comments: 45, postedDaysAgo: 2, trending: true,
-    student: { name: "Sneha Reddy", age: 21, university: "NIT Warangal", bio: "Fintech enthusiast", skills: "NLP, Voice AI, Node.js" }
+    student: { name: "Yamini", age: 21, university: "NIT Warangal", bio: "Fintech enthusiast", skills: "NLP, Voice AI, Node.js" }
   },
   {
     id: 3, title: "Swasthya Kiosk", category: "Health",
@@ -60,7 +60,7 @@ const projects = [
     purposeOfFunds: "Manufacturing kiosks and setting up a doctor network.",
     spendingCategory: "Infrastructure", demoLink: "https://swasthya-kiosk.in/demo",
     funding: "₹50,00,000", investments: 8, comments: 12, postedDaysAgo: 3, trending: false,
-    student: { name: "Rohan Patel", age: 23, university: "BITS Pilani", bio: "HealthTech Maker", skills: "IoT, Healthcare Admin" }
+    student: { name: "Sudharshan", age: 23, university: "BITS Pilani", bio: "HealthTech Maker", skills: "IoT, Healthcare Admin" }
   },
   {
     id: 4, title: "EcoWeave", category: "Sustainability",
@@ -71,7 +71,7 @@ const projects = [
     purposeOfFunds: "Setting up a pilot manufacturing plant in Punjab.",
     spendingCategory: "Manufacturing", demoLink: "",
     funding: "₹35,00,000", investments: 12, comments: 19, postedDaysAgo: 4, trending: false,
-    student: { name: "Priya Singh", age: 24, university: "IIT Delhi", bio: "Material Scientist", skills: "Chemical Engg, Sustainability" }
+    student: { name: "Archana", age: 24, university: "IIT Delhi", bio: "Material Scientist", skills: "Chemical Engg, Sustainability" }
   },
   {
     id: 5, title: "VidyaConnect", category: "EdTech",

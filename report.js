@@ -15,7 +15,7 @@ const reportData = {
     futurePlans: 'Onboard 500 more users. Finalize the gamification module for student engagement.',
     weeklySpend: '45,000',
     spendCategory: 'infrastructure',
-    teamUpdates: 'Amit: Developed AI core; Priya: Refined mobile UI; Arjun: Managed school outreach.',
+    teamUpdates: 'Karthik: Developed AI core; Archana: Refined mobile UI; Jayram: Managed school outreach.',
     documents: 'AI-Powered Education - Week 5 Progress.pdf',
   },
   'week4': {
@@ -33,7 +33,7 @@ const reportData = {
     futurePlans: 'Begin mobile app coding. Conduct first focus group with educators.',
     weeklySpend: '30,000',
     spendCategory: 'development',
-    teamUpdates: 'Priya and Amit focused on backend logic. Arjun conducted market surveys.',
+    teamUpdates: 'Yamini and Karthik focused on backend logic. Jayram conducted market surveys.',
     documents: 'AI-Powered Education - Week 4 Progress.pdf',
   },
   'week3': {
@@ -51,7 +51,7 @@ const reportData = {
     futurePlans: 'Finalize database schema. Setup CI/CD pipeline.',
     weeklySpend: '20,000',
     spendCategory: 'infrastructure',
-    teamUpdates: 'Priya finished Figma designs. Amit configured AWS servers.',
+    teamUpdates: 'Archana finished Figma designs. Karthik configured AWS servers.',
     documents: 'AI-Powered Education - Week 3 Progress.pdf',
   },
   'week2': {

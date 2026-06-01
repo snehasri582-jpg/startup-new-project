@@ -155,6 +155,21 @@
       display: block;
     }
 
+    .card-avatar-initial {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 32px;
+      border: 3px solid rgba(255,255,255,0.12);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
     .card-body {
       padding: 16px 20px 24px;
       display: flex;
@@ -455,7 +470,7 @@
           <div class="investor-card" onclick="navigateToProfile(event, ${std.id})">
             <div class="card-banner"></div>
             <div class="card-avatar-wrapper" style="margin-top: -45px;">
-              <img class="card-avatar" src="https://ui-avatars.com/api/?name=${encodeURIComponent(std.name)}&background=random&color=fff&size=150" alt="${std.name}">
+              <div class="card-avatar-initial">${std.name.charAt(0).toUpperCase()}</div>
             </div>
             <div class="card-body">
               <h3 class="card-name" title="${std.name}">${std.name}</h3>

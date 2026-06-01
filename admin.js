@@ -1,16 +1,16 @@
  // ==================== DATA STORE (Simulated) ====================
 const platformData = {
     students: [
-        { id: 1, name: "Arjun Reddy", university: "IIT Delhi", status: "Pending", email: "arjun@example.com", phone: "+91 9876543210", address: "Delhi", field: "AI", year: "3rd", bio: "Diagnostics." },
-        { id: 2, name: "Vikram Singh", university: "BITS Pilani", status: "Verified", email: "vikram@example.com", phone: "+91 8876543211", address: "Pilani", field: "IoT", year: "4th", bio: "Specialist." },
-        { id: 3, name: "Priya Sharma", university: "MIT Pune", status: "Pending", email: "priya@mit.edu", phone: "+91 7765432100", address: "Pune", field: "Blockchain", year: "2nd", bio: "Enthusiast." },
-        { id: 4, name: "Sneha Patil", university: "IISc Bangalore", status: "Verified", email: "sneha@iisc.ac.in", phone: "+91 9988776655", address: "Bengaluru", field: "Sustainability", year: "Grad", bio: "Lead." },
-        { id: 5, name: "Rahul Gupta", university: "IIT Bombay", status: "Pending", email: "rahul@iitb.com", phone: "+91 9000011111", address: "Mumbai", field: "CS", year: "Final", bio: "Cybersecurity." },
-        { id: 6, name: "Anjali Singh", university: "Delhi University", status: "Verified", email: "anjali@du.com", phone: "+91 8000022222", address: "Delhi", field: "Economics", year: "2nd", bio: "Founder." },
-        { id: 7, name: "Rohan Mehta", university: "IIT Madras", status: "Pending", email: "rohan@iitm.ac.in", phone: "+91 9999900001", address: "Chennai", field: "Robotics", year: "3rd", bio: "Drones." },
-        { id: 8, name: "Kavita Iyer", university: "Anna University", status: "Verified", email: "kavita@au.edu", phone: "+91 9999900002", address: "Chennai", field: "IoT", year: "4th", bio: "AgriTech." },
-        { id: 9, name: "Zara Khan", university: "AMU", status: "Pending", email: "zara@amu.ac.in", phone: "+91 9999900003", address: "Aligarh", field: "AI", year: "2nd", bio: "NLP." },
-        { id: 10, name: "Manish Das", university: "Jadavpur University", status: "Verified", email: "manish@ju.edu", phone: "+91 9999900004", address: "Kolkata", field: "Web3", year: "3rd", bio: "Governance." }
+        { id: 1, name: "Yamini", university: "IIT Delhi", status: "Pending", email: "yamini@example.com", phone: "+91 9876543210", address: "Delhi", field: "AI", year: "3rd", bio: "Diagnostics." },
+        { id: 2, name: "Meena", university: "BITS Pilani", status: "Verified", email: "meena@example.com", phone: "+91 8876543211", address: "Pilani", field: "IoT", year: "4th", bio: "Specialist." },
+        { id: 3, name: "Karthik", university: "MIT Pune", status: "Pending", email: "karthik@example.com", phone: "+91 7765432100", address: "Pune", field: "Blockchain", year: "2nd", bio: "Enthusiast." },
+        { id: 4, name: "Kalyani", university: "IISc Bangalore", status: "Verified", email: "kalyani@example.com", phone: "+91 9988776655", address: "Bengaluru", field: "Sustainability", year: "Grad", bio: "Lead." },
+        { id: 5, name: "Shive", university: "IIT Bombay", status: "Pending", email: "shive@example.com", phone: "+91 9000011111", address: "Mumbai", field: "CS", year: "Final", bio: "Cybersecurity." },
+        { id: 6, name: "Shanmukh", university: "Delhi University", status: "Verified", email: "shanmukh@example.com", phone: "+91 8000022222", address: "Delhi", field: "Economics", year: "2nd", bio: "Founder." },
+        { id: 7, name: "Srinath", university: "IIT Madras", status: "Pending", email: "srinath@example.com", phone: "+91 9999900001", address: "Chennai", field: "Robotics", year: "3rd", bio: "Drones." },
+        { id: 8, name: "Naveen", university: "Anna University", status: "Verified", email: "naveen@example.com", phone: "+91 9999900002", address: "Chennai", field: "IoT", year: "4th", bio: "AgriTech." },
+        { id: 9, name: "Sudharshan", university: "AMU", status: "Pending", email: "sudharshan@example.com", phone: "+91 9999900003", address: "Aligarh", field: "AI", year: "2nd", bio: "NLP." },
+        { id: 10, name: "Harsha", university: "Jadavpur University", status: "Verified", email: "harsha@example.com", phone: "+91 9999900004", address: "Kolkata", field: "Web3", year: "3rd", bio: "Governance." }
     ],
     investors: [
         { id: 1, name: "Sarah Capital", company: "Sarah Ventures", status: "Pending", email: "sarah@vc.com", focus: "SaaS" },
@@ -25,45 +25,45 @@ const platformData = {
         { id: 10, name: "Amit Khanna", company: "Angel", status: "Pending", email: "amit@khanna.me", focus: "AgriTech" }
     ],
     ideas: [
-        { id: 1, title: "EcoCharge", student: "Sneha Patil", category: "Sustainability", status: "Pending", description: "Portable solar battery systems for rural microgrid communities.", stage: "Pre-Seed", applications: 18 },
-        { id: 2, title: "TechInnovate", student: "Amit Mehra", category: "SaaS", status: "Approved", description: "AI-driven mentorship and funding matching for early-stage founders.", stage: "Seed", applications: 26 },
-        { id: 3, title: "HealthSync", student: "Arjun Reddy", category: "HealthTech", status: "Pending", description: "Remote patient monitoring for chronic care and wellness tracking.", stage: "Seed", applications: 12 },
-        { id: 4, title: "AgriGrow", student: "Vikram Singh", category: "AgriTech", status: "Pending", description: "Precision farming analytics for smallholder crop optimization.", stage: "Pre-Seed", applications: 14 },
-        { id: 5, title: "EduConnect", student: "Rahul Gupta", category: "EdTech", status: "Approved", description: "Peer-led learning communities for underserved students.", stage: "Series A", applications: 34 },
-        { id: 6, title: "FinPal", student: "Priya Sharma", category: "FinTech", status: "Pending", description: "Mobile financial health tools for first-time salaried workers.", stage: "Pre-Seed", applications: 9 },
-        { id: 7, title: "RoboFarm", student: "Kavita Iyer", category: "AgriTech", status: "Pending", description: "Autonomous crop scouting robots for productivity gains.", stage: "Seed", applications: 16 },
-        { id: 8, title: "BlockVote", student: "Manish Das", category: "Web3", status: "Approved", description: "Blockchain voting platform for campus governance and clubs.", stage: "Seed", applications: 11 },
-        { id: 9, title: "LangConnect", student: "Zara Khan", category: "AI", status: "Pending", description: "Language coaching app for remote internship seekers.", stage: "Pre-Seed", applications: 22 },
-        { id: 10, title: "DroneDelivery", student: "Rohan Mehta", category: "Robotics", status: "Pending", description: "Emergency delivery drones for medical supplies in cities.", stage: "Seed", applications: 20 }
+        { id: 1, title: "EcoCharge", student: "Jayram", category: "Sustainability", status: "Pending", description: "Portable solar battery systems for rural microgrid communities.", stage: "Pre-Seed", applications: 18 },
+        { id: 2, title: "TechInnovate", student: "Vinay Kumar", category: "SaaS", status: "Approved", description: "AI-driven mentorship and funding matching for early-stage founders.", stage: "Seed", applications: 26 },
+        { id: 3, title: "HealthSync", student: "Karthik", category: "HealthTech", status: "Pending", description: "Remote patient monitoring for chronic care and wellness tracking.", stage: "Seed", applications: 12 },
+        { id: 4, title: "AgriGrow", student: "Vikram", category: "AgriTech", status: "Pending", description: "Precision farming analytics for smallholder crop optimization.", stage: "Pre-Seed", applications: 14 },
+        { id: 5, title: "EduConnect", student: "Beulah", category: "EdTech", status: "Approved", description: "Peer-led learning communities for underserved students.", stage: "Series A", applications: 34 },
+        { id: 6, title: "FinPal", student: "Akhil", category: "FinTech", status: "Pending", description: "Mobile financial health tools for first-time salaried workers.", stage: "Pre-Seed", applications: 9 },
+        { id: 7, title: "RoboFarm", student: "Arshad", category: "AgriTech", status: "Pending", description: "Autonomous crop scouting robots for productivity gains.", stage: "Seed", applications: 16 },
+        { id: 8, title: "BlockVote", student: "Keshavaram", category: "Web3", status: "Approved", description: "Blockchain voting platform for campus governance and clubs.", stage: "Seed", applications: 11 },
+        { id: 9, title: "LangConnect", student: "Sree Datha", category: "AI", status: "Pending", description: "Language coaching app for remote internship seekers.", stage: "Pre-Seed", applications: 22 },
+        { id: 10, title: "DroneDelivery", student: "Teja", category: "Robotics", status: "Pending", description: "Emergency delivery drones for medical supplies in cities.", stage: "Seed", applications: 20 }
     ],
     meetings: [
-        { id: 1, student: "Amit Mehra", investor: "Rajesh Kapoor", date: "2024-03-20", time: "10:00 AM", link: "https://zoom.us/j/123" },
-        { id: 2, student: "Sneha Patil", investor: "Sarah Capital", date: "2024-03-22", time: "02:00 PM", link: "https://meet.google.com/abc" },
-        { id: 3, student: "Arjun Reddy", investor: "David Lee", date: "2024-03-25", time: "11:00 AM", link: "https://teams.com/..." },
-        { id: 4, student: "Priya Sharma", investor: "Robert Miller", date: "2024-03-26", time: "09:00 AM", link: "https://zoom.us/..." },
-        { id: 5, student: "Vikram Singh", investor: "Lisa Chen", date: "2024-03-27", time: "04:00 PM", link: "https://meet.google.com/..." },
-        { id: 6, student: "Rahul Gupta", investor: "Kenji Tanaka", date: "2024-03-28", time: "10:30 AM", link: "https://zoom.us/..." },
-        { id: 7, student: "Anjali Singh", investor: "Shweta Bansal", date: "2024-03-29", time: "11:00 AM", link: "https://meet.google.com/..." },
-        { id: 8, student: "Kavita Iyer", investor: "Elena Rossi", date: "2024-03-30", time: "02:00 PM", link: "https://zoom.us/..." },
-        { id: 9, student: "Zara Khan", investor: "Amit Khanna", date: "2024-04-01", time: "01:00 PM", link: "https://teams.com/..." },
-        { id: 10, student: "Manish Das", investor: "Maria Garcia", date: "2024-04-02", time: "03:30 PM", link: "https://zoom.us/..." }
+        { id: 1, student: "Jayram", investor: "Rajesh Kapoor", date: "2024-03-20", time: "10:00 AM", link: "https://zoom.us/j/123" },
+        { id: 2, student: "Yamini", investor: "Sarah Capital", date: "2024-03-22", time: "02:00 PM", link: "https://meet.google.com/abc" },
+        { id: 3, student: "Karthik", investor: "David Lee", date: "2024-03-25", time: "11:00 AM", link: "https://teams.com/..." },
+        { id: 4, student: "Kalyani", investor: "Robert Miller", date: "2024-03-26", time: "09:00 AM", link: "https://zoom.us/..." },
+        { id: 5, student: "Shive", investor: "Lisa Chen", date: "2024-03-27", time: "04:00 PM", link: "https://meet.google.com/..." },
+        { id: 6, student: "Shanmukh", investor: "Kenji Tanaka", date: "2024-03-28", time: "10:30 AM", link: "https://zoom.us/..." },
+        { id: 7, student: "Srinath", investor: "Shweta Bansal", date: "2024-03-29", time: "11:00 AM", link: "https://meet.google.com/..." },
+        { id: 8, student: "Naveen", investor: "Elena Rossi", date: "2024-03-30", time: "02:00 PM", link: "https://zoom.us/..." },
+        { id: 9, student: "Sudharshan", investor: "Amit Khanna", date: "2024-04-01", time: "01:00 PM", link: "https://teams.com/..." },
+        { id: 10, student: "Harsha", investor: "Maria Garcia", date: "2024-04-02", time: "03:30 PM", link: "https://zoom.us/..." }
     ]
 };
 
 const recentActivities = [
-    { title: 'Aarav Sharma submitted a new project', subtitle: 'AI Study Buddy', time: '10:30 AM' },
-    { title: 'Ananya Verma updated project details', subtitle: 'HealthCare AI', time: '09:45 AM' },
-    { title: 'Vikram Singh applied for funding', subtitle: 'Green Energy Solution', time: '09:20 AM' },
-    { title: 'Neha Patel sent message to investor', subtitle: 'EcoTrack', time: '08:50 AM' },
-    { title: 'Priya Nair added a new idea', subtitle: 'Smart Farming', time: '08:20 AM' }
+    { title: 'Yamini submitted a new project', subtitle: 'AI Study Buddy', time: '10:30 AM' },
+    { title: 'Meena updated project details', subtitle: 'HealthCare AI', time: '09:45 AM' },
+    { title: 'Karthik applied for funding', subtitle: 'Green Energy Solution', time: '09:20 AM' },
+    { title: 'Kalyani sent message to investor', subtitle: 'EcoTrack', time: '08:50 AM' },
+    { title: 'Shive added a new idea', subtitle: 'Smart Farming', time: '08:20 AM' }
 ];
 
 const topProjects = [
-    { id: 1, title: 'EcoCharge', owner: 'Sneha Patil', tagline: 'Solar battery systems for rural microgrids.', stage: 'Pre-Seed' },
-    { id: 2, title: 'TechInnovate', owner: 'Amit Mehra', tagline: 'AI mentorship and founder matching.', stage: 'Seed' },
-    { id: 3, title: 'HealthSync', owner: 'Arjun Reddy', tagline: 'Chronic care monitoring from home.', stage: 'Seed' },
-    { id: 5, title: 'EduConnect', owner: 'Rahul Gupta', tagline: 'Peer learning for underserved students.', stage: 'Series A' },
-    { id: 10, title: 'DroneDelivery', owner: 'Rohan Mehta', tagline: 'Medical courier drones for urgent supplies.', stage: 'Seed' }
+    { id: 1, title: 'EcoCharge', owner: 'Shanmukh', tagline: 'Solar battery systems for rural microgrids.', stage: 'Pre-Seed' },
+    { id: 2, title: 'TechInnovate', owner: 'Srinath', tagline: 'AI mentorship and founder matching.', stage: 'Seed' },
+    { id: 3, title: 'HealthSync', owner: 'Naveen', tagline: 'Chronic care monitoring from home.', stage: 'Seed' },
+    { id: 5, title: 'EduConnect', owner: 'Sudharshan', tagline: 'Peer learning for underserved students.', stage: 'Series A' },
+    { id: 10, title: 'DroneDelivery', owner: 'Harsha', tagline: 'Medical courier drones for urgent supplies.', stage: 'Seed' }
 ];
 
 function renderTable(type) {

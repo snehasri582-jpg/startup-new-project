@@ -16,7 +16,7 @@ const projects = [
     purposeOfFunds: "Procuring hardware components and field testing in rural Maharashtra.",
     spendingCategory: "Research & Development", demoLink: "https://kisandrone.in/demo",
     funding: "₹25,00,000", investments: 14, comments: 23, postedDaysAgo: 1, trending: true,
-    student: { name: "Aarav Sharma", age: 22, university: "IIT Bombay", bio: "AgriTech Innovator", skills: "Robotics, AI, Python" },
+    student: { name: "Yamini", age: 22, university: "IIT Bombay", bio: "AgriTech Innovator", skills: "Robotics, AI, Python" },
     image: "https://picsum.photos/seed/kisan/300/200"
   },
   {
@@ -28,7 +28,7 @@ const projects = [
     purposeOfFunds: "Hiring NLP engineers and UI/UX design.",
     spendingCategory: "Software Development", demoLink: "",
     funding: "₹15,00,000", investments: 21, comments: 45, postedDaysAgo: 2, trending: true,
-    student: { name: "Sneha Reddy", age: 21, university: "NIT Warangal", bio: "Fintech enthusiast", skills: "NLP, Voice AI, Node.js" },
+    student: { name: "Meena", age: 21, university: "NIT Warangal", bio: "Fintech enthusiast", skills: "NLP, Voice AI, Node.js" },
     image: "https://picsum.photos/seed/upi/300/200"
   },
   {
@@ -40,7 +40,7 @@ const projects = [
     purposeOfFunds: "Manufacturing kiosks and setting up a doctor network.",
     spendingCategory: "Infrastructure", demoLink: "https://swasthya-kiosk.in/demo",
     funding: "₹50,00,000", investments: 8, comments: 12, postedDaysAgo: 3, trending: false,
-    student: { name: "Rohan Patel", age: 23, university: "BITS Pilani", bio: "HealthTech Maker", skills: "IoT, Healthcare Admin" },
+    student: { name: "Karthik", age: 23, university: "BITS Pilani", bio: "HealthTech Maker", skills: "IoT, Healthcare Admin" },
     image: "https://picsum.photos/seed/health/300/200"
   },
   {
@@ -52,7 +52,7 @@ const projects = [
     purposeOfFunds: "Setting up a pilot manufacturing plant in Punjab.",
     spendingCategory: "Manufacturing", demoLink: "",
     funding: "₹35,00,000", investments: 12, comments: 19, postedDaysAgo: 4, trending: false,
-    student: { name: "Priya Singh", age: 24, university: "IIT Delhi", bio: "Material Scientist", skills: "Chemical Engg, Sustainability" },
+    student: { name: "Kalyani", age: 24, university: "IIT Delhi", bio: "Material Scientist", skills: "Chemical Engg, Sustainability" },
     image: "https://picsum.photos/seed/eco/300/200"
   },
   {
@@ -64,7 +64,7 @@ const projects = [
     purposeOfFunds: "App development and marketing in tier-3 cities.",
     spendingCategory: "Marketing & Dev", demoLink: "",
     funding: "₹10,00,000", investments: 5, comments: 8, postedDaysAgo: 5, trending: false,
-    student: { name: "Arjun Verma", age: 20, university: "VIT Vellore", bio: "EdTech Developer", skills: "React Native, Firebase" },
+    student: { name: "Shive", age: 20, university: "VIT Vellore", bio: "EdTech Developer", skills: "React Native, Firebase" },
     image: "https://picsum.photos/seed/vidya/300/200"
   },
   {
@@ -76,7 +76,7 @@ const projects = [
     purposeOfFunds: "Certification and safety testing.",
     spendingCategory: "Legal & Compliance", demoLink: "https://saferide.in/demo",
     funding: "₹40,00,000", investments: 32, comments: 55, postedDaysAgo: 1, trending: true,
-    student: { name: "Karthik Iyer", age: 22, university: "IIT Madras", bio: "EV Enthusiast", skills: "Automobile Engg, Embedded C" },
+    student: { name: "Shanmukh", age: 22, university: "IIT Madras", bio: "EV Enthusiast", skills: "Automobile Engg, Embedded C" },
     image: "https://picsum.photos/seed/ev/300/200"
   },
   {
@@ -88,7 +88,7 @@ const projects = [
     purposeOfFunds: "Inventory production and distribution logistics.",
     spendingCategory: "Production", demoLink: "",
     funding: "₹18,00,000", investments: 9, comments: 14, postedDaysAgo: 6, trending: false,
-    student: { name: "Meera Das", age: 25, university: "IISc Bangalore", bio: "Water Tech Researcher", skills: "Nanotechnology" },
+    student: { name: "Srinath", age: 25, university: "IISc Bangalore", bio: "Water Tech Researcher", skills: "Nanotechnology" },
     image: "https://picsum.photos/seed/neer/300/200"
   },
   {
@@ -100,7 +100,7 @@ const projects = [
     purposeOfFunds: "Expanding user base in Gujarat and Maharashtra.",
     spendingCategory: "Marketing & Operations", demoLink: "https://vyaparmate.in",
     funding: "₹60,00,000", investments: 18, comments: 29, postedDaysAgo: 2, trending: true,
-    student: { name: "Rahul Shah", age: 22, university: "IIM Ahmedabad", bio: "Fintech Strategist", skills: "Business Dev, Python" },
+    student: { name: "Naveen", age: 22, university: "IIM Ahmedabad", bio: "Fintech Strategist", skills: "Business Dev, Python" },
     image: "https://picsum.photos/seed/vyapar/300/200"
   },
   {
@@ -112,7 +112,7 @@ const projects = [
     purposeOfFunds: "R&D for the smart pad sensors and app development.",
     spendingCategory: "Research & Development", demoLink: "",
     funding: "₹30,00,000", investments: 15, comments: 40, postedDaysAgo: 7, trending: false,
-    student: { name: "Ananya Kapoor", age: 21, university: "Delhi University", bio: "FemTech Founder", skills: "UI/UX, Product Strategy" },
+    student: { name: "Sudharshan", age: 21, university: "Delhi University", bio: "FemTech Founder", skills: "UI/UX, Product Strategy" },
     image: "https://picsum.photos/seed/nari/300/200"
   },
   {
@@ -124,7 +124,7 @@ const projects = [
     purposeOfFunds: "Scaling logistics and expanding to 5 new cities.",
     spendingCategory: "Logistics & Expansion", demoLink: "https://smartmandi.com",
     funding: "₹1,00,00,000", investments: 25, comments: 35, postedDaysAgo: 3, trending: true,
-    student: { name: "Vikram Singh", age: 24, university: "IIT Kanpur", bio: "Agri-Supply Chain Expert", skills: "Operations, Node.js" },
+    student: { name: "Vikram", age: 24, university: "IIT Kanpur", bio: "Agri-Supply Chain Expert", skills: "Operations, Node.js" },
     image: "https://picsum.photos/seed/mandi/300/200"
   },
   {
@@ -136,7 +136,7 @@ const projects = [
     purposeOfFunds: "Data collection and training AI models with hospital partnerships.",
     spendingCategory: "Data Acquisition & Cloud", demoLink: "",
     funding: "₹22,00,000", investments: 7, comments: 11, postedDaysAgo: 8, trending: false,
-    student: { name: "Siddharth Bose", age: 23, university: "Jadavpur University", bio: "AI Researcher", skills: "Machine Learning, Python" },
+    student: { name: "Beulah", age: 23, university: "Jadavpur University", bio: "AI Researcher", skills: "Machine Learning, Python" },
     image: "https://picsum.photos/seed/vaidya/300/200"
   },
   {
@@ -148,7 +148,7 @@ const projects = [
     purposeOfFunds: "International marketing and onboarding more clusters.",
     spendingCategory: "Marketing", demoLink: "https://desicrafts.in",
     funding: "₹45,00,000", investments: 11, comments: 22, postedDaysAgo: 4, trending: false,
-    student: { name: "Neha Gupta", age: 22, university: "NIFT Delhi", bio: "Fashion Tech Innovator", skills: "Design, Marketing" },
+    student: { name: "Akhil", age: 22, university: "NIFT Delhi", bio: "Fashion Tech Innovator", skills: "Design, Marketing" },
     image: "https://picsum.photos/seed/craft/300/200"
   },
   {
@@ -160,7 +160,7 @@ const projects = [
     purposeOfFunds: "Software security auditing and pilot deployment in a gated community.",
     spendingCategory: "Software & Hardware Pilot", demoLink: "",
     funding: "₹75,00,000", investments: 19, comments: 31, postedDaysAgo: 5, trending: true,
-    student: { name: "Amitabh Nair", age: 24, university: "NIT Trichy", bio: "Clean Energy Hacker", skills: "Blockchain, IoT" },
+    student: { name: "Arshad", age: 24, university: "NIT Trichy", bio: "Clean Energy Hacker", skills: "Blockchain, IoT" },
     image: "https://picsum.photos/seed/urja/300/200"
   },
   {
@@ -172,7 +172,7 @@ const projects = [
     purposeOfFunds: "Content creation and translation efforts.",
     spendingCategory: "Content Development", demoLink: "https://bhashacoder.com/beta",
     funding: "₹12,00,000", investments: 6, comments: 18, postedDaysAgo: 6, trending: false,
-    student: { name: "Lakshmi Narayanan", age: 20, university: "Anna University", bio: "EdTech Visionary", skills: "Web Dev, Translation" },
+    student: { name: "Keshavaram", age: 20, university: "Anna University", bio: "EdTech Visionary", skills: "Web Dev, Translation" },
     image: "https://picsum.photos/seed/bhasha/300/200"
   },
   {
@@ -184,7 +184,7 @@ const projects = [
     purposeOfFunds: "First batch manufacturing of 5,000 units.",
     spendingCategory: "Hardware Manufacturing", demoLink: "https://raksha.co.in",
     funding: "₹38,00,000", investments: 28, comments: 60, postedDaysAgo: 2, trending: true,
-    student: { name: "Aditi Sharma", age: 23, university: "NID Ahmedabad", bio: "Product Designer", skills: "Industrial Design, IoT" },
+    student: { name: "Sree Datha", age: 23, university: "NID Ahmedabad", bio: "Product Designer", skills: "Industrial Design, IoT" },
     image: "https://picsum.photos/seed/raksha/300/200"
   }
 ];
@@ -229,29 +229,10 @@ function createProjectCard(p) {
       
       <div class="card-funding">Funding Requested: ${p.funding}</div>
       
-      <div class="card-meta">
-        <div class="meta-item">
-          <span class="meta-label">💰</span>
-          <span class="meta-value">${p.investments}</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">💬</span>
-          <span class="meta-value">${p.comments}</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">📅</span>
-          <span class="meta-label">Posted ${p.postedDaysAgo} ${p.postedDaysAgo === 1 ? 'day' : 'days'} ago</span>
-        </div>
-      </div>
-      
       <div class="card-actions" style="display: flex; gap: 10px;">
         <button class="action-btn btn-primary" style="flex: 1;" onclick='openModal(${JSON.stringify(p).replace(/'/g, "&apos;")})'>View Details</button>
         <button class="action-btn" style="flex: 1; background: #fff5e6; color: #ff6a00; border: 1px solid #ff6a00; font-weight: 600;" onclick='showInvestmentPending()'>Interested in Investment</button>
       </div>
-    </div>
-    
-    <div class="card-right">
-      <img src="${p.image}" alt="${p.title}" class="project-image"/>
     </div>
   </div>`;
 }

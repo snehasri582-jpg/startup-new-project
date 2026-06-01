@@ -2,16 +2,16 @@
     const STORAGE_KEY = 'startupConnect.admin.ideas';
 
     const defaultIdeas = [
-        { id: 1, title: "EcoCharge", student: "Sneha Patil", category: "Sustainability", status: "PENDING", description: "Portable solar battery systems for rural microgrid communities.", stage: "Pre-Seed", applications: 18 },
-        { id: 2, title: "TechInnovate", student: "Amit Mehra", category: "SaaS", status: "APPROVED", description: "AI-driven mentorship and funding matching for early-stage founders.", stage: "Seed", applications: 26 },
-        { id: 3, title: "HealthSync", student: "Arjun Reddy", category: "HealthTech", status: "PENDING", description: "Remote patient monitoring for chronic care and wellness tracking.", stage: "Seed", applications: 12 },
-        { id: 4, title: "AgriGrow", student: "Vikram Singh", category: "AgriTech", status: "PENDING", description: "Precision farming analytics for smallholder crop optimization.", stage: "Pre-Seed", applications: 14 },
-        { id: 5, title: "EduConnect", student: "Rahul Gupta", category: "EdTech", status: "APPROVED", description: "Peer-led learning communities for underserved students.", stage: "Series A", applications: 34 },
-        { id: 6, title: "FinPal", student: "Priya Sharma", category: "FinTech", status: "PENDING", description: "Mobile financial health tools for first-time salaried workers.", stage: "Pre-Seed", applications: 9 },
-        { id: 7, title: "RoboFarm", student: "Kavita Iyer", category: "AgriTech", status: "PENDING", description: "Autonomous crop scouting robots for productivity gains.", stage: "Seed", applications: 16 },
-        { id: 8, title: "BlockVote", student: "Manish Das", category: "Web3", status: "APPROVED", description: "Blockchain voting platform for campus governance and clubs.", stage: "Seed", applications: 11 },
-        { id: 9, title: "LangConnect", student: "Zara Khan", category: "AI", status: "PENDING", description: "Language coaching app for remote internship seekers.", stage: "Pre-Seed", applications: 22 },
-        { id: 10, title: "DroneDelivery", student: "Rohan Mehta", category: "Robotics", status: "PENDING", description: "Emergency delivery drones for medical supplies in cities.", stage: "Seed", applications: 20 }
+        { id: 1, title: "EcoCharge", student: "Jayram", category: "Sustainability", status: "PENDING", description: "Portable solar battery systems for rural microgrid communities.", stage: "Pre-Seed", applications: 18 },
+        { id: 2, title: "TechInnovate", student: "Vinay Kumar", category: "SaaS", status: "APPROVED", description: "AI-driven mentorship and funding matching for early-stage founders.", stage: "Seed", applications: 26 },
+        { id: 3, title: "HealthSync", student: "Karthik", category: "HealthTech", status: "PENDING", description: "Remote patient monitoring for chronic care and wellness tracking.", stage: "Seed", applications: 12 },
+        { id: 4, title: "AgriGrow", student: "Vikram", category: "AgriTech", status: "PENDING", description: "Precision farming analytics for smallholder crop optimization.", stage: "Pre-Seed", applications: 14 },
+        { id: 5, title: "EduConnect", student: "Beulah", category: "EdTech", status: "APPROVED", description: "Peer-led learning communities for underserved students.", stage: "Series A", applications: 34 },
+        { id: 6, title: "FinPal", student: "Akhil", category: "FinTech", status: "PENDING", description: "Mobile financial health tools for first-time salaried workers.", stage: "Pre-Seed", applications: 9 },
+        { id: 7, title: "RoboFarm", student: "Arshad", category: "AgriTech", status: "PENDING", description: "Autonomous crop scouting robots for productivity gains.", stage: "Seed", applications: 16 },
+        { id: 8, title: "BlockVote", student: "Keshavaram", category: "Web3", status: "APPROVED", description: "Blockchain voting platform for campus governance and clubs.", stage: "Seed", applications: 11 },
+        { id: 9, title: "LangConnect", student: "Sree Datha", category: "AI", status: "PENDING", description: "Language coaching app for remote internship seekers.", stage: "Pre-Seed", applications: 22 },
+        { id: 10, title: "DroneDelivery", student: "Archana", category: "Robotics", status: "PENDING", description: "Emergency delivery drones for medical supplies in cities.", stage: "Seed", applications: 20 }
     ];
 
     function clone(value) {

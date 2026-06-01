@@ -12,28 +12,28 @@ const activeProjects = [
     description: "Autonomous drone system for precision agriculture, crop scouting, and targeted pesticide spraying.",
     funding: "₹25,00,000", investments: 14, comments: 23, postedDaysAgo: 1, trending: true,
     progress: 75,
-    student: { name: "Aarav Sharma", university: "IIT Bombay" }
+    student: { name: "Yamini", university: "IIT Bombay" }
   },
   {
     id: 2, title: "UPI PayPulse", category: "Fintech",
     description: "Voice-based UPI payment system for visually impaired and elderly users using regional Indian languages.",
     funding: "₹15,00,000", investments: 21, comments: 45, postedDaysAgo: 2, trending: true,
     progress: 40,
-    student: { name: "Sneha Reddy", university: "NIT Warangal" }
+    student: { name: "Meena", university: "NIT Warangal" }
   },
   {
     id: 3, title: "Swasthya Kiosk", category: "Health",
     description: "Low-cost telemedicine kiosks to be installed in remote Indian villages for instant doctor consultations.",
     funding: "₹50,00,000", investments: 8, comments: 12, postedDaysAgo: 3, trending: false,
     progress: 90,
-    student: { name: "Rohan Patel", university: "BITS Pilani" }
+    student: { name: "Karthik", university: "BITS Pilani" }
   },
   {
     id: 4, title: "EcoWeave", category: "Sustainability",
     description: "Biodegradable packaging material made from banana plant waste and agricultural stubble.",
     funding: "₹35,00,000", investments: 12, comments: 19, postedDaysAgo: 4, trending: false,
     progress: 60,
-    student: { name: "Priya Singh", university: "IIT Delhi" }
+    student: { name: "Kalyani", university: "IIT Delhi" }
   }
 ];
 
@@ -43,21 +43,21 @@ const previousProjects = [
     description: "Peer-to-peer tutoring platform connecting college students with vernacular medium school students.",
     funding: "₹10,00,000", investments: 5, comments: 8, postedDaysAgo: 5, trending: false,
     progress: 100,
-    student: { name: "Arjun Verma", university: "VIT Vellore" }
+    student: { name: "Shive", university: "VIT Vellore" }
   },
   {
     id: 6, title: "SafeRide EV", category: "Tech",
     description: "Retrofit kits to convert existing petrol scooters into smart, affordable electric scooters.",
     funding: "₹40,00,000", investments: 32, comments: 55, postedDaysAgo: 1, trending: true,
     progress: 100,
-    student: { name: "Karthik Iyer", university: "IIT Madras" }
+    student: { name: "Shanmukh", university: "IIT Madras" }
   },
   {
     id: 7, title: "Neer Purifier", category: "Sustainability",
     description: "Gravity-based, non-electric water purifier utilizing nano-clay technology for heavy metal removal.",
     funding: "₹18,00,000", investments: 9, comments: 14, postedDaysAgo: 6, trending: false,
     progress: 100,
-    student: { name: "Meera Das", university: "IISc Bangalore" }
+    student: { name: "Srinath", university: "IISc Bangalore" }
   }
 ];
 
