@@ -9,6 +9,8 @@ document.getElementById("loginBtn").addEventListener("click", () => {
   setTimeout(() => {
     if (email.includes('admin')) {
       window.location.href = "admin.html";
+    } else if (email.includes('investor')) {
+      window.location.href = "investorhome.html";
     } else {
       window.location.href = "studenthome.html";
     }
