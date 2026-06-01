@@ -27,17 +27,7 @@
   <div class="login-card">
     <h1 class="card-title">Welcome to Startup Collaboration</h1>
     
-    <!-- Role Selection Tabs (Only for Login) -->
     <div id="loginFormContainer">
-      <div class="role-tabs">
-        <button class="role-tab active" onclick="selectRole(this, 'student')">Student</button>
-        <button class="role-tab" onclick="selectRole(this, 'investor')">Investor</button>
-        <button class="role-tab" onclick="selectRole(this, 'admin')">Admin</button>
-      </div>
-
-      <!-- Hidden role input -->
-      <input type="hidden" id="roleInput" name="role" value="student">
-
       <!-- Email Input -->
       <div class="input-group">
         <span class="input-icon">✉️</span>
@@ -57,35 +47,9 @@
       <button class="login-btn" id="loginBtn">Login</button>
       
       <!-- Create Account Link -->
-      <p class="create-account" style="text-align: center; margin-top: 15px;">New here? <a href="#" onclick="switchTab(document.querySelectorAll('.auth-tab')[1], 'signup'); return false;">Create a New Account</a></p>
-    </div>
-
-    <!-- Signup Selection Container (Hidden by default) -->
-    <div id="signupFormContainer" style="display: none;">
-      <h3 style="text-align: center; margin-bottom: 20px; color: #1a1a1a;">Choose Account Type</h3>
-      <div class="support-options" style="display: flex; gap: 15px; margin-bottom: 20px;">
-        <div class="support-box" onclick="window.location.href='new.html'" style="cursor: pointer; padding: 25px 15px; flex: 1; text-align: center; border: 2px solid transparent; transition: all 0.3s; background: #fff5e6; border-radius: 12px;">
-          <div style="font-size: 36px; margin-bottom: 10px;">🎓</div>
-          <h4 style="margin: 0 0 5px 0; color: #ff6a00;">Student</h4>
-          <p style="font-size: 13px; color: #6b6b6b; margin: 0;">For aspiring entrepreneurs</p>
-        </div>
-        <div class="support-box" onclick="window.location.href='cret2.html'" style="cursor: pointer; padding: 25px 15px; flex: 1; text-align: center; border: 2px solid transparent; transition: all 0.3s; background: #fff5e6; border-radius: 12px;">
-          <div style="font-size: 36px; margin-bottom: 10px;">💰</div>
-          <h4 style="margin: 0 0 5px 0; color: #ff6a00;">Investor</h4>
-          <p style="font-size: 13px; color: #6b6b6b; margin: 0;">For funding and mentorship</p>
-        </div>
-      </div>
-      <p class="create-account" style="text-align: center;">Already have an account? <a href="#" onclick="switchTab(document.querySelectorAll('.auth-tab')[0], 'login'); return false;">Log In</a></p>
+      <p class="create-account" style="text-align: center; margin-top: 15px;">New here? <a href="new.html">Create a New Account</a></p>
     </div>
   </div>
-
-  <script>
-    function createAccountRedirect(e) {
-      if(e) e.preventDefault();
-      const role = document.getElementById('roleInput').value;
-      window.location.href = role === 'investor' ? 'cret2.html' : 'new.html';
-    }
-  </script>
 </main>
  
 
