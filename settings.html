@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings | Startup Collab</title>
+  <link rel="stylesheet" href="settings.css" />
+  <link rel="stylesheet" href="global-slider.css" />
+  <link rel="stylesheet" href="sidebar.css" />
+</head>
+<body>
+  <header class="navbar">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <div class="logo">Startup<span>Collab</span></div>
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </header>
+
+  <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+    <div class="modal-top">
+      <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+      <div class="modal-profile">
+        <div class="modal-avatar">🎓</div>
+        <h3>Student Pro</h3>
+        <p class="muted">Aspiring Entrepreneur</p>
+      </div>
+    </div>
+
+    <nav class="modal-menu">
+      <a href="studenthome.html" class="menu-item"><span class="label">Home</span></a>
+      <a href="investors.html" class="menu-item"><span class="label">Network</span></a>
+      <a href="shareidea.html" class="menu-item"><span class="label">Startup Ideas</span></a>
+      <a href="chat.html" class="menu-item"><span class="label">Messages</span></a>
+      <a href="tracking.html" class="menu-item"><span class="label">Submit Report</span></a>
+      <a href="contact2.html" class="menu-item"><span class="label">Customer Care</span></a>
+      <a href="notifications.html" class="menu-item"><span class="label">Updates & Approvals</span></a>
+
+      <a href="profile.html" class="menu-item"><span class="label">My Profile</span></a>
+    </nav>
+
+    <div class="modal-footer">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      <div class="socials">
+        <a href="#" class="s">f</a>
+        <a href="#" class="s">𝕏</a>
+        <a href="#" class="s">📷</a>
+        <a href="#" class="s">in</a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-overlay">
+        <h1>Website Settings</h1>
+        <p>Control notifications, privacy, and student dashboard preferences.</p>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="panel" role="form" aria-label="Settings form">
+        <div class="panel-header">
+          <h2>Preferences</h2>
+          <button class="btn" onclick="saveSettings()">Save Preferences</button>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Notification Preferences</h3>
+            <label class="toggle">
+              <span>Email updates</span>
+              <input type="checkbox" id="notifyEmail" />
+              <span class="switch"></span>
+            </label>
+            <label class="toggle">
+              <span>Dashboard alerts</span>
+              <input type="checkbox" id="notifyAlerts" />
+              <span class="switch"></span>
+            </label>
+          </div>
+
+          <div class="card">
+            <h3>Privacy Settings</h3>
+            <label class="toggle">
+              <span>Profile visibility</span>
+              <input type="checkbox" id="profileVisibility" />
+              <span class="switch"></span>
+            </label>
+            <label class="toggle">
+              <span>Share idea publicly</span>
+              <input type="checkbox" id="publicIdeas" />
+              <span class="switch"></span>
+            </label>
+          </div>
+
+          <div class="card">
+            <h3>Student Dashboard</h3>
+            <label class="toggle">
+              <span>Show quick actions</span>
+              <input type="checkbox" id="showQuickActions" />
+              <span class="switch"></span>
+            </label>
+            <label class="toggle">
+              <span>Enable dark mode</span>
+              <input type="checkbox" id="enableDarkMode" />
+              <span class="switch"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h4>StartupCollab</h4>
+        <p>Empowering student innovation and investment.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="index.html">Home</a></p>
+        <p><a href="about.html">About</a></p>
+        <p><a href="contact.html">Contact</a></p>
+      </div>
+      <div>
+        <h4>Apps</h4>
+        <p><a href="https://play.google.com" target="_blank">Google Play</a></p>
+        <p><a href="https://apps.apple.com" target="_blank">App Store</a></p>
+        <p><a href="https://web.telegram.org" target="_blank">Telegram</a></p>
+      </div>
+      <div>
+        <h4>Customer Care</h4>
+        <p>Email: support@startupcollab.in</p>
+        <p>Phone: +91 98765 43210</p>
+      </div>
+    </div>
+    <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+  </footer>
+
+  <script src="sidebar.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>
+

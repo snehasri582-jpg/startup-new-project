@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Applications | Startup Connect Admin</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+        <div class="modal-top">
+            <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+            <div class="modal-profile">
+                <div class="modal-avatar" style="background: var(--orange); color: white;">A</div>
+                <h3>Platform Admin</h3>
+                <p class="muted">System Administrator</p>
+            </div>
+        </div>
+        <nav class="modal-menu">
+            <a href="admin.html" class="menu-item"><span class="icon">📊</span><span class="label">Dashboard
+                    Overview</span></a>
+            <a href="admin-students.html" class="menu-item"><span class="icon">🎓</span><span
+                    class="label">Students</span></a>
+            <a href="admin-ideas.html" class="menu-item"><span class="icon">💡</span><span
+                    class="label">Projects</span></a>
+            <a href="admin-investors.html" class="menu-item"><span class="icon">💰</span><span
+                    class="label">Investors</span></a>
+            <a href="admin-schedule.html" class="menu-item active"><span class="icon">📈</span><span
+                    class="label">Applications</span></a>
+            <a href="profile.html?id=admin" class="menu-item"><span class="icon">👤</span><span class="label">Admin
+                    Profile</span></a>
+        </nav>
+        <div class="modal-footer">
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div class="dashboard-layout">
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <div class="navbar-left">
+                <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()"
+                    aria-label="Open dashboard menu">☰</button>
+                <a href="admin.html" class="logo">Startup<span>Collab</span></a>
+            </div>
+            <div class="navbar-right">
+                <button class="logout-btn" onclick="handleLogout()">Logout</button>
+            </div>
+        </header>
+
+        <div class="dashboard-main">
+            <div class="header-left">
+                <div>
+                    <p class="subtitle">Manage application meetings and follow-ups.</p>
+                    <h1>Applications</h1>
+                </div>
+            </div>
+
+            <!-- STATS ROW -->
+            <div class="summary-row">
+                <div class="summary-card orange">
+                    <span>Upcoming Meetings</span>
+                    <strong id="meetings-upcoming-count">0</strong>
+                </div>
+                <div class="summary-card purple">
+                    <span>Pending Applications</span>
+                    <strong id="meetings-pending-count">0</strong>
+                </div>
+                <div class="summary-card green">
+                    <span>Awaiting Follow-up</span>
+                    <strong id="meetings-followup-count">0</strong>
+                </div>
+                <div class="summary-card blue">
+                    <span>Total Meetings</span>
+                    <strong id="meetings-total-count">0</strong>
+                </div>
+            </div>
+
+            <!-- ANALYTICS GRAPH -->
+            <section class="card" style="margin-bottom: 24px;">
+                <div class="section-header">
+                    <div>
+                        <h2>Applications Analytics</h2>
+                        <span>Live meeting status distribution across all scheduled applications.</span>
+                    </div>
+                </div>
+                <div style="height: 180px; position: relative;">
+                    <canvas id="meetingsChart"></canvas>
+                </div>
+            </section>
+
+            <!-- MEETINGS BOARD -->
+            <section class="card">
+                <div class="section-header">
+                    <div>
+                        <h2>Meeting Schedule</h2>
+                        <span id="meetings-count-text">Loading scheduled meetings...</span>
+                    </div>
+                    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        <div class="search-box">
+                            <input id="meetingSearch" type="text" placeholder="Search meetings..."
+                                oninput="filterMeetings()" />
+                        </div>
+                        <button class="btn-primary" onclick="addNewMeeting()">Schedule New Meeting</button>
+                    </div>
+                </div>
+
+                <!-- TABS FOR FILTERING CARDS -->
+                <div class="meeting-tabs">
+                    <button class="meeting-tab-btn active" id="tab-ALL" onclick="switchTab('ALL')">All Meetings</button>
+                    <button class="meeting-tab-btn" id="tab-UPCOMING" onclick="switchTab('UPCOMING')">🟢
+                        Upcoming</button>
+                    <button class="meeting-tab-btn" id="tab-PENDING" onclick="switchTab('PENDING')">🟡 Pending</button>
+                    <button class="meeting-tab-btn" id="tab-AWAITING_FOLLOWUP"
+                        onclick="switchTab('AWAITING_FOLLOWUP')">🟣 Awaiting Follow-up</button>
+                </div>
+
+                <!-- MEETING CARDS GRID -->
+                <div class="meetings-grid" id="meetings-grid-mount">
+                    <!-- Cards will render here dynamically -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>StartupAdmin</h4>
+                <p>Security &amp; Verification layer.</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <p><a href="admin.html">Dashboard</a></p>
+                <p><a href="admin-students.html">Students</a></p>
+                <p><a href="admin-investors.html">Investors</a></p>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <p>Email: admin@startupconnect.com</p>
+                <p>Phone: +91 98765 12345</p>
+            </div>
+            <div>
+                <h4>Social Media</h4>
+                <div class="social-media">
+                    <a href="#" target="_blank" title="Facebook">f</a>
+                    <a href="#" target="_blank" title="Twitter">𝕏</a>
+                    <a href="#" target="_blank" title="Instagram">📷</a>
+                    <a href="#" target="_blank" title="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+        <p class="copy">© 2025 StartupConnect Admin Panel. All rights reserved.</p>
+    </footer>
+
+    <script src="sidebar.js"></script>
+    <script src="admin-meetings-store.js"></script>
+    <script>
+        const store = window.AdminMeetingsStore;
+        let currentTab = 'ALL';
+        let meetingsChartInstance = null;
+
+        function initMeetingsChart() {
+            const ctx = document.getElementById('meetingsChart');
+            if (!ctx) return;
+            const all = store.getAll();
+            const upcoming = all.filter(m => m.status === 'UPCOMING').length;
+            const pending = all.filter(m => m.status === 'PENDING').length;
+            const followup = all.filter(m => m.status === 'AWAITING_FOLLOWUP').length;
+            if (meetingsChartInstance) meetingsChartInstance.destroy();
+            meetingsChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Upcoming', 'Pending', 'Awaiting Follow-up'],
+                    datasets: [{
+                        data: [upcoming, pending, followup],
+                        backgroundColor: ['#32b768', '#f3b007', '#8e54e9'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { boxWidth: 14, font: { size: 12 } } }
+                    }
+                }
+            });
+        }
+
+        function renderStats(meetings) {
+            const upcoming = meetings.filter(m => m.status === 'UPCOMING').length;
+            const pending = meetings.filter(m => m.status === 'PENDING').length;
+            const followup = meetings.filter(m => m.status === 'AWAITING_FOLLOWUP').length;
+            const total = meetings.length;
+
+            document.getElementById('meetings-upcoming-count').textContent = upcoming;
+            document.getElementById('meetings-pending-count').textContent = pending;
+            document.getElementById('meetings-followup-count').textContent = followup;
+            document.getElementById('meetings-total-count').textContent = total;
+        }
+
+        function renderMeetings() {
+            initMeetingsChart();
+            const mount = document.getElementById('meetings-grid-mount');
+            const allMeetings = store.getAll();
+            renderStats(allMeetings);
+
+            // Filter by tab status
+            let filtered = allMeetings;
+            if (currentTab !== 'ALL') {
+                filtered = allMeetings.filter(m => m.status === currentTab);
+            }
+
+            if (filtered.length === 0) {
+                mount.innerHTML = `
+                  <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--muted);">
+                     <p style="font-size: 1.1rem; font-weight: 600;">No meetings found in this category.</p>
+                  </div>`;
+                document.getElementById('meetings-count-text').textContent = `0 meetings`;
+                return;
+            }
+
+            mount.innerHTML = filtered.map(m => {
+                const cardClass = store.statusClass(m.status);
+                let statusLabel = m.status;
+                if (m.status === 'AWAITING_FOLLOWUP') statusLabel = 'Awaiting Follow-up';
+
+                return `
+                  <div class="meeting-card ${cardClass}" data-id="${m.id}">
+                     <div class="meeting-card-header">
+                        <span class="meeting-status-pill">${statusLabel}</span>
+                        <div class="meeting-date-time">
+                           📅 ${store.escapeHtml(m.date)} | ⏰ ${store.escapeHtml(m.time)}
+                        </div>
+                     </div>
+                     <div class="meeting-card-body">
+                        <h3>${store.escapeHtml(m.title)}</h3>
+                        <p class="meeting-desc-text">${store.escapeHtml(m.description)}</p>
+                        <div class="meeting-people-block">
+                           <div class="meeting-person">
+                              🎓 <strong>Student:</strong> ${store.escapeHtml(m.student)}
+                           </div>
+                           <div class="meeting-person">
+                              💰 <strong>Investor:</strong> ${store.escapeHtml(m.investor)} (${store.escapeHtml(m.company)})
+                           </div>
+                        </div>
+                     </div>
+                     <div class="meeting-card-actions">
+                        <button class="btn-meet-join" onclick="joinMeeting('${m.link}')">Join Meet</button>
+                        <button class="btn-meet-action" onclick="editMeeting(${m.id})" title="Reschedule or edit details">Reschedule</button>
+                        ${m.status === 'PENDING' ? `
+                           <button class="btn-meet-action" style="color:#32b768;border-color:#32b768;" onclick="approveMeeting(${m.id})">Approve</button>
+                        ` : ''}
+                        ${m.status === 'UPCOMING' ? `
+                           <button class="btn-meet-action" style="color:#8e54e9;border-color:#8e54e9;" onclick="markFollowup(${m.id})">Follow-up</button>
+                        ` : ''}
+                        <button class="btn-meet-action" style="color:var(--red);border-color:var(--red);" onclick="deleteMeeting(${m.id})">Cancel</button>
+                     </div>
+                  </div>`;
+            }).join('');
+
+            document.getElementById('meetings-count-text').textContent = `${filtered.length} meetings displayed`;
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.meeting-tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.id === `tab-${tab}`);
+            });
+            renderMeetings();
+        }
+
+        function filterMeetings() {
+            const query = document.getElementById('meetingSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.meeting-card');
+            let visible = 0;
+
+            cards.forEach(card => {
+                const match = card.innerText.toLowerCase().includes(query);
+                card.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+            document.getElementById('meetings-count-text').textContent = `${visible} meetings found`;
+        }
+
+        function addNewMeeting() {
+            const data = store.promptForNewMeeting();
+            if (!data) return;
+            store.add(data);
+            renderMeetings();
+            alert('New meeting scheduled successfully!');
+        }
+
+        function editMeeting(id) {
+            const m = store.findById(id);
+            if (!m) return;
+            const updates = store.promptForMeetingUpdates(m);
+            if (!updates) return;
+            store.update(id, updates);
+            renderMeetings();
+            alert('Meeting rescheduled successfully!');
+        }
+
+        function approveMeeting(id) {
+            if (confirm('Approve this meeting and mark as Upcoming?')) {
+                store.update(id, { status: 'UPCOMING' });
+                
+                // Add notification to student
+                try {
+                    const m = store.findById(id);
+                    const stNotifs = JSON.parse(localStorage.getItem('student_notifications')) || [];
+                    stNotifs.push({
+                       id: Date.now(),
+                       title: "Meeting Request Approved",
+                       body: `Admin approved your meeting with ${m.investor}. It is scheduled for ${m.date} at ${m.time}. <br><br> <a href="${m.link}" target="_blank" style="display:inline-block; margin-top:8px; padding:6px 12px; background:#ff6a00; color:white; text-decoration:none; border-radius:6px; font-size:12px; font-weight:bold;">Join Meeting</a>`,
+                       type: "Schedule",
+                       time: "Just now",
+                       read: false,
+                       expanded: false
+                    });
+                    localStorage.setItem('student_notifications', JSON.stringify(stNotifs));
+                } catch(e) {}
+                
+                renderMeetings();
+                alert('Meeting approved! The student has been successfully notified.');
+            }
+        }
+
+        function markFollowup(id) {
+            if (confirm('Mark this meeting as completed and awaiting follow-up?')) {
+                store.update(id, { status: 'AWAITING_FOLLOWUP' });
+                renderMeetings();
+                alert('Meeting status updated to Awaiting Follow-up.');
+            }
+        }
+
+        function deleteMeeting(id) {
+            if (confirm('Are you sure you want to cancel this meeting?')) {
+                store.remove(id);
+                renderMeetings();
+                alert('Meeting cancelled.');
+            }
+        }
+
+        function joinMeeting(url) {
+            window.open(url, '_blank');
+        }
+
+        function handleLogout() {
+            if (confirm('Logout from Admin Panel?')) window.location.href = 'index.html';
+        }
+
+        window.addEventListener('storage', renderMeetings);
+        document.addEventListener('DOMContentLoaded', renderMeetings);
+    </script>
+</body>
+
+</html>

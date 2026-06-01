@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Report Details | Startup Collab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="report.css">
+  <link rel="stylesheet" href="global-slider.css">
+
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="navbar-left">
+    <div class="logo">
+      🚀 Startup Collab
+    </div>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">🚪 Logout</button>
+  </div>
+</header>
+
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+<aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+  <div class="modal-top">
+    <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+    <div class="modal-profile">
+      <div class="modal-avatar">🎓</div>
+      <h3>User</h3>
+      <p class="muted">Member</p>
+    </div>
+  </div>
+
+  <nav class="modal-menu">
+    <a href="studenthome.html" class="menu-item"><span class="label">Home</span></a>
+    <a href="investors.html" class="menu-item"><span class="label">Network</span></a>
+    <a href="shareidea.html" class="menu-item"><span class="label">Startup Ideas</span></a>
+    <a href="chat.html" class="menu-item"><span class="label">Messages</span></a>
+    <a href="tracking.html" class="menu-item"><span class="label">Submit Report</span></a>
+    <a href="contact2.html" class="menu-item"><span class="label">Customer Care</span></a>
+    <a href="notifications.html" class="menu-item"><span class="label">Updates & Approvals</span></a>
+
+    <a href="profile.html" class="menu-item"><span class="label">My Profile</span></a>
+  </nav>
+
+  <div class="modal-footer">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    <div class="socials">
+      <a href="#" class="s">f</a>
+      <a href="#" class="s">𝕏</a>
+      <a href="#" class="s">📷</a>
+      <a href="#" class="s">in</a>
+    </div>
+  </div>
+</aside>
+
+
+
+<!-- REPORT HEADER -->
+<section class="report-header">
+  <div class="report-title">
+    <h1 id="reportWeek">Week 5 Progress Report</h1>
+    <p id="reportDate">Submitted on: January 15, 2026</p>
+  </div>
+</section>
+
+<!-- REPORT CONTENT -->
+<section class="report-container">
+  <div class="report-main">
+    
+    <!-- OVERVIEW SECTION -->
+    <div class="report-section">
+      <h2>📊 Project Overview</h2>
+      <div class="overview-content">
+        <div class="overview-item" style="grid-column: 1 / -1;">
+          <label>Status Summary</label>
+          <p id="reportAbstract">AI education platform that personalizes learning paths using adaptive teaching and data-driven insights.</p>
+          <label style="margin-top: 15px;">Live Links / Project Details</label>
+          <p id="reportLinks" style="color: #ff6a00; font-weight: 600;">https://demo.startupcollab.in/ai-edu</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS METRICS -->
+    <div class="report-section">
+      <h2>📈 Progress Metrics</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <h3>Development Progress</h3>
+          <div class="progress-bar">
+            <div id="devProgressFill" class="progress-fill" style="width: 65%;">65%</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <h3>Estimated Completion</h3>
+          <p class="amount" id="reportTimeRemaining" style="font-size: 24px; color: #333; margin-top: 10px;">3 Months</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div class="report-section">
+      <h2>🎯 Key Achievements This Week</h2>
+      <p id="reportAchievements" class="p-3 bg-light rounded border-start border-warning border-4">Loading achievements...</p>
+    </div>
+
+    <!-- CHALLENGES -->
+    <div class="report-section">
+      <h2>⚠️ Challenges & Solutions</h2>
+      <p id="reportChallenges" class="p-3 bg-light rounded border-start border-danger border-4">Loading challenges...</p>
+    </div>
+
+    <!-- MARKETING DOUBTS -->
+    <div class="report-section">
+      <h2>📣 Growth & Marketing Doubts</h2>
+      <p id="reportMarketingDoubts" class="p-3 bg-light rounded border-start border-primary border-4">Loading doubts...</p>
+    </div>
+
+    <!-- UPCOMING PLANS -->
+    <div class="report-section">
+      <h2>🚀 Plans for Next Week</h2>
+      <p id="reportFuturePlans" class="p-3 bg-light rounded border-start border-success border-4">Loading future plans...</p>
+    </div>
+
+    <!-- FINANCIAL SUMMARY -->
+    <div class="report-section">
+      <h2>💰 Financial Summary</h2>
+      <div class="financial-grid">
+        <div class="financial-card">
+          <h4>Amount Spent This Week</h4>
+          <p class="amount" id="reportWeeklySpend">₹45,000</p>
+        </div>
+
+        <div class="financial-card">
+          <h4>Expense Category</h4>
+          <p class="amount" id="reportSpendCategory" style="font-size: 1.2rem; color: #ff6a00; text-transform: capitalize;">Infrastructure</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM UPDATES -->
+    <div class="report-section">
+      <h2>👥 Team Updates</h2>
+      <p id="reportTeamUpdates" class="p-3 bg-light rounded">Loading team updates...</p>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="report-sidebar">
+    <!-- QUICK STATS -->
+    <div class="sidebar-card">
+      <h3>Quick Stats</h3>
+      <div class="stat-row">
+        <span>Submitted On</span>
+        <strong>Jan 15, 2026</strong>
+      </div>
+      <div class="stat-row">
+        <span>File Size</span>
+        <strong>2.4 MB</strong>
+      </div>
+      <div class="stat-row">
+        <span>Investors Viewed</span>
+        <strong>22</strong>
+      </div>
+      <div class="stat-row">
+        <span>Avg Rating</span>
+        <strong>4.8/5</strong>
+      </div>
+    </div>
+
+  </aside>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h4>StartupCollab</h4>
+      <p>Empowering student innovation and investment.</p>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="studenthome.html">Home</a></p>
+      <p><a href="tracking.html">Submit Report</a></p>
+      <p><a href="shareidea.html">Share Idea</a></p>
+    </div>
+
+    <div>
+      <h4>Apps</h4>
+      <p><a href="https://play.google.com" target="_blank">Google Play</a></p>
+      <p><a href="https://apps.apple.com" target="_blank">App Store</a></p>
+      <p><a href="https://web.telegram.org" target="_blank">Telegram</a></p>
+    </div>
+
+    <div>
+      <h4>Customer Care</h4>
+      <p>Email: support@startupcollab.in</p>
+      <p>Phone: +91 98765 43210</p>
+      <div class="social-media">
+        <a href="https://facebook.com" target="_blank" title="Facebook">f</a>
+        <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+</footer>
+
+<script src="sidebar.js"></script>
+<script src="report.js"></script>
+</body>
+</html>

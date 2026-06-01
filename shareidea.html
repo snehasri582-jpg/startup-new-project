@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Collab - Share Your Idea</title>
+    <link rel="stylesheet" href="shareidea.css">
+    <link rel="stylesheet" href="global-slider.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="sidebar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="navbar-left">
+        <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+        <a href="studenthome.html" class="logo" style="text-decoration: none;">Startup<span>Collab</span></a>
+    </div>
+    <div class="navbar-right">
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+</header>
+
+<aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+    <div class="modal-top">
+        <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+        <div class="modal-profile">
+            <div class="modal-avatar">🎓</div>
+            <h3>Student Pro</h3>
+            <p class="muted">Aspiring Entrepreneur</p>
+        </div>
+    </div>
+
+    <nav class="modal-menu">
+        <a href="studenthome.html" class="menu-item"><span class="label">Home</span></a>
+        <a href="investors.html" class="menu-item"><span class="label">Network</span></a>
+        <a href="shareidea.html" class="menu-item active"><span class="label">Startup Ideas</span></a>
+        <a href="chat.html" class="menu-item"><span class="label">Messages</span></a>
+        <a href="tracking.html" class="menu-item"><span class="label">Submit Report</span></a>
+        <a href="contact2.html" class="menu-item"><span class="label">Customer Care</span></a>
+        <a href="notifications.html" class="menu-item"><span class="label">Updates & Approvals</span></a>
+
+        <a href="profile.html" class="menu-item"><span class="label">My Profile</span></a>
+    </nav>
+
+    <div class="modal-footer">
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        <div class="socials">
+            <a href="#" class="s">f</a>
+            <a href="#" class="s">𝕏</a>
+            <a href="#" class="s">📷</a>
+            <a href="#" class="s">in</a>
+        </div>
+    </div>
+</aside>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div id="app-wrapper" class="main-bg">
+        <!-- SIMPLE HEADING -->
+        <div class="container text-center mt-5 mb-4">
+            <h1 style="font-weight: 600; color: #333;">Share Your Startup Idea</h1>
+            <p style="color: #666;">Fill out the details below to share your innovative startup concept.</p>
+        </div>
+
+        <main class="form-card">
+            <form id="startup-form">
+                <div class="input-block">
+                    <label for="idea-title">Idea Title <span class="required">*</span></label>
+                    <input type="text" id="idea-title" class="form-control mb-3" placeholder="Enter your project title" required>
+                </div>
+
+                <div class="input-block">
+                    <label for="idea-desc">Description <span class="required">*</span></label>
+                    <textarea id="idea-desc" class="form-control mb-3" rows="3" placeholder="Describe your startup concept" required></textarea>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="category">Category</label>
+                        <select id="category" class="form-select">
+                            <option selected>Tech</option>
+                            <option>Health</option>
+                            <option>Sustainability</option>
+                            <option>Fintech</option>
+                            <option>E-commerce</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="project-features">Key Features <span class="required">*</span></label>
+                        <textarea id="project-features" class="form-control" rows="2" placeholder="What features does your project offer?" required></textarea>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="solution">Solution <span class="required">*</span></label>
+                        <textarea id="solution" class="form-control" rows="2" placeholder="What problem does your idea solve?" required></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="timeline">Estimated Timeline <span class="required">*</span></label>
+                        <input type="text" id="timeline" class="form-control" placeholder="e.g., 6 months, 1 year" required>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="funds">Funding Required (₹) <span class="required">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                            <input type="number" id="funds" class="form-control" placeholder="Enter amount in Indian Rupee" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Project Stage</label>
+                        <div class="d-flex gap-3 mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="stage" id="stageIdea" value="idea" checked>
+                                <label class="form-check-label" for="stageIdea">Idea Stage</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="stage" id="stageProto" value="prototype">
+                                <label class="form-check-label" for="stageProto">Prototype Stage</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-12">
+                        <label for="funds-purpose">What is the purpose of these funds? <span class="required">*</span></label>
+                        <textarea id="funds-purpose" class="form-control" rows="2" placeholder="Explain why you need the funding and what goals it will help achieve" required></textarea>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <label for="spend-category">Spending Category <span class="required">*</span></label>
+                        <select id="spend-category" class="form-select" required>
+                            <option value="R&D">Research & Development</option>
+                            <option value="Marketing">Marketing & Branding</option>
+                            <option value="Hiring">Hiring & Talent</option>
+                            <option value="Infrastructure">Infrastructure/Tech Stack</option>
+                            <option value="Legal">Legal & IP</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="category-amount">Amount for this Category (₹) <span class="required">*</span></label>
+                        <input type="number" id="category-amount" class="form-control" placeholder="e.g. 50000" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="budget-file">Financial Breakdown Document</label>
+                        <input type="file" id="budget-file" class="form-control" accept=".pdf,.xls,.xlsx">
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12">
+                        <label for="proto-link">Prototype Live Demo Link</label>
+                        <div class="input-group">
+                            <span class="input-group-text">🔗</span>
+                            <input type="url" id="proto-link" class="form-control" placeholder="https://your-prototype-demo.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-12">
+                        <label for="file-upload">File Upload</label>
+                        <div class="upload-box" id="upload-box">
+                            <input type="file" id="file-upload" accept=".pdf,.ppt,.pptx,.doc,.docx,.jpg,.jpeg,.png,.gif,.webp,.svg" hidden>
+                            <p class="upload-text">Drag & drop or <span class="upload-link">click to upload</span></p>
+                            <p class="file-types-hint">Supported: PDF, PowerPoint, Word, Images (JPG, PNG, GIF, WebP)</p>
+                            <p class="file-size-hint">Max file size: 5 MB</p>
+                            <div class="file-info" id="file-info">📄 Idea-Pitch-Deck.pdf (1.2 MB)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="terms-agreement">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms-checkbox" required>
+                        <span>I agree to the <a href="terms.html" target="_blank" class="terms-link">Terms & Conditions</a> and <a href="#privacy" class="terms-link">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <div class="form-footer">
+<button type="submit" class="btn btn-orange" id="submit-btn">Submit</button>
+                    <button type="reset" class="btn btn-gray" id="reset-btn">Reset</button>
+                </div>
+            </form>
+    </main>
+
+    <div class="container mt-5 mb-5" id="submitted-ideas-section" style="max-width: 800px; display: none;">
+        <h3 class="mb-4" style="color: #333; font-weight: 600;">My Submitted Ideas</h3>
+        <div id="submitted-ideas-list" class="d-flex flex-column gap-3"></div>
+    </div>
+
+</div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h4>StartupCollab</h4>
+          <p>Empowering student innovation and investment.</p>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+          <p><a href="index.html">Home</a></p>
+          <p><a href="about.html">About</a></p>
+          <p><a href="contact.html">Contact</a></p>
+        </div>
+
+        <div>
+          <h4>Apps</h4>
+          <p><a href="https://play.google.com" target="_blank">Google Play</a></p>
+          <p><a href="https://apps.apple.com" target="_blank">App Store</a></p>
+          <p><a href="https://web.telegram.org" target="_blank">Telegram</a></p>
+        </div>
+
+        <div>
+          <h4>Customer Care</h4>
+          <p>Email: support@startupcollab.in</p>
+          <p>Phone: +91 98765 43210</p>
+          <div class="social-media">
+            <a href="https://facebook.com" target="_blank" title="Facebook">f</a>
+            <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
+            <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
+            <a href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+    </footer>
+
+    <script src="sidebar.js"></script>
+    <script src="shareidea.js"></script>
+</body>
+</html>

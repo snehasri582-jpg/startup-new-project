@@ -1,0 +1,115 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Support Chat | StartupCollab</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="sidebar.js"></script>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+      <div class="modal-top">
+        <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+        <div class="modal-profile">
+          <div class="modal-avatar" style="background: var(--orange); color: white;">A</div>
+          <h3>Platform Admin</h3>
+          <p class="muted">System Administrator</p>
+        </div>
+      </div>
+      <nav class="modal-menu">
+        <a href="admin.html" class="menu-item"><span class="icon">📊</span><span class="label">Dashboard Overview</span></a>
+        <a href="admin-students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Students</span></a>
+        <a href="admin-ideas.html" class="menu-item"><span class="icon">💡</span><span class="label">Projects</span></a>
+        <a href="admin-investors.html" class="menu-item"><span class="icon">💰</span><span class="label">Investors</span></a>
+        <a href="admin-schedule.html" class="menu-item"><span class="icon">📈</span><span class="label">Applications</span></a>
+        <a href="profile.html?id=admin" class="menu-item"><span class="icon">👤</span><span class="label">Admin Profile</span></a>
+      </nav>
+      <div class="modal-footer">
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div class="dashboard-layout">
+<header class="navbar">
+  <div class="navbar-left">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <a href="admin.html" class="logo">Startup<span>Collab</span></a>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
+
+        <div class="dashboard-main">
+                <div class="header-left">
+                    <div>
+                        <p class="subtitle">Broadcast system alerts and support users.</p>
+                        <h1>Support Chat</h1>
+                    </div>
+                </div>
+          
+            <section class="card" style="display: flex; flex-direction: column;">
+            <!-- Performance Graph -->
+            <div class="chart-container" style="height: 150px;">
+                <canvas id="trendChart"></canvas>
+            </div>
+            <div class="chat-box" style="flex: 1; margin-top: 20px;">
+                <div class="chat-header">
+                    <div class="user-info"><h3>System Notifications & User Support</h3></div>
+                </div>
+                <div class="messages" style="height: 400px; background: white;">
+                    <div class="chat-row received">
+                        <div class="bubble">System Alert: 3 new students waiting for verification.</div>
+                    </div>
+                    <div class="chat-row received">
+                        <div class="bubble">User Sarah (Investor) reported a login issue.</div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Broadcast system message..." style="width: 80%;">
+                </div>
+            </div>
+            </section>
+        </div>
+    </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>StartupAdmin</h4>
+                <p>Security & Verification layer.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <p><a href="admin.html">Dashboard</a></p>
+                <p><a href="admin-students.html">Students</a></p>
+                <p><a href="admin-investors.html">Investors</a></p>
+            </div>
+
+            <div>
+                <h4>Support</h4>
+                <p>Email: admin@startupcollab.in</p>
+                <p>Phone: +91 98765 12345</p>
+            </div>
+
+            <div>
+                <h4>Social Media</h4>
+                <div class="social-media">
+                    <a href="#" target="_blank" title="Facebook">f</a>
+                    <a href="#" target="_blank" title="Twitter">𝕏</a>
+                    <a href="#" target="_blank" title="Instagram">📷</a>
+                    <a href="#" target="_blank" title="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+        <p class="copy">© 2025 StartupCollab Admin Panel.</p>
+    </footer>
+    <script src="admin.js"></script>
+</body>
+</html>

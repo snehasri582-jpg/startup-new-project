@@ -1,0 +1,279 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students Management | Startup Connect</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="sidebar.js"></script>
+    <script src="admin-students-store.js"></script>
+</head>
+<body>
+    <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+      <div class="modal-top">
+        <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+        <div class="modal-profile">
+          <div class="modal-avatar" style="background: var(--orange); color: white;">A</div>
+          <h3>Platform Admin</h3>
+          <p class="muted">System Administrator</p>
+        </div>
+      </div>
+      <nav class="modal-menu">
+        <a href="admin.html" class="menu-item"><span class="icon">📊</span><span class="label">Dashboard Overview</span></a>
+        <a href="admin-students.html" class="menu-item active"><span class="icon">🎓</span><span class="label">Students</span></a>
+        <a href="admin-ideas.html" class="menu-item"><span class="icon">💡</span><span class="label">Projects</span></a>
+        <a href="admin-investors.html" class="menu-item"><span class="icon">💰</span><span class="label">Investors</span></a>
+        <a href="admin-schedule.html" class="menu-item"><span class="icon">📈</span><span class="label">Applications</span></a>
+        <a href="profile.html?id=admin" class="menu-item"><span class="icon">👤</span><span class="label">Admin Profile</span></a>
+      </nav>
+      <div class="modal-footer">
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div class="dashboard-layout">
+<header class="navbar">
+  <div class="navbar-left">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <a href="admin.html" class="logo">Startup<span>Collab</span></a>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
+
+        <div class="dashboard-main">
+            <!-- DYNAMIC GRAPH CARD -->
+            <section class="card" style="margin-bottom: 24px;">
+                <div class="section-header">
+                    <div>
+                        <h2>Students Distribution Analytics</h2>
+                        <span>Real-time department and status analytics of registered students.</span>
+                    </div>
+                </div>
+                <div style="height: 180px; position: relative;">
+                    <canvas id="studentsChart"></canvas>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="section-header">
+                    <div>
+                        <h2>All Students</h2>
+                        <span id="studentCount">Loading...</span>
+                    </div>
+                    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        <div class="search-box">
+                            <input id="searchStudents" type="text" placeholder="Search students..." oninput="filterStudents()">
+                        </div>
+                        <button class="btn-primary" onclick="addNewStudent()">Submit New Student</button>
+                    </div>
+                </div>
+
+                <div class="pending-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Department</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Joined Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students-list">
+                            <tr><td colspan="7" style="text-align: center;">Loading students...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>StartupConnect</h4>
+                <p>All-in-one startup ecosystem platform.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <p><a href="admin.html">Dashboard</a></p>
+                <p><a href="admin-students.html">Students</a></p>
+                <p><a href="admin-investors.html">Investors</a></p>
+            </div>
+
+            <div>
+                <h4>Support</h4>
+                <p>Email: admin@startupconnect.com</p>
+                <p>Phone: +91 98765 12345</p>
+            </div>
+
+            <div>
+                <h4>Social Media</h4>
+                <div class="social-media">
+                    <a href="#" target="_blank" title="Facebook">f</a>
+                    <a href="#" target="_blank" title="Twitter">𝕏</a>
+                    <a href="#" target="_blank" title="Instagram">📷</a>
+                    <a href="#" target="_blank" title="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+        <p class="copy">© 2025 StartupConnect Admin Panel. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const studentStore = window.AdminStudentStore;
+        let studentsChartInstance = null;
+
+        function initStudentsChart() {
+            const ctx = document.getElementById('studentsChart');
+            if (!ctx) return;
+
+            const students = studentStore.getAll();
+            const deptCounts = {};
+            students.forEach(s => {
+                const dept = s.department || 'Other';
+                deptCounts[dept] = (deptCounts[dept] || 0) + 1;
+            });
+
+            const labels = Object.keys(deptCounts);
+            const data = Object.values(deptCounts);
+
+            if (studentsChartInstance) {
+                studentsChartInstance.destroy();
+            }
+
+            studentsChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Students per Department',
+                        data: data,
+                        backgroundColor: ['#ff8a3c', '#8e54e9', '#32b768', '#2094f3', '#ff5a5a', '#f3b007'],
+                        borderRadius: 6,
+                        maxBarThickness: 32
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderStudents() {
+            const tbody = document.getElementById('students-list');
+            const students = studentStore.getAll();
+            initStudentsChart();
+
+            if (students.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No students found</td></tr>';
+                document.getElementById('studentCount').textContent = '0 students';
+                return;
+            }
+
+            tbody.innerHTML = students.map(student => `
+                <tr>
+                    <td><strong>${studentStore.escapeHtml(student.name)}</strong></td>
+                    <td>${studentStore.escapeHtml(student.email)}</td>
+                    <td>${studentStore.escapeHtml(student.department)}</td>
+                    <td>${studentStore.escapeHtml(student.phone)}</td>
+                    <td><span class="status-pill ${studentStore.statusClass(student.status)}">${studentStore.escapeHtml(student.status)}</span></td>
+                    <td>${studentStore.escapeHtml(student.joinedDate)}</td>
+                    <td style="display: flex; gap: 6px;">
+                        <button class="btn-verify" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 6px;" onclick="viewStudentDetails(${student.id})">View</button>
+                        ${student.status === 'ACTIVE' || student.status === 'Approved' ? 
+                            `<button class="btn-verify" style="background: #e2e8f0; color: #a0aec0; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; cursor: not-allowed;" disabled>Approved</button>` : 
+                            `<button class="btn-verify" style="background: #32b768; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; cursor: pointer;" onclick="approveStudent(${student.id})">Approve</button>`
+                        }
+                        <button class="btn-action edit" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 6px;" onclick="editStudent(${student.id})">Edit</button>
+                        <button class="btn-action delete" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 6px;" onclick="deleteStudent(${student.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            document.getElementById('studentCount').textContent = `${students.length} students`;
+        }
+
+        function filterStudents() {
+            const query = document.getElementById('searchStudents').value.toLowerCase();
+            const rows = document.querySelectorAll('#students-list tr');
+            let visibleCount = 0;
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                const isVisible = text.includes(query);
+                row.style.display = isVisible ? '' : 'none';
+                if (isVisible) visibleCount++;
+            });
+
+            document.getElementById('studentCount').textContent = `${visibleCount} students`;
+        }
+
+        function viewStudentDetails(id) {
+            window.location.href = `admin-student-details.html?id=${id}`;
+        }
+
+        function editStudent(id) {
+            const student = studentStore.findById(id);
+            if (!student) return;
+
+            const updates = studentStore.promptForStudentUpdates(student);
+            if (!updates) return;
+
+            studentStore.update(id, updates);
+            renderStudents();
+            alert('Student details updated successfully');
+        }
+
+        function approveStudent(id) {
+            studentStore.update(id, { status: 'ACTIVE' });
+            renderStudents();
+            alert('Student approved successfully');
+        }
+
+        function addNewStudent() {
+            const data = studentStore.promptForNewStudent();
+            if (!data) return;
+            studentStore.add(data);
+            renderStudents();
+            alert('Student added successfully!');
+        }
+
+        function deleteStudent(id) {
+            if (!confirm('Are you sure you want to delete this student?')) return;
+            studentStore.remove(id);
+            renderStudents();
+            alert('Student deleted successfully');
+        }
+
+        function handleLogout() {
+            if (confirm('Logout from Admin Panel?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        window.addEventListener('storage', renderStudents);
+        document.addEventListener('DOMContentLoaded', renderStudents);
+    </script>
+</body>
+</html>

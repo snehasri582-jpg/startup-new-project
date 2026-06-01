@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us - Startup Collab</title>
+<link rel="stylesheet" href="admin.css" />
+<link rel="stylesheet" href="contact3.css">
+<link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+<style>
+  /* Your custom styles here */
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+body {
+  background: #faf8f6;
+  color: #333;
+  padding-top: 64px;
+  font-weight: 400;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  padding: 0 32px;
+  background: #ffffff;
+  border-bottom: 3px solid #ff6a00;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.logo {
+  color: #000;
+  font-size: 22px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: #ff6a00;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+nav a {
+  margin-left: 24px;
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+nav a.active,
+nav a:hover {
+  color: #ff6a00;
+}
+
+/* HERO SECTION */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #ff6a00 100%);
+  padding: 50px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(255, 106, 0, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 16px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+  font-size: 18px;
+  color: #ffffff;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  position: relative;
+  z-index: 2;
+  animation: slideInRight 0.8s ease-out;
+}
+
+/* CONTACT OPTIONS */
+.contact-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.option-card {
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.option-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.email-card {
+  background: linear-gradient(135deg, #fce6d9 0%, #fdf3ed 100%);
+}
+
+.call-card {
+  background: linear-gradient(135deg, #e8f0e0 0%, #f4f9f0 100%);
+}
+
+.chat-card {
+  background: linear-gradient(135deg, #ede6f9 0%, #f9f6fe 100%);
+}
+
+.option-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.option-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.option-card p {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.option-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.email-btn {
+  background: #f36c21;
+  color: #fff;
+}
+
+.email-btn:hover {
+  background: #e05b10;
+}
+
+.call-btn {
+  background: #6b9d54;
+  color: #fff;
+}
+
+.call-btn:hover {
+  background: #5a8746;
+}
+
+.chat-btn {
+  background: #f36c21;
+  color: #fff;
+}
+
+.chat-btn:hover {
+  background: #e05b10;
+}
+
+/* CONTACT MAIN SECTION */
+.contact-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin: 40px;
+}
+
+/* FORM CONTAINER */
+.contact-form-container {
+  flex: 1;
+}
+
+.contact-form-container h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #5d4037;
+  margin-bottom: 28px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-input,
+.form-textarea {
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s;
+  background: #f9f9f9;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #f36c21;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(243, 108, 33, 0.1);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #999;
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submit-btn {
+  padding: 12px 28px;
+  background: #f36c21;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  align-self: flex-start;
+}
+
+.submit-btn:hover {
+  background: #e05b10;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(243, 108, 33, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* INFO CONTAINER */
+.contact-info-container {
+  flex: 1;
+  padding-left: 40px;
+  border-left: 1px solid #f0f0f0;
+}
+
+.contact-info-container h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #5d4037;
+  margin-bottom: 28px;
+}
+
+.info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.info-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+.info-value {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* BOTTOM FORM SECTION */
+.bottom-form-section {
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin: 40px;
+  display: none;
+}
+
+.bottom-form-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #5d4037;
+  margin-bottom: 28px;
+}
+
+.bottom-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.bottom-contact-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .contact-main {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin: 20px;
+  }
+
+  .contact-info-container {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .contact-options {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .navbar-center {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: #fff;
+    padding: 20px;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .navbar-center.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 40px 20px;
+    gap: 20px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .contact-main {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-options {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .option-card {
+    padding: 24px 16px;
+  }
+
+  .contact-main {
+    margin: 20px;
+    padding: 16px;
+  }
+
+  .contact-form-container h2,
+  .contact-info-container h2 {
+    font-size: 18px;
+  }
+
+  .contact-info-container {
+    padding-left: 0;
+    border-left: none;
+    padding-top: 20px;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 14px;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+}
+
+/* FOOTER */
+.footer {
+  background: #111;
+  color: #ccc;
+  padding: 40px 30px;
+}
+
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.footer-grid > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer h4 {
+  color: #ff6a00;
+  margin-bottom: 15px;
+}
+
+.footer p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.footer p a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer p a:hover {
+  color: #ff6a00;
+}
+
+/* SOCIAL MEDIA */
+.social-media {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.social-media a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #ff6a00;
+  color: #fff;
+  border-radius: 50%;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.social-media a:hover {
+  background: #ff8a3d;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(255, 106, 0, 0.3);
+}
+
+.copy {
+  text-align: center;
+  margin: 0;
+  font-size: 14px;
+  padding-top: 20px;
+}
+
+</style>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="navbar-left">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <div class="logo">Startup<span>Collab</span></div>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
+
+<!-- DASHBOARD MODAL SIDEBAR (same style as Student dashboard) -->
+<aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+  <div class="modal-top">
+    <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+    <div class="modal-profile">
+      <div class="modal-avatar">👤</div>
+      <h3>Investor Pro</h3>
+      <p class="muted">Angel Investor</p>
+    </div>
+  </div>
+
+  <nav class="modal-menu">
+    <a href="investorhome.html" class="menu-item"><span class="icon">🏠</span><span class="label">Home</span></a>
+    <a href="view.html" class="menu-item"><span class="icon">💡</span><span class="label">View Ideas</span></a>
+    <a href="chat2.html" class="menu-item"><span class="icon">💬</span><span class="label">Messages</span></a>
+    <a href="myinvest.html" class="menu-item"><span class="icon">💼</span><span class="label">My Investments</span></a>
+    
+      <a href="students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Student Network</span></a>
+      
+      <a href="investor-updates.html" class="menu-item"><span class="icon">🔔</span><span class="label">Updates & Documents</span></a>
+      <a href="contact3.html" class="menu-item active"><span class="icon">☎️</span><span class="label">Customer Care</span></a>
+  </nav>
+
+  <div class="modal-footer">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    <div class="socials">
+      <a href="#" class="s">f</a>
+      <a href="#" class="s">𝕏</a>
+      <a href="#" class="s">📷</a>
+      <a href="#" class="s">in</a>
+    </div>
+  </div>
+</aside>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+
+<!-- SIMPLE HEADING -->
+<div class="container mt-5 mb-4 text-start" style="padding-left: 5%; padding-right: 5%; max-width: 1400px; margin-left: auto; margin-right: auto;">
+  <h1 style="font-weight: 600; color: #333; font-size: 32px; margin-bottom: 8px;">Contact Us</h1>
+  <p style="color: #666;">Get in touch with our team for any assistance or inquiries</p>
+</div>
+
+<!-- CONTACT OPTIONS CARDS -->
+<section class="contact-options">
+  <div class="option-card email-card">
+    <div class="option-icon">✉️</div>
+    <h3>Email Us</h3>
+    <p>Reach out to us at <strong>support@startupcollab.in</strong>. We respond within 24 hours.</p>
+    <button class="option-btn email-btn" onclick="handleEmailClick()">Email Us</button>
+  </div>
+
+  <div class="option-card call-card">
+    <div class="option-icon">📞</div>
+    <h3>Call Us</h3>
+    <p>Speak directly with our support team at <strong>+91 70321 39423</strong> from 9 AM to 6 PM (Mon-Fri)</p>
+    <button class="option-btn call-btn" onclick="handleCallClick()">Call Us</button>
+  </div>
+
+  <div class="option-card chat-card">
+    <div class="option-icon">💬</div>
+    <h3>Live Chat</h3>
+    <p>Chat with us live for instant support. Click the Chat icon at the bottom-right corner.</p>
+    <button class="option-btn chat-btn" onclick="handleChatClick()">Start Chat ›</button>
+  </div>
+</section>
+
+<!-- MAIN CONTACT SECTION -->
+<section class="contact-main">
+  
+  <!-- LEFT: FORM -->
+  <div class="contact-form-container">
+    <h2>Send Us a Message</h2>
+    
+    <form id="contactForm" class="contact-form">
+      <div class="form-row">
+        <input 
+          type="text" 
+          id="name" 
+          class="form-input name-input"
+          placeholder="Name *" 
+          required
+        >
+        <input 
+          type="email" 
+          id="email" 
+          class="form-input email-input"
+          placeholder="Your email *" 
+          required
+        >
+      </div>
+
+      <input 
+        type="text" 
+        id="subject" 
+        class="form-input subject-input"
+        placeholder="Subject *" 
+        required
+      >
+
+      <textarea 
+        id="message" 
+        class="form-textarea"
+        placeholder="Write your message here..." 
+        required
+      ></textarea>
+
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+  </div>
+
+  <!-- RIGHT: CONTACT INFO -->
+  <div class="contact-info-container">
+    <h2>Contact Information</h2>
+    
+    <div class="info-box">
+      <div class="info-item">
+        <div class="info-icon">✉️</div>
+        <div class="info-content">
+          <div class="info-label">Email address</div>
+          <div class="info-value">support@startupcollab.in</div>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div class="info-content">
+          <div class="info-label">+91 7032139423</div>
+          <div class="info-value">Mon-Fri: 9am - 6pm</div>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div class="info-content">
+          <div class="info-label">T-Hub, Knowledge City,</div>
+          <div class="info-value">HITEC City, Hyderabad</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- BOTTOM FORM SECTION -->
+<section class="bottom-form-section">
+  <h2>Send Us a Message</h2>
+  
+  <form id="bottomContactForm" class="bottom-contact-form">
+    <div class="form-row">
+      <div class="form-group">
+        <input 
+          type="text" 
+          id="bottomName" 
+          class="form-input"
+          placeholder="Name *" 
+          required
+        >
+      </div>
+      <div class="form-group">
+        <input 
+          type="email" 
+          id="bottomEmail" 
+          class="form-input"
+          placeholder="Your email *" 
+          required
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input 
+        type="text" 
+        id="bottomSubject" 
+        class="form-input"
+        placeholder="Subject *" 
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <textarea 
+        id="bottomMessage" 
+        class="form-textarea"
+        placeholder="Write your message here..." 
+        required
+      ></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">Send Message</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h4>StartupCollab</h4>
+      <p>Empowering student innovation and investment.</p>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="index.html">Home</a></p>
+      <p><a href="about.html">About</a></p>
+      <p><a href="contact.html">Contact</a></p>
+    </div>
+
+    <div>
+      <h4>Apps</h4>
+      <p><a href="https://play.google.com" target="_blank">Google Play</a></p>
+      <p><a href="https://apps.apple.com" target="_blank">App Store</a></p>
+      <p><a href="https://web.telegram.org" target="_blank">Telegram</a></p>
+    </div>
+
+    <div>
+      <h4>Customer Care</h4>
+      <p>Email: support@startupcollab.in</p>
+      <p>Phone: +91 98765 43210</p>
+      <div class="social-media">
+        <a href="https://facebook.com" target="_blank" title="Facebook">f</a>
+        <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+</footer>
+
+<script src="contact3.js"></script>
+<script src="sidebar.js"></script>
+</body>
+</html>

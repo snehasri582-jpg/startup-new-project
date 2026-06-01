@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investor Network - Startup Collab</title>
+  <link rel="stylesheet" href="studenthome.css">
+  <link rel="stylesheet" href="sidebar.css">
+  <style>
+    :root {
+      --primary: #ff6a00;
+      --primary-hover: #e55a00;
+      --bg: #faf8f6;
+      --card-bg: #ffffff;
+      --text: #333333;
+      --text-muted: #666666;
+      --border: #eeeeee;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-top: 64px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+      padding: 0 32px;
+      background: #ffffff;
+      border-bottom: 3px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      color: #000;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .logout-btn {
+      border: none;
+      background: linear-gradient(135deg, var(--primary), #ff8c00);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(255, 106, 0, 0.18);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+
+    /* NETWORK GRID LAYOUT */
+    .network-container {
+      max-width: 1400px;
+      margin: 40px auto 60px;
+      padding: 0 24px;
+    }
+
+    .network-header {
+      margin-bottom: 30px;
+    }
+
+    .network-header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #111;
+    }
+
+    .network-header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .investors-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .investor-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .investor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .card-banner {
+      width: 100%;
+      height: 95px;
+      background: linear-gradient(135deg, #ffd3b6 0%, #ffefe5 100%);
+      position: relative;
+    }
+
+    .card-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+
+    .card-avatar-wrapper {
+      position: relative;
+      margin-top: 24px;
+      z-index: 2;
+    }
+
+    .card-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 16px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      flex-grow: 1;
+    }
+
+    .card-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .card-firm {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      height: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    .card-tag {
+      font-size: 11px;
+      background: #ffefe5;
+      color: var(--primary);
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .card-bio {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.5;
+      height: 54px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      margin-bottom: 18px;
+    }
+
+    .card-actions-row {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .card-btn {
+      flex: 1;
+      padding: 9px 8px;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s, transform 0.1s ease;
+      display: block;
+      text-align: center;
+    }
+
+    .card-btn.btn-connect {
+      background: var(--primary);
+    }
+
+    .card-btn.btn-connect:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .card-btn.btn-pending {
+      background: #e2e8f0;
+      color: #555;
+      cursor: not-allowed;
+    }
+
+    .card-btn.btn-message {
+      background: #1877f2;
+    }
+
+    .card-btn.btn-message:hover {
+      background-color: #1565c0;
+    }
+
+    .card-btn.btn-chat-secondary {
+      background: #fff;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+    }
+
+    .card-btn.btn-chat-secondary:hover {
+      background: #ffefe5;
+    }
+
+    /* RESPONSIVE LAYOUTS */
+    @media (max-width: 1200px) {
+      .investors-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .investors-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .network-header h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .investors-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+      <a href="studenthome.html" class="logo">Startup<span>Collab</span></a>
+    </div>
+    <div class="navbar-right">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR (Modal Style) -->
+  <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+    <div class="modal-top">
+      <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+      <div class="modal-profile">
+        <div class="modal-avatar">🎓</div>
+        <h3>Student Pro</h3>
+        <p class="muted">Aspiring Entrepreneur</p>
+      </div>
+    </div>
+
+    <nav class="modal-menu">
+      <a href="studenthome.html" class="menu-item"><span class="label">Home</span></a>
+      <a href="investors.html" class="menu-item active"><span class="label">Network</span></a>
+      <a href="shareidea.html" class="menu-item"><span class="label">Startup Ideas</span></a>
+      <a href="chat.html" class="menu-item"><span class="label">Messages</span></a>
+      <a href="tracking.html" class="menu-item"><span class="label">Submit Report</span></a>
+      <a href="contact2.html" class="menu-item"><span class="label">Customer Care</span></a>
+      <a href="notifications.html" class="menu-item"><span class="label">Updates & Approvals</span></a>
+
+      <a href="profile.html" class="menu-item"><span class="label">My Profile</span></a>
+    </nav>
+
+    <div class="modal-footer">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      <div class="socials">
+        <a href="#" class="s">f</a>
+        <a href="#" class="s">𝕏</a>
+        <a href="#" class="s">📷</a>
+        <a href="#" class="s">in</a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+  <!-- MAIN NETWORK PAGE -->
+  <main class="network-container">
+    <div class="network-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px;">
+      <div>
+        <h1>Investor Network</h1>
+        <p>Explore real profiles of major Indian angel investors and venture capitalists.</p>
+      </div>
+      <div class="search-container" style="flex: 1; min-width: 250px; max-width: 400px; position: relative;">
+        <span style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; color: #888;">🔍</span>
+        <input type="text" id="networkSearch" placeholder="Search by name, firm, or focus area..." onkeyup="renderNetworkGrid()" style="width: 100%; padding: 12px 20px 12px 45px; border-radius: 30px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.05); outline: none; font-size: 1rem; transition: border-color 0.2s;">
+      </div>
+    </div>
+
+    <div class="investors-grid" id="investorsGrid">
+      <!-- Generated dynamically from admin-investors-store.js -->
+    </div>
+  </main>
+
+  <script src="admin-investors-store.js"></script>
+  <script src="sidebar.js"></script>
+  <script>
+    let currentUser = JSON.parse(localStorage.getItem('startupConnect.currentUser'));
+    if (!currentUser) {
+      currentUser = {
+        role: 'student',
+        id: 11,
+        name: 'Amit Mehra',
+        university: 'Boston University',
+        field: 'Computer Science',
+        avatar: '🎓'
+      };
+      localStorage.setItem('startupConnect.currentUser', JSON.stringify(currentUser));
+    }
+
+    window.addEventListener('load', () => {
+      renderNetworkGrid();
+    });
+
+    function getConnections() {
+      return JSON.parse(localStorage.getItem('startupConnect.connections')) || [];
+    }
+
+    function navigateToProfile(event, investorId) {
+      if (event.target.closest('.card-btn')) return;
+      window.location.href = `profile-view.html?type=investor&id=${investorId}`;
+    }
+
+    function handleCardConnect(event, investorId, investorName) {
+      event.stopPropagation();
+      const connections = getConnections();
+      const connectionId = `student_${currentUser.id}_investor_${investorId}`;
+      
+      const newConnection = {
+        id: connectionId,
+        studentId: currentUser.id,
+        studentName: currentUser.name,
+        investorId: investorId,
+        investorName: investorName,
+        fromRole: currentUser.role,
+        toRole: 'investor',
+        status: 'pending'
+      };
+      
+      connections.push(newConnection);
+      localStorage.setItem('startupConnect.connections', JSON.stringify(connections));
+      alert(`Connection request sent to ${investorName}!`);
+      renderNetworkGrid();
+    }
+
+    function handleCardMessage(event) {
+      event.stopPropagation();
+      window.location.href = 'chat.html';
+    }
+
+    function renderNetworkGrid() {
+      const grid = document.getElementById('investorsGrid');
+      if (!grid) return;
+
+      let investors = window.AdminInvestorStore.getAll();
+      const connections = getConnections();
+      
+      const searchInput = document.getElementById('networkSearch');
+      if (searchInput && searchInput.value) {
+        const query = searchInput.value.toLowerCase();
+        investors = investors.filter(inv => 
+          inv.name.toLowerCase().includes(query) ||
+          inv.firm.toLowerCase().includes(query) ||
+          inv.focusArea.toLowerCase().includes(query) ||
+          inv.bio.toLowerCase().includes(query)
+        );
+      }
+      
+      if (investors.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #888; font-size: 1.1rem;">No investors found matching your search.</div>';
+        return;
+      }
+
+      grid.innerHTML = investors.map((inv, idx) => {
+        // Find connection status
+        const reqId = `student_${currentUser.id}_investor_${inv.id}`;
+        const conn = connections.find(c => c.id === reqId);
+        
+        let buttonHtml = '';
+        if (!conn) {
+          buttonHtml = `<button onclick="handleCardConnect(event, ${inv.id}, '${inv.name}')" class="card-btn btn-connect">Connect</button>`;
+        } else if (conn.status === 'pending') {
+          buttonHtml = `<button class="card-btn btn-pending" disabled>Request Sent</button>`;
+        } else if (conn.status === 'accepted') {
+          buttonHtml = `<button onclick="handleCardMessage(event)" class="card-btn btn-message">Connected</button>`;
+        }
+
+        let chatButtonHtml = `<button onclick="alert('You can only message this investor after they approve your connection request.')" class="card-btn btn-chat-secondary" style="opacity: 0.5; cursor: not-allowed;">Chat</button>`;
+        if (conn && conn.status === 'accepted') {
+          chatButtonHtml = `<button onclick="handleCardMessage(event)" class="card-btn btn-chat-secondary">Chat</button>`;
+        }
+
+        return `
+          <div class="investor-card" onclick="navigateToProfile(event, ${inv.id})">
+            <div class="card-banner"></div>
+            <div class="card-avatar-wrapper" style="margin-top: -45px;">
+              <img class="card-avatar" src="${inv.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(inv.name)}&background=random&color=fff&size=150`}" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(inv.name)}&background=random&color=fff&size=150';" alt="${inv.name}">
+            </div>
+            <div class="card-body">
+              <h3 class="card-name" title="${inv.name}">${inv.name}</h3>
+              <p class="card-firm" title="${inv.firm}">${inv.firm}</p>
+              <div class="card-tag" title="${inv.focusArea}">${inv.focusArea}</div>
+              <p class="card-bio">${inv.bio}</p>
+              <div class="card-actions-row">
+                ${buttonHtml}
+                ${chatButtonHtml}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleLogout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "index.html";
+      }
+    }
+  </script>
+</body>
+</html>

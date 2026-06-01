@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Updates & Approvals | Startup Collab</title>
+  <link rel="stylesheet" href="notifications.css" />
+  <link rel="stylesheet" href="global-slider.css" />
+  <link rel="stylesheet" href="sidebar.css" />
+</head>
+<body>
+  <header class="navbar">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <div class="logo">Startup<span>Collab</span></div>
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </header>
+
+  <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+    <div class="modal-top">
+      <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+      <div class="modal-profile">
+        <div class="modal-avatar">🎓</div>
+        <h3>Student Pro</h3>
+        <p class="muted">Aspiring Entrepreneur</p>
+      </div>
+    </div>
+
+    <nav class="modal-menu">
+      <a href="studenthome.html" class="menu-item"><span class="label">Home</span></a>
+      <a href="investors.html" class="menu-item"><span class="label">Network</span></a>
+      <a href="shareidea.html" class="menu-item"><span class="label">Startup Ideas</span></a>
+      <a href="chat.html" class="menu-item"><span class="label">Messages</span></a>
+      <a href="tracking.html" class="menu-item"><span class="label">Submit Report</span></a>
+      <a href="contact2.html" class="menu-item"><span class="label">Customer Care</span></a>
+      <a href="notifications.html" class="menu-item active"><span class="label">Updates & Approvals</span></a>
+
+      <a href="profile.html" class="menu-item"><span class="label">My Profile</span></a>
+    </nav>
+
+    <div class="modal-footer">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      <div class="socials">
+        <a href="#" class="s">f</a>
+        <a href="#" class="s">𝕏</a>
+        <a href="#" class="s">📷</a>
+        <a href="#" class="s">in</a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+  <main class="page">
+    <!-- SIMPLE HEADING -->
+    <div style="padding: 30px 5% 10px; margin-top: 20px;">
+      <h1 style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: clamp(24px, 5vw, 32px);">Upload Documents</h1>
+      <p style="color: #666; font-size: 15px; margin-bottom: 0;">Upload your verification documents, pitch decks, and track approval status.</p>
+    </div>
+
+    <section class="content" style="padding: 10px 5% 40px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 30px;">
+        <!-- LEFT: UPLOAD CARD -->
+        <div class="panel" style="padding: 24px;">
+          <h2 style="font-size: 18px; color: #333; margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #fff5e6; padding-bottom: 8px;">📤 Upload New Document</h2>
+          <form id="studentDocUploadForm" style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="form-group">
+              <label style="font-weight: 600; font-size: 14px; color: #333; margin-bottom: 6px; display: block;">Document Type *</label>
+              <select id="docTypeSelect" style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px;" required>
+                <option value="">-- Select Document Type --</option>
+                <option value="Student ID Card">Student ID Card</option>
+                <option value="Pitch Deck Proposal">Pitch Deck Proposal</option>
+                <option value="Weekly Progress PDF">Weekly Progress PDF</option>
+                <option value="Academic Transcript">Academic Transcript</option>
+                <option value="Aadhar Card / KYC">Aadhar Card / KYC</option>
+                <option value="Other Supporting Doc">Other Supporting Doc</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label style="font-weight: 600; font-size: 14px; color: #333; margin-bottom: 6px; display: block;">Select File (PDF, DOC, DOCX, Images under 10MB) *</label>
+              <div class="upload-zone" style="border: 2px dashed var(--border); border-radius: 12px; padding: 24px; text-align: center; background: #fafafa; cursor: pointer;" onclick="document.getElementById('studentFileSelect').click()">
+                <span style="font-size: 28px; display: block; margin-bottom: 8px;">📄</span>
+                <span id="studentFileName" style="font-size: 13px; color: var(--muted); font-weight: 500;">Click to browse file</span>
+                <input type="file" id="studentFileSelect" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display: none;" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label style="font-weight: 600; font-size: 14px; color: #333; margin-bottom: 6px; display: block;">Comment (optional)</label>
+              <textarea id="docComment" rows="3" style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px;"></textarea>
+            </div>
+            <button type="submit" class="btn" style="width: 100%; padding: 12px; border-radius: 8px; font-size: 14px; margin-top: 10px;">Submit Document</button>
+          </form>
+        </div>
+
+        <!-- RIGHT: RECENT SYSTEM ALERTS / NOTIFICATIONS -->
+        <div class="panel">
+          <div class="panel-header" style="border-bottom: 2px solid #fff5e6;">
+            <h2 style="font-size: 18px; margin: 0; font-weight: 600;">🔔 System Alerts & Updates</h2>
+          </div>
+          <div id="notificationsList" class="list" style="max-height: 380px; overflow-y: auto;"></div>
+        </div>
+      </div>
+
+      <!-- BOTTOM: TABLE OF SUBMITTED DOCUMENTS -->
+      <div class="panel" style="padding: 24px;">
+        <h2 style="font-size: 18px; color: #333; margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid #fff5e6; padding-bottom: 8px;">📂 Your Uploaded Documents & Status</h2>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border); text-align: left; font-size: 13px; font-weight: 700; color: #333;">
+                <th style="padding: 12px 8px;">Document Type</th>
+                <th style="padding: 12px 8px;">File Name</th>
+                <th style="padding: 12px 8px;">Date Submitted</th>
+                <th style="padding: 12px 8px;">Status</th>
+                <th style="padding: 12px 8px;">Comment</th>
+                <th style="padding: 12px 8px; text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="studentDocsTableBody" style="font-size: 13px; color: #444;">
+              <!-- Dynamic entries -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h4>StartupCollab</h4>
+        <p>Empowering student innovation and investment.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="index.html">Home</a></p>
+        <p><a href="about.html">About</a></p>
+        <p><a href="contact.html">Contact</a></p>
+      </div>
+      <div>
+        <h4>Apps</h4>
+        <p><a href="https://play.google.com" target="_blank">Google Play</a></p>
+        <p><a href="https://apps.apple.com" target="_blank">App Store</a></p>
+        <p><a href="https://web.telegram.org" target="_blank">Telegram</a></p>
+      </div>
+      <div>
+        <h4>Customer Care</h4>
+        <p>Email: support@startupcollab.in</p>
+        <p>Phone: +91 98765 43210</p>
+      </div>
+    </div>
+    <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+  </footer>
+
+  <script src="sidebar.js"></script>
+  <script src="notifications.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,169 @@
+/* Global slider (feature slider) styles */
+
+.feature-slider {
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  padding: 0 48px; /* Extra padding on the sides for the buttons */
+  position: relative;
+}
+
+.nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: #fff;
+  color: #ff6a00;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.prev-btn {
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+.next-btn {
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.prev-btn:hover {
+  transform: translateY(-50%) scale(1.05);
+  background-color: #ffefe5;
+}
+
+.next-btn:hover {
+  transform: translateY(-50%) scale(1.05);
+  background-color: #ffefe5;
+}
+
+/* Slider container styles */
+.slider-view {
+  overflow: hidden;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.feature-slide {
+  min-width: 100%;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff5e6;
+  font-size: 28px;
+  box-shadow: 0 4px 10px rgba(255, 106, 0, 0.05);
+}
+
+.feature-slide h3 {
+  font-size: 28px;
+  margin: 0;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.feature-slide p {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 700px;
+}
+
+.feature-slide ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature-slide ul li {
+  position: relative;
+  padding-left: 24px;
+  color: #555;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.feature-slide ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ff6a00;
+  font-size: 20px;
+  line-height: 1;
+  top: -2px;
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid #666;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+  padding: 0;
+}
+
+.slider-dot.active {
+  background: #ff6a00;
+  border-color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .feature-slider {
+    padding: 0 44px;
+  }
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  .prev-btn {
+    left: 6px;
+  }
+  .next-btn {
+    right: 6px;
+  }
+  .feature-slide {
+    padding: 24px;
+  }
+}

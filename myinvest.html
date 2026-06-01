@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Investments - Startup Collab</title>
+<meta name="description" content="Track and manage your startup investments on Startup Collab.">
+<link rel="stylesheet" href="admin.css" />
+<link rel="stylesheet" href="myinvest.css">
+<link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="navbar-left">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <div class="logo">Startup<span>Collab</span></div>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
+
+<!-- DASHBOARD MODAL SIDEBAR -->
+<aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+  <div class="modal-top">
+    <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+    <div class="modal-profile">
+      <div class="modal-avatar">👤</div>
+      <h3>Investor Pro</h3>
+      <p class="muted">Angel Investor</p>
+    </div>
+  </div>
+
+  <nav class="modal-menu">
+    <a href="investorhome.html" class="menu-item"><span class="icon">🏠</span><span class="label">Home</span></a>
+    <a href="view.html" class="menu-item"><span class="icon">💡</span><span class="label">View Ideas</span></a>
+    <a href="chat2.html" class="menu-item"><span class="icon">💬</span><span class="label">Messages</span></a>
+    <a href="myinvest.html" class="menu-item active"><span class="icon">💼</span><span class="label">My Investments</span></a>
+    <a href="students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Student Network</span></a>
+    <a href="investor-updates.html" class="menu-item"><span class="icon">🔔</span><span class="label">Updates &amp; Documents</span></a>
+    <a href="contact3.html" class="menu-item"><span class="icon">☎️</span><span class="label">Customer Care</span></a>
+  </nav>
+
+  <div class="modal-footer">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    <div class="socials">
+      <a href="#" class="s">f</a>
+      <a href="#" class="s">𝕏</a>
+      <a href="#" class="s">📷</a>
+      <a href="#" class="s">in</a>
+    </div>
+  </div>
+</aside>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+
+<!-- PAGE HEADING -->
+<div class="page-heading-section">
+  <div class="page-heading-inner">
+    <h1 class="page-heading-title">
+      <span class="heading-icon">💼</span>
+      My Investments
+    </h1>
+    <p class="page-heading-sub">Track your active and completed startup investments</p>
+    <div class="heading-underline"></div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content-wrapper">
+
+  <!-- TOP CONTROLS -->
+  <div class="top-controls">
+    <div class="tabs-container">
+      <button id="tabActive" class="tab-btn active" onclick="showProjects('active')">Active Projects</button>
+      <button id="tabPrevious" class="tab-btn" onclick="showProjects('previous')">Previous Projects</button>
+    </div>
+
+    <div class="search-container">
+      <input type="text" placeholder="Search ideas..." class="search-input" id="searchInput">
+      <span class="search-icon">🔍</span>
+    </div>
+  </div>
+
+  <!-- SORT CONTROL -->
+  <div class="sort-control">
+    <label>Sort by</label>
+    <select id="sortFilter">
+      <option value="recent">Most Recent</option>
+      <option value="progress">Highest Progress</option>
+      <option value="amount">Highest Amount</option>
+    </select>
+  </div>
+
+  <!-- STATS CARDS (2 cards, centered, compact) -->
+  <div class="stats-container-two">
+    <div class="stat-card-mini green clickable" id="cardActiveProjects" onclick="filterByCard('active')" title="Click to see active projects">
+      <div class="stat-icon-sm">📈</div>
+      <div class="stat-value-mini" id="statActiveProjects">0</div>
+      <div class="stat-label-mini">Active Projects</div>
+    </div>
+    <div class="stat-card-mini purple clickable" id="cardCompletedProjects" onclick="filterByCard('previous')" title="Click to see completed projects">
+      <div class="stat-icon-sm">✅</div>
+      <div class="stat-value-mini" id="statCompletedProjects">0</div>
+      <div class="stat-label-mini">Completed Projects</div>
+    </div>
+  </div>
+
+  <!-- PROJECTS LIST -->
+  <div id="projectsList" class="projects-list"></div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h4>StartupCollab</h4>
+      <p>Empowering student innovation and investment.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="investorhome.html">Home</a></p>
+      <p><a href="view.html">View Ideas</a></p>
+      <p><a href="myinvest.html">My Investments</a></p>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <p>Email: support@startupcollab.in</p>
+      <p>Phone: +91 98765 43210</p>
+    </div>
+    <div>
+      <h4>Customer Care</h4>
+      <div class="social-media">
+        <a href="https://facebook.com" target="_blank" title="Facebook">f</a>
+        <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+  <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+</footer>
+
+<script src="myinvest.js"></script>
+<script src="sidebar.js"></script>
+</body>
+</html>

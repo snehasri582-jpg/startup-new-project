@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Updates & Documents - Investor Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="notifications.css">
+  <link rel="stylesheet" href="sidebar.css">
+  <style>
+    body {
+      background: #faf8f6;
+      padding-top: 64px;
+    }
+
+    /* Page Heading Consistently Styled */
+    .page-heading-section {
+      padding: 32px 40px 0;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .page-heading-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .page-heading-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      letter-spacing: -0.3px;
+    }
+
+    .heading-icon {
+      font-size: 26px;
+    }
+
+    .page-heading-sub {
+      font-size: 14px;
+      color: #888;
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .heading-underline {
+      width: 48px;
+      height: 4px;
+      background: linear-gradient(90deg, #ff6a00, #ff9a44);
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+
+    .main-content-wrapper {
+      max-width: 1400px;
+      margin: 16px auto 32px;
+      padding: 24px 40px 32px;
+      width: 100%;
+    }
+
+    /* Top Controls and Filter Tabs */
+    .top-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 20px;
+    }
+
+    .tabs-container {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 12px;
+      width: 100%;
+    }
+
+    .tab-btn {
+      padding: 0 16px;
+      height: 36px;
+      background: none;
+      border: none;
+      color: #666;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .tab-btn:hover, .tab-btn.active {
+      color: #ff6a00;
+    }
+
+    .tab-btn.active::after {
+      content: "";
+      position: absolute;
+      bottom: -14px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #ff6a00;
+    }
+
+    /* Cards Grid Layout */
+    .updates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      width: 100%;
+    }
+
+    /* Premium Card Design (10% smaller/compact) */
+    .update-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      border: 1px solid #ebd9cf;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .update-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(255, 106, 0, 0.1);
+    }
+
+    .update-card.unread {
+      border-left: 5px solid #ff6a00;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notif-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .notif-tag.approvals {
+      background: #e3f2fd;
+      color: #0d47a1;
+    }
+
+    .notif-tag.documents {
+      background: #e8f5e9;
+      color: #1b5e20;
+    }
+
+    .notif-tag.schedule {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    .card-time {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .card-middle h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .card-middle p {
+      font-size: 12.5px;
+      color: #666;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-bottom-action {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #ff6a00;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid #faf5f2;
+    }
+
+    /* Modal Styling */
+    .details-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .details-modal.active {
+      display: flex;
+    }
+
+    .details-modal-content {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 550px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+      overflow: hidden;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-banner {
+      background: linear-gradient(135deg, #ff6a00, #ff8c00);
+      padding: 24px;
+      color: #fff;
+      position: relative;
+    }
+
+    .modal-banner h2 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .modal-banner-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      opacity: 1;
+    }
+
+    .modal-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .details-section h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #999;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .details-section p {
+      font-size: 13.5px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 11px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+    }
+
+    .modal-btn.primary {
+      background: #ff6a00;
+      color: #fff;
+    }
+
+    .modal-btn.primary:hover {
+      background: #e55a00;
+    }
+
+    .modal-btn.secondary {
+      background: #f3f3f3;
+      color: #333;
+    }
+
+    .modal-btn.secondary:hover {
+      background: #e8e8e8;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Back Arrow Button beside Logo */
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+      <div class="logo" style="margin-left: 10px;">Startup<span>Collab</span></div>
+    </div>
+    <div class="navbar-right">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+    <div class="modal-top">
+      <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+      <div class="modal-profile"></div>
+    </div>
+    <nav class="modal-menu">
+      <a href="investorhome.html" class="menu-item"><span class="icon">🏠</span><span class="label">Home</span></a>
+      <a href="view.html" class="menu-item"><span class="icon">💡</span><span class="label">View Ideas</span></a>
+      <a href="chat2.html" class="menu-item"><span class="icon">💬</span><span class="label">Messages</span></a>
+      <a href="myinvest.html" class="menu-item"><span class="icon">💼</span><span class="label">My Investments</span></a>
+      <a href="students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Student Network</span></a>
+      <a href="investor-updates.html" class="menu-item active"><span class="icon">🔔</span><span class="label">Updates &amp; Documents</span></a>
+      <a href="contact3.html" class="menu-item"><span class="icon">☎️</span><span class="label">Customer Care</span></a>
+    </nav>
+    <div class="modal-footer">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      <div class="socials">
+        <a href="#" class="s">f</a>
+        <a href="#" class="s">𝕏</a>
+        <a href="#" class="s">📷</a>
+        <a href="#" class="s">in</a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+  <!-- PAGE HEADING -->
+  <div class="page-heading-section">
+    <div class="page-heading-inner">
+      <h1 class="page-heading-title">
+        <span class="heading-icon">🔔</span>
+        Updates & Documents
+      </h1>
+      <p class="page-heading-sub">Track student progress reports, schedules, and verified startup approvals</p>
+      <div class="heading-underline"></div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content-wrapper">
+    <!-- CARDS GRID -->
+    <div id="updatesContainer" class="updates-grid"></div>
+  </div>
+
+  <!-- DETAILS MODAL -->
+  <div id="detailsModal" class="details-modal" onclick="closeDetailsModal()">
+    <div class="details-modal-content" onclick="event.stopPropagation()">
+      <div class="modal-banner">
+        <button class="modal-close-btn" onclick="closeDetailsModal()">&times;</button>
+        <h2 id="modalTitle">Alert Title</h2>
+        <div class="modal-banner-meta">
+          <span id="modalTag" class="notif-tag">Tag</span>
+          <span id="modalTime">Time</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="details-section">
+          <h4>Notification Body</h4>
+          <p id="modalBody">Full notification body goes here.</p>
+        </div>
+        <div class="details-section" id="modalMeetingSection" style="display: none;">
+          <h4>Meeting Details</h4>
+          <p id="modalMeetingDetails">Meeting links and instructions.</p>
+        </div>
+        <div class="details-section" id="modalDocSection" style="display: none;">
+          <h4>Associated Files</h4>
+          <p id="modalDocDetails">Document file link.</p>
+        </div>
+        <div class="modal-actions" id="modalActions">
+          <!-- Dynamically populated buttons -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h4>StartupCollab</h4>
+        <p>Empowering student innovation and investment.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="investorhome.html">Home</a></p>
+        <p><a href="view.html">View Ideas</a></p>
+        <p><a href="myinvest.html">My Investments</a></p>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <p>Email: support@startupcollab.in</p>
+        <p>Phone: +91 98765 43210</p>
+      </div>
+      <div>
+        <h4>Customer Care</h4>
+        <div class="social-media">
+          <a href="https://facebook.com" target="_blank" title="Facebook">f</a>
+          <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
+          <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
+          <a href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </div>
+      </div>
+    </div>
+    <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+  </footer>
+
+  <script src="sidebar.js"></script>
+  <script src="investor-updates.js"></script>
+</body>
+</html>

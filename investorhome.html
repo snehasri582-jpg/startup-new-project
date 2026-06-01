@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investor Home - InvestHub</title>
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="investorhome.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()"
+        aria-label="Open dashboard menu">☰</button>
+
+      <div class="logo">Startup<span>Collab</span></div>
+    </div>
+    <div class="navbar-right">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- DASHBOARD MODAL SIDEBAR (same style as Student dashboard) -->
+  <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+    <div class="modal-top">
+      <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+
+      <div class="modal-profile">
+        <div class="modal-avatar">👤</div>
+        <h3>Investor Pro</h3>
+        <p class="muted">Angel Investor</p>
+      </div>
+
+    </div>
+
+    <nav class="modal-menu">
+      <a href="investorhome.html" class="menu-item active"><span class="icon">🏠</span><span
+          class="label">Home</span></a>
+
+      <a href="view.html" class="menu-item"><span class="icon">💡</span><span class="label">View Ideas</span></a>
+
+      <a href="chat2.html" class="menu-item"><span class="icon">💬</span><span class="label">Messages</span></a>
+
+      <a href="myinvest.html" class="menu-item"><span class="icon">💼</span><span class="label">My
+          Investments</span></a>
+
+      
+      <a href="students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Student Network</span></a>
+      
+      <a href="investor-updates.html" class="menu-item"><span class="icon">🔔</span><span class="label">Updates & Documents</span></a>
+      <a href="contact3.html" class="menu-item"><span class="icon">☎️</span><span class="label">Customer Care</span></a>
+
+    </nav>
+
+    <div class="modal-footer">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      <div class="socials">
+        <a href="#" class="s">f</a>
+        <a href="#" class="s">17f</a>
+        <a href="#" class="s">517</a>
+        <a href="#" class="s">in</a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+
+
+  <!-- BANNER SECTION -->
+  <section class="banner">
+    <div class="banner-content">
+      <h2>
+        <p class="welcome-text">Welcome, Investor!</p>Discover & Invest in Promising Startups
+      </h2>
+      <p>Find the next big opportunity in innovation.</p>
+
+    </div>
+    <div class="banner-pattern"></div>
+  </section>
+
+
+  <!-- STATS SECTION -->
+  <section class="stats">
+    <div class="stats-container">
+      <!-- Promising Startups card removed -->
+
+      <div class="stat-card stat-card-2">
+        <div class="stat-icon">💰</div>
+        <h3 id="statHomeInvested">₹1.25 Cr</h3>
+        <p class="stat-label">Invested</p>
+        <p class="stat-description">Total amount invested</p>
+        <button class="stat-btn" onclick="viewPortfolio()">View Portfolio</button>
+      </div>
+
+      <div class="stat-card stat-card-3">
+        <div class="stat-icon">📅</div>
+        <h3 id="statHomeMeetings">3</h3>
+        <p class="stat-label">Upcoming Meetings</p>
+        <p class="stat-description">Scheduled with Founders</p>
+        <button class="stat-btn" onclick="viewSchedule()">View Schedule</button>
+      </div>
+
+      <div class="stat-card stat-card-4">
+        <div class="stat-icon">💡</div>
+        <h3 id="statHomeIdeas">8</h3>
+        <p class="stat-label">View Ideas</p>
+        <p class="stat-description">Shared Ideas with Startups</p>
+        <button class="stat-btn" onclick="viewIdeas()">View Ideas</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOMMENDED STARTUPS SECTION -->
+  <section class="recommended" id="recommended">
+    <div class="recommended-container">
+      <div class="section-header">
+        <h2>Recommended Startups</h2>
+        <p>Exciting startups looking for investment opportunities</p>
+      </div>
+
+      <!-- STARTUP CARDS -->
+      <div id="ideaList" class="projects-list"></div>
+
+      <div class="view-all-container">
+        <button class="btn btn-large" onclick="window.location.href='view.html'">View All Startups</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL FOR INVEST/DETAILS -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle">Modal Title</h2>
+      <p id="modalMessage">Modal message will appear here</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="confirmAction()">Confirm</button>
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h4>StartupCollab</h4>
+        <p>Empowering student innovation and investment.</p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="index.html">Home</a></p>
+        <p><a href="about.html">About</a></p>
+        <p><a href="contact.html">Contact</a></p>
+      </div>
+
+      <div>
+        <h4>Apps</h4>
+        <p><a href="https://play.google.com" target="_blank">Google Play</a></p>
+        <p><a href="https://apps.apple.com" target="_blank">App Store</a></p>
+        <p><a href="https://web.telegram.org" target="_blank">Telegram</a></p>
+      </div>
+
+      <div>
+        <h4>Customer Care</h4>
+        <p>Email: support@startupcollab.in</p>
+        <p>Phone: +91 98765 43210</p>
+        <div class="social-media">
+          <a href="https://facebook.com" target="_blank" title="Facebook">f</a>
+          <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
+          <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
+          <a href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+  </footer>
+
+  <script src="investorhome.js"></script>
+  <script src="sidebar.js"></script>
+</body>
+
+</html>

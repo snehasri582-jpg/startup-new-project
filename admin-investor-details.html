@@ -1,0 +1,277 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Profile | Startup Connect</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="sidebar.js"></script>
+    <script src="admin-investors-store.js"></script>
+    <style>
+        .profile-header {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+
+        .profile-avatar-large {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ff7a00, #ff5a00);
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 60px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h1 {
+            margin: 0 0 10px;
+            font-size: 2rem;
+        }
+
+        .profile-info p {
+            margin: 8px 0;
+            color: #5f6c7b;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .info-block {
+            background: #f8fbff;
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .info-block strong {
+            display: block;
+            color: #ff6a00;
+            margin-bottom: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 720px) {
+            .profile-header,
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+      <div class="modal-top">
+        <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+        <div class="modal-profile">
+          <div class="modal-avatar" style="background: var(--orange); color: white;">A</div>
+          <h3>Platform Admin</h3>
+          <p class="muted">System Administrator</p>
+        </div>
+      </div>
+      <nav class="modal-menu">
+        <a href="admin.html" class="menu-item"><span class="icon">📊</span><span class="label">Dashboard Overview</span></a>
+        <a href="admin-students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Students</span></a>
+        <a href="admin-ideas.html" class="menu-item"><span class="icon">💡</span><span class="label">Projects</span></a>
+        <a href="admin-investors.html" class="menu-item active"><span class="icon">💰</span><span class="label">Investors</span></a>
+        <a href="admin-schedule.html" class="menu-item"><span class="icon">📈</span><span class="label">Applications</span></a>
+        <a href="profile.html?id=admin" class="menu-item"><span class="icon">👤</span><span class="label">Admin Profile</span></a>
+      </nav>
+      <div class="modal-footer">
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div class="dashboard-layout">
+<header class="navbar">
+  <div class="navbar-left">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <a href="admin.html" class="logo">Startup<span>Collab</span></a>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
+
+        <div class="dashboard-main">
+            <section class="card" id="details-mount">
+                <div style="text-align: center; padding: 40px;">
+                    <p>Loading investor details...</p>
+                </div>
+            </section>
+
+            <div style="margin-top: 20px;">
+                <button class="btn-outline" onclick="window.location.href='admin-investors.html'">&larr; Back to Investors</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>StartupConnect</h4>
+                <p>All-in-one startup ecosystem platform.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <p><a href="admin.html">Dashboard</a></p>
+                <p><a href="admin-students.html">Students</a></p>
+                <p><a href="admin-investors.html">Investors</a></p>
+            </div>
+
+            <div>
+                <h4>Support</h4>
+                <p>Email: admin@startupconnect.com</p>
+                <p>Phone: +91 98765 12345</p>
+            </div>
+
+            <div>
+                <h4>Social Media</h4>
+                <div class="social-media">
+                    <a href="#" target="_blank" title="Facebook">f</a>
+                    <a href="#" target="_blank" title="Twitter">X</a>
+                    <a href="#" target="_blank" title="Instagram">IG</a>
+                    <a href="#" target="_blank" title="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+        <p class="copy">&copy; 2025 StartupConnect Admin Panel. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const investorStore = window.AdminInvestorStore;
+
+        function renderInvestorDetails() {
+            const params = new URLSearchParams(window.location.search);
+            const id = parseInt(params.get('id'), 10);
+            const investor = investorStore.findById(id);
+            const mount = document.getElementById('details-mount');
+
+            if (!investor) {
+                mount.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <h2>Investor not found</h2>
+                        <p><a href="admin-investors.html">Back to Investors</a></p>
+                    </div>
+                `;
+                return;
+            }
+
+            const initials = investor.name.split(' ').map(name => name[0]).join('');
+            mount.innerHTML = `
+                <div class="profile-header">
+                    <div class="profile-avatar-large">${investorStore.escapeHtml(initials)}</div>
+                    <div class="profile-info">
+                        <h1>${investorStore.escapeHtml(investor.name)}</h1>
+                        <p><strong>Email:</strong> ${investorStore.escapeHtml(investor.email)}</p>
+                        <p><strong>Phone:</strong> ${investorStore.escapeHtml(investor.phone)}</p>
+                        <p><strong>Firm / Company:</strong> ${investorStore.escapeHtml(investor.firm)}</p>
+                        <p><strong>Status:</strong> <span class="status-pill ${investorStore.statusClass(investor.status)}">${investorStore.escapeHtml(investor.status)}</span></p>
+                    </div>
+                </div>
+
+                <div class="profile-grid">
+                    <div class="info-block">
+                        <strong>Focus Area</strong>
+                        <p>${investorStore.escapeHtml(investor.focusArea)}</p>
+                    </div>
+                    <div class="info-block">
+                        <strong>Investment Size</strong>
+                        <p>${investorStore.escapeHtml(investor.investmentSize)}</p>
+                    </div>
+                    <div class="info-block">
+                        <strong>Portfolio</strong>
+                        <p>${investorStore.escapeHtml(investor.portfolio)} companies</p>
+                    </div>
+                    <div class="info-block">
+                        <strong>Registered Date</strong>
+                        <p>${investorStore.escapeHtml(investor.registeredDate)}</p>
+                    </div>
+                    <div class="info-block">
+                        <strong>Account Status</strong>
+                        <p>${investorStore.escapeHtml(investor.status)}</p>
+                    </div>
+                    <div class="info-block">
+                        <strong>Role</strong>
+                        <p>Investor</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h3>About / Bio</h3>
+                    <p style="line-height: 1.6; color: #5f6c7b;">${investorStore.escapeHtml(investor.bio)}</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="approveInvestor(${investor.id})">Approve Investor</button>
+                    <button class="btn-outline" onclick="rejectInvestor(${investor.id})">Reject</button>
+                    <button class="btn-outline" onclick="editInvestorDetails(${investor.id})">Edit Details</button>
+                </div>
+            `;
+        }
+
+        function approveInvestor(id) {
+            if (confirm('Approve this investor?')) {
+                investorStore.update(id, { status: 'ACTIVE' });
+                alert('Investor approved successfully!');
+                window.location.href = 'admin-investors.html';
+            }
+        }
+
+        function rejectInvestor(id) {
+            if (confirm('Reject this investor?')) {
+                investorStore.update(id, { status: 'REJECTED' });
+                alert('Investor rejected!');
+                window.location.href = 'admin-investors.html';
+            }
+        }
+
+        function editInvestorDetails(id) {
+            const investor = investorStore.findById(id);
+            if (!investor) return;
+
+            const updates = investorStore.promptForInvestorUpdates(investor);
+            if (!updates) return;
+
+            investorStore.update(id, updates);
+            renderInvestorDetails();
+            alert('Investor details updated successfully');
+        }
+
+        function handleLogout() {
+            if (confirm('Logout from Admin Panel?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        window.addEventListener('storage', renderInvestorDetails);
+        document.addEventListener('DOMContentLoaded', renderInvestorDetails);
+    </script>
+</body>
+</html>

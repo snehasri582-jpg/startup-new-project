@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Startup Collab - View Ideas</title>
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="view.css">
+<link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="navbar-left">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <div class="logo">Startup<span>Collab</span></div>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
+
+<!-- DASHBOARD MODAL SIDEBAR (same style as Student dashboard) -->
+<aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+  <div class="modal-top">
+    <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+    <div class="modal-profile">
+      <div class="modal-avatar">👤</div>
+      <h3>Investor Pro</h3>
+      <p class="muted">Angel Investor</p>
+    </div>
+  </div>
+
+  <nav class="modal-menu">
+    <a href="investorhome.html" class="menu-item"><span class="icon">🏠</span><span class="label">Home</span></a>
+    <a href="view.html" class="menu-item active"><span class="icon">💡</span><span class="label">View Ideas</span></a>
+    <a href="chat2.html" class="menu-item"><span class="icon">💬</span><span class="label">Messages</span></a>
+    <a href="myinvest.html" class="menu-item"><span class="icon">💼</span><span class="label">My Investments</span></a>
+    
+      <a href="students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Student Network</span></a>
+      
+      <a href="investor-updates.html" class="menu-item"><span class="icon">🔔</span><span class="label">Updates & Documents</span></a>
+      <a href="contact3.html" class="menu-item"><span class="icon">☎️</span><span class="label">Customer Care</span></a>
+  </nav>
+
+  <div class="modal-footer">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    <div class="socials">
+      <a href="#" class="s">f</a>
+      <a href="#" class="s">𝕏</a>
+      <a href="#" class="s">📷</a>
+      <a href="#" class="s">in</a>
+    </div>
+  </div>
+</aside>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+<!-- PROFESSIONAL HEADING -->
+<div class="page-header" style="padding: 40px 40px 0 40px; background: #faf8f6;">
+  <h1 style="font-size: 32px; color: #1f2937; margin: 0; font-weight: 800; display: flex; align-items: center; gap: 12px;">
+    <span style="background: linear-gradient(135deg, #ff9a44, #fc6076); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Discover</span> Innovations
+  </h1>
+  <p style="color: #6b7280; font-size: 15px; margin-top: 8px; max-width: 600px; line-height: 1.5;">
+    Explore and filter through high-potential Indian startup concepts presented by visionary student founders.
+  </p>
+  <div style="width: 60px; height: 4px; background: linear-gradient(90deg, #ff6a00, #ff9a44); border-radius: 2px; margin-top: 16px;"></div>
+</div>
+
+<!-- MAIN LAYOUT: SIDEBAR + GRID -->
+<section class="main-layout">
+  
+  <!-- LEFT SIDEBAR FILTERS (Flipkart Style) -->
+  <aside class="sidebar-filters">
+    <div class="filter-header">
+      <h3>Filters</h3>
+      <button class="clear-filters" onclick="clearFilters()">Clear All</button>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="filter-group">
+      <h4>CATEGORIES</h4>
+      <label class="filter-checkbox"><input type="checkbox" value="Tech" class="cat-filter"> Tech</label>
+      <label class="filter-checkbox"><input type="checkbox" value="Health" class="cat-filter"> Health</label>
+      <label class="filter-checkbox"><input type="checkbox" value="Sustainability" class="cat-filter"> Sustainability</label>
+      <label class="filter-checkbox"><input type="checkbox" value="Fintech" class="cat-filter"> Fintech</label>
+      <label class="filter-checkbox"><input type="checkbox" value="E-commerce" class="cat-filter"> E-commerce</label>
+      <label class="filter-checkbox"><input type="checkbox" value="EdTech" class="cat-filter"> EdTech</label>
+    </div>
+
+    <!-- Project Stage Filter -->
+    <div class="filter-group">
+      <h4>PROJECT STAGE</h4>
+      <label class="filter-checkbox"><input type="checkbox" value="Idea Stage" class="stage-filter"> Idea Stage</label>
+      <label class="filter-checkbox"><input type="checkbox" value="Prototype Stage" class="stage-filter"> Prototype Stage</label>
+      <label class="filter-checkbox"><input type="checkbox" value="Beta Stage" class="stage-filter"> Beta Stage</label>
+      <label class="filter-checkbox"><input type="checkbox" value="Growth Stage" class="stage-filter"> Growth Stage</label>
+    </div>
+  </aside>
+
+  <!-- RIGHT CONTENT AREA -->
+  <div class="main-content">
+    
+    <!-- TOP BAR: Search & Sort -->
+    <div class="top-bar">
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search ideas...">
+      </div>
+      
+      <div class="sort-container">
+        <label>Sort By:</label>
+        <select id="sortFilter">
+          <option value="recent">Most Recent</option>
+          <option value="trending">Trending</option>
+          <option value="funding">Highest Funding</option>
+          <option value="investments">Most Investments</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- PROJECTS LIST -->
+    <div id="ideaList" class="projects-list"></div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h4>StartupCollab</h4>
+      <p>Empowering student innovation and investment.</p>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="index.html">Home</a></p>
+      <p><a href="about.html">About</a></p>
+      <p><a href="contact.html">Contact</a></p>
+    </div>
+
+    <div>
+      <h4>Apps</h4>
+      <p><a href="https://play.google.com" target="_blank">Google Play</a></p>
+      <p><a href="https://apps.apple.com" target="_blank">App Store</a></p>
+      <p><a href="https://web.telegram.org" target="_blank">Telegram</a></p>
+    </div>
+
+    <div>
+      <h4>Customer Care</h4>
+      <p>Email: support@startupcollab.in</p>
+      <p>Phone: +91 98765 43210</p>
+      <div class="social-media">
+        <a href="https://facebook.com" target="_blank" title="Facebook">f</a>
+        <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+</footer>
+
+<script src="view.js"></script>
+<script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile - Startup Collab</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <style>
+    :root {
+      --primary: #ff6a00;
+      --primary-hover: #e55a00;
+      --bg: #faf8f6;
+      --card-bg: #ffffff;
+      --text: #333333;
+      --text-muted: #666666;
+      --border: #eeeeee;
+      --facebook-blue: #1877f2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-top: 64px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+      padding: 0 32px;
+      background: #ffffff;
+      border-bottom: 3px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      color: #000;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .logout-btn {
+      border: none;
+      background: linear-gradient(135deg, var(--primary), #ff8c00);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(255, 106, 0, 0.18);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+
+    /* PROFILE LAYOUT (Facebook-Style) */
+    .profile-container {
+      max-width: 1100px;
+      margin: 0 auto 50px;
+      background: var(--card-bg);
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    /* Cover Photo */
+    .cover-container {
+      position: relative;
+      height: 350px;
+      background: #e2e8f0;
+    }
+
+    .cover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Profile Header Info */
+    .header-info-bar {
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .profile-avatar-wrapper {
+      position: absolute;
+      bottom: 24px;
+      left: 32px;
+      z-index: 2;
+    }
+
+    .profile-avatar {
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 5px solid var(--card-bg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      overflow: hidden;
+    }
+
+    .profile-meta-info {
+      margin-left: 190px;
+      flex-grow: 1;
+      padding-bottom: 8px;
+    }
+
+    .profile-name {
+      font-size: 32px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .profile-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .profile-mutuals {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding-bottom: 8px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-connect-facebook {
+      background: var(--facebook-blue);
+      color: white;
+    }
+
+    .btn-connect-facebook:hover {
+      background: #1565c0;
+      transform: translateY(-2px);
+    }
+
+    .btn-requested {
+      background: #e2e8f0;
+      color: #333;
+      cursor: not-allowed;
+    }
+
+    .btn-message {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-message:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-back {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .btn-back:hover {
+      background: #e2e8f0;
+    }
+
+    /* Tabs Bar */
+    .tabs-bar {
+      display: flex;
+      padding: 0 32px;
+      background: var(--card-bg);
+      gap: 20px;
+    }
+
+    .tab-item {
+      padding: 16px 8px;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .tab-item.active {
+      color: var(--facebook-blue);
+      border-bottom-color: var(--facebook-blue);
+    }
+
+    /* Main Grid Split */
+    .profile-main-grid {
+      max-width: 1100px;
+      margin: 24px auto 50px;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+    }
+
+    .profile-left-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .profile-right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Profile Cards */
+    .info-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .info-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #111;
+    }
+
+    .intro-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .intro-item {
+      display: flex;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .intro-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+
+    .intro-text strong {
+      color: #111;
+    }
+
+    /* Post Feed Box */
+    .post-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .post-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .post-author h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .post-author span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .post-content {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .post-img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 10px;
+      max-height: 400px;
+      object-fit: cover;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .profile-main-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-info-bar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 100px;
+      }
+      .profile-avatar-wrapper {
+        bottom: auto;
+        top: -84px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .profile-meta-info {
+        margin-left: 0;
+        margin-bottom: 20px;
+      }
+      .profile-actions {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+      <a href="#" id="homeLink" class="logo">Startup<span>Collab</span></a>
+    </div>
+    <div class="navbar-right">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR (Modal Style) -->
+  <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+    <div class="modal-top">
+      <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+      <div class="modal-profile">
+        <div class="modal-avatar" id="sidebarAvatar">👤</div>
+        <h3 id="sidebarName">Current User</h3>
+        <p class="muted" id="sidebarRole">Dashboard Account</p>
+      </div>
+    </div>
+
+    <nav class="modal-menu" id="sidebarMenu">
+      <!-- Dynamically rendered menu options -->
+    </nav>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+  <!-- PROFILE WRAPPER -->
+  <div class="profile-container">
+    <!-- Cover -->
+    <div class="cover-container">
+      <img id="coverImg" class="cover-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=350&fit=crop" alt="Cover Photo">
+    </div>
+
+    <!-- Info Bar -->
+    <div class="header-info-bar">
+      <div class="profile-avatar-wrapper">
+        <div class="profile-avatar" id="profileAvatar">👤</div>
+      </div>
+
+      <div class="profile-meta-info">
+        <h1 class="profile-name" id="profileName">Loading Profile...</h1>
+        <div class="profile-subtitle" id="profileSubtitle">Title / Focus Area</div>
+        <div class="profile-mutuals">👥 5+ mutual connections</div>
+      </div>
+
+      <div class="profile-actions">
+        <button class="btn btn-connect-facebook" id="connectBtn" onclick="handleConnectClick()">
+          ➕ Add Friend / Connect
+        </button>
+        <button class="btn btn-message" id="messageBtn" onclick="handleMessageClick()">
+          💬 Message
+        </button>
+        <button class="btn btn-back" onclick="goBack()">
+          Back
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-bar">
+      <div class="tab-item active">About</div>
+      <div class="tab-item">Posts</div>
+      <div class="tab-item">Friends</div>
+    </div>
+  </div>
+
+  <!-- Profile Grid -->
+  <div class="profile-main-grid">
+    <!-- Left Column (Intro) -->
+    <div class="profile-left-col">
+      <div class="info-card">
+        <h3>Intro</h3>
+        <ul class="intro-list">
+          <li class="intro-item">
+            <span class="intro-icon">💼</span>
+            <div class="intro-text">
+              <span id="roleText">Role at Firm</span>
+            </div>
+          </li>
+          <li class="intro-item">
+            <span class="intro-icon">🎓</span>
+            <div class="intro-text">
+              <span id="institutionText">Institution Details</span>
+            </div>
+          </li>
+          <li class="intro-item" id="emailItem">
+            <span class="intro-icon">✉️</span>
+            <div class="intro-text">
+              Email: <strong id="emailText">loading...</strong>
+            </div>
+          </li>
+          <li class="intro-item" id="phoneItem">
+            <span class="intro-icon">📞</span>
+            <div class="intro-text">
+              Phone: <strong id="phoneText">loading...</strong>
+            </div>
+          </li>
+          <li class="intro-item">
+            <span class="intro-icon">📌</span>
+            <div class="intro-text">
+              Status: <strong id="statusText">Active</strong>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right Column (Posts / Feed) -->
+    <div class="profile-right-col">
+      <div class="info-card">
+        <h3>About Me</h3>
+        <p id="bioText" style="color: #444; font-size: 15px; line-height: 1.6;"></p>
+      </div>
+
+      <!-- Sample Post -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar" id="postAvatar">👤</div>
+          <div class="post-author">
+            <h4 id="postAuthorName">User</h4>
+            <span>Just now • Public 🌐</span>
+          </div>
+        </div>
+        <div class="post-content">
+          Excited to announce my collaboration on Startup Collab! Looking forward to reviewing new innovative ideas and accelerating outstanding projects this quarter. Let's make things happen! 🚀💡
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin-investors-store.js"></script>
+  <script src="admin-students-store.js"></script>
+  <script src="sidebar.js"></script>
+  <script>
+    // Get URL Parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type'); // 'investor' or 'student'
+    const id = Number(urlParams.get('id'));
+
+    let profileData = null;
+    let currentUser = JSON.parse(localStorage.getItem('startupConnect.currentUser'));
+
+    // Check if user is logged in, if not set defaults for demo
+    if (!currentUser) {
+      currentUser = {
+        role: 'student',
+        id: 11,
+        name: 'Amit Mehra',
+        university: 'Boston University',
+        field: 'Computer Science',
+        avatar: '🎓'
+      };
+      localStorage.setItem('startupConnect.currentUser', JSON.stringify(currentUser));
+    }
+
+    // Set Sidebar layout
+    document.getElementById('sidebarName').textContent = currentUser.name;
+    document.getElementById('sidebarRole').textContent = currentUser.role === 'student' ? 'Aspiring Entrepreneur' : 'Angel Investor';
+    document.getElementById('sidebarAvatar').textContent = currentUser.role === 'student' ? '🎓' : '👤';
+    
+    // Set Sidebar Links
+    const homeLink = document.getElementById('homeLink');
+    const menuContainer = document.getElementById('sidebarMenu');
+    if (currentUser.role === 'student') {
+      homeLink.href = 'studenthome.html';
+      menuContainer.innerHTML = `
+        <a href="studenthome.html" class="menu-item"><span class="label">Home</span></a>
+        <a href="investors.html" class="menu-item"><span class="label">Network</span></a>
+        <a href="shareidea.html" class="menu-item"><span class="label">Startup Ideas</span></a>
+        <a href="chat.html" class="menu-item"><span class="label">Messages</span></a>
+        <a href="tracking.html" class="menu-item"><span class="label">Submit Report</span></a>
+        <a href="contact2.html" class="menu-item"><span class="label">Customer Care</span></a>
+        <a href="notifications.html" class="menu-item"><span class="label">Updates & Approvals</span></a>
+        <a href="profile.html" class="menu-item"><span class="label">My Profile</span></a>
+      `;
+    } else {
+      homeLink.href = 'investorhome.html';
+      menuContainer.innerHTML = `
+        <a href="investorhome.html" class="menu-item"><span class="icon">🏠</span><span class="label">Home</span></a>
+        <a href="view.html" class="menu-item"><span class="icon">💡</span><span class="label">View Ideas</span></a>
+        <a href="chat2.html" class="menu-item"><span class="icon">💬</span><span class="label">Messages</span></a>
+        <a href="myinvest.html" class="menu-item"><span class="icon">💼</span><span class="label">My Investments</span></a>
+                <a href="students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Student Network</span></a>
+        <a href="investor-updates.html" class="menu-item"><span class="icon">🔔</span><span class="label">Updates & Documents</span></a>
+<a href="contact3.html" class="menu-item"><span class="icon">☎️</span><span class="label">Customer Care</span></a>
+      `;
+    }
+
+    // Load Profile
+    window.addEventListener('load', () => {
+      loadProfileData();
+      updateConnectionButton();
+    });
+
+    function loadProfileData() {
+      if (type === 'investor') {
+        profileData = window.AdminInvestorStore.findById(id);
+        if (profileData) {
+          document.getElementById('profileName').textContent = profileData.name;
+          document.getElementById('postAuthorName').textContent = profileData.name;
+          document.getElementById('profileSubtitle').textContent = `${profileData.focusArea} • ${profileData.firm}`;
+          
+          if (profileData.avatarUrl) {
+            document.getElementById('profileAvatar').innerHTML = `<img src="${profileData.avatarUrl}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+            document.getElementById('postAvatar').innerHTML = `<img src="${profileData.avatarUrl}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+          } else {
+            document.getElementById('profileAvatar').textContent = '👤';
+            document.getElementById('postAvatar').textContent = '👤';
+          }
+          
+          document.getElementById('roleText').innerHTML = `Focus Area: <strong>${profileData.focusArea}</strong>`;
+          document.getElementById('institutionText').innerHTML = `Firm: <strong>${profileData.firm}</strong>`;
+          document.getElementById('emailText').textContent = profileData.email;
+          document.getElementById('phoneText').textContent = profileData.phone;
+          document.getElementById('statusText').textContent = profileData.status || 'Active';
+          document.getElementById('bioText').textContent = profileData.bio || 'Experienced investor supporting student startups.';
+          
+          // Remove cover background image, set to solid neutral background with smaller height
+          document.getElementById('coverImg').style.display = 'none';
+          document.querySelector('.cover-container').style.background = '#e2e8f0';
+          document.querySelector('.cover-container').style.height = '180px';
+        }
+      } else if (type === 'student') {
+        profileData = window.AdminStudentStore.findById(id);
+        if (profileData) {
+          document.getElementById('profileName').textContent = profileData.name;
+          document.getElementById('postAuthorName').textContent = profileData.name;
+          document.getElementById('profileSubtitle').textContent = `${profileData.field} Student • ${profileData.university}`;
+          document.getElementById('profileAvatar').textContent = '🎓';
+          document.getElementById('postAvatar').textContent = '🎓';
+          
+          document.getElementById('roleText').innerHTML = `Department: <strong>${profileData.department}</strong>`;
+          document.getElementById('institutionText').innerHTML = `University: <strong>${profileData.university} (${profileData.year} Year)</strong>`;
+          document.getElementById('emailText').textContent = profileData.email;
+          document.getElementById('phoneText').textContent = profileData.phone;
+          document.getElementById('statusText').textContent = profileData.status || 'Active';
+          document.getElementById('bioText').textContent = profileData.bio || 'Aspiring student entrepreneur looking to collaborate and build projects.';
+          
+          // Reset cover banner for student
+          document.getElementById('coverImg').style.display = 'block';
+          document.getElementById('coverImg').src = 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=350&fit=crop';
+          document.querySelector('.cover-container').style.height = '350px';
+        }
+      }
+      
+      // Hide email & phone details if they are empty
+      if (profileData) {
+        if (profileData.email) {
+          document.getElementById('emailItem').style.display = 'flex';
+        } else {
+          document.getElementById('emailItem').style.display = 'none';
+        }
+        
+        if (profileData.phone) {
+          document.getElementById('phoneItem').style.display = 'flex';
+        } else {
+          document.getElementById('phoneItem').style.display = 'none';
+        }
+      }
+    }
+
+    // Check Connections
+    function getConnections() {
+      return JSON.parse(localStorage.getItem('startupConnect.connections')) || [];
+    }
+
+    function updateConnectionButton() {
+      const connections = getConnections();
+      
+      const reqId1 = `student_${currentUser.id}_investor_${profileData?.id}`;
+      const reqId2 = `student_${profileData?.id}_investor_${currentUser.id}`;
+      
+      const conn = connections.find(c => c.id === reqId1 || c.id === reqId2);
+      const connectBtn = document.getElementById('connectBtn');
+      const messageBtn = document.getElementById('messageBtn');
+
+      // Keep Chat/Message button visible always beside the connect button
+      messageBtn.style.display = 'inline-flex';
+
+      if (!conn) {
+        connectBtn.className = 'btn btn-connect-facebook';
+        connectBtn.innerHTML = '➕ Add Friend / Connect';
+        connectBtn.disabled = false;
+      } else if (conn.status === 'pending') {
+        connectBtn.className = 'btn btn-requested';
+        connectBtn.innerHTML = '⏱️ Request Sent';
+        connectBtn.disabled = true;
+      } else if (conn.status === 'accepted') {
+        connectBtn.className = 'btn btn-back';
+        connectBtn.innerHTML = '✓ Connected';
+        connectBtn.disabled = true;
+      }
+    }
+
+    function handleConnectClick() {
+      const connections = getConnections();
+      
+      const studentId = currentUser.role === 'student' ? currentUser.id : profileData.id;
+      const studentName = currentUser.role === 'student' ? currentUser.name : profileData.name;
+      const investorId = currentUser.role === 'investor' ? currentUser.id : profileData.id;
+      const investorName = currentUser.role === 'investor' ? currentUser.name : profileData.name;
+
+      const connectionId = `student_${studentId}_investor_${investorId}`;
+
+      const newConnection = {
+        id: connectionId,
+        studentId,
+        studentName,
+        investorId,
+        investorName,
+        fromRole: currentUser.role,
+        toRole: profileData.role || (type === 'investor' ? 'investor' : 'student'),
+        status: 'pending'
+      };
+
+      connections.push(newConnection);
+      localStorage.setItem('startupConnect.connections', JSON.stringify(connections));
+      
+      alert(`Connection request sent to ${profileData.name}!`);
+      updateConnectionButton();
+    }
+
+    function handleMessageClick() {
+      const connections = getConnections();
+      const studentId = currentUser.role === 'student' ? currentUser.id : profileData.id;
+      const investorId = currentUser.role === 'investor' ? currentUser.id : profileData.id;
+      const connectionId = `student_${studentId}_investor_${investorId}`;
+      const conn = connections.find(c => c.id === connectionId);
+
+      if (!conn || conn.status !== 'accepted') {
+        alert('You can only message after the connection request is approved.');
+        return;
+      }
+
+      if (currentUser.role === 'student') {
+        window.location.href = 'chat.html';
+      } else {
+        window.location.href = 'chat2.html';
+      }
+    }
+
+    function goBack() {
+      if (currentUser.role === 'student') {
+        window.location.href = 'studenthome.html';
+      } else {
+        window.location.href = 'investorhome.html';
+      }
+    }
+
+    // Logout
+    function handleLogout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "index.html";
+      }
+    }
+  </script>
+</body>
+</html>

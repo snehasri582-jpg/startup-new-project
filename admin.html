@@ -1,0 +1,1089 @@
+ <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Startup Connect</title>
+    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="sidebar.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="sidebar.js"></script>
+    <script src="admin-students-store.js"></script>
+    <script src="admin-investors-store.js"></script>
+    <script src="admin-messages-store.js"></script>
+    <style>
+      .admin-dashboard-page .dashboard-layout {
+        display: block;
+        min-height: 100vh;
+      }
+
+      .admin-dashboard-page .dashboard-main {
+        max-width: 1480px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .admin-menu-wrap {
+        position: relative;
+      }
+
+      .hamburger-btn {
+        border: none;
+        background: #101f3c;
+        color: white;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        cursor: pointer;
+        font-size: 1.3rem;
+        display: grid;
+        place-items: center;
+        box-shadow: var(--card-shadow);
+      }
+
+      .admin-menu-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.38);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 39;
+      }
+
+      .admin-menu-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .admin-menu {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        bottom: 16px;
+        width: 278px;
+        padding: 0;
+        border-radius: 28px;
+        background: #101826;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 26px 70px rgba(15, 23, 42, 0.28);
+        transform: translateX(calc(-100% - 32px));
+        transition: transform 0.25s ease;
+        overflow-y: auto;
+        z-index: 40;
+      }
+
+      .admin-menu.open {
+        transform: translateX(0);
+      }
+
+      .admin-menu-brand {
+        padding: 20px;
+        background:
+          radial-gradient(
+            circle at 18% 8%,
+            rgba(255, 255, 255, 0.28),
+            transparent 28%
+          ),
+          linear-gradient(135deg, #ff7a00, #f25400);
+      }
+
+      .admin-menu-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .admin-menu-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        font-size: 1.25rem;
+      }
+
+      .admin-menu-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: white;
+        color: var(--orange);
+        font-weight: 900;
+      }
+
+      .admin-menu-close {
+        width: 38px;
+        height: 38px;
+        border: none;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+        cursor: pointer;
+        font-size: 1.2rem;
+        font-weight: 800;
+      }
+
+      .admin-menu-links {
+        display: grid;
+        gap: 8px;
+        padding: 16px 14px 20px;
+      }
+
+      .admin-menu a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: #dce5f3;
+        padding: 12px 14px;
+        border-radius: 14px;
+        font-weight: 600;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+
+      .admin-menu a .nav-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 9px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 0.78rem;
+        color: #ffffff;
+      }
+
+      .admin-menu a .menu-badge {
+        margin-left: auto;
+        min-width: 24px;
+        height: 22px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: #ec5252;
+        color: white;
+        font-size: 0.75rem;
+      }
+
+      .admin-menu a:hover,
+      .admin-menu a.active {
+        background: var(--orange);
+        color: white;
+      }
+
+      .admin-menu-divider {
+        height: 1px;
+        margin: 6px 8px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .admin-dashboard-page .project-overview,
+      .admin-dashboard-page .recent-activity {
+        min-height: 278px;
+        padding: 18px;
+      }
+
+      .admin-dashboard-page .project-overview {
+        padding-bottom: 18px;
+      }
+
+      .admin-dashboard-page .dashboard-grid {
+        grid-template-columns: 1.08fr 1fr;
+      }
+
+      .admin-dashboard-page .card {
+        border-radius: 14px;
+      }
+
+      .admin-dashboard-page .overview-body {
+        grid-template-columns: 220px 1fr;
+        gap: 18px;
+      }
+
+      .admin-dashboard-page .chart-card {
+        min-height: 194px;
+        height: 194px;
+        position: relative;
+      }
+
+      .admin-dashboard-page .overview-legend {
+        gap: 8px;
+      }
+
+      .admin-dashboard-page .overview-legend div {
+        padding: 8px 12px;
+        border-radius: 10px;
+        background: transparent;
+      }
+
+      .admin-dashboard-page .legend-dot.yellow {
+        background: #f5a623;
+      }
+
+      .admin-dashboard-page .legend-dot.pink {
+        background: #e91e63;
+      }
+
+      .admin-dashboard-page .search-box input {
+        border-color: rgba(255, 106, 0, 0.35);
+      }
+
+      .donut-center {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+        text-align: center;
+        color: var(--text);
+      }
+
+      .donut-center strong,
+      .donut-center span {
+        display: block;
+      }
+
+      .donut-center strong {
+        font-size: 2.05rem;
+        line-height: 1;
+      }
+
+      .donut-center span {
+        margin-top: 5px;
+        color: #5c6f86;
+        font-size: 0.9rem;
+      }
+
+      .orange-view-btn {
+        background: #fff8f2;
+        color: var(--orange);
+        border: 1px solid rgba(255, 106, 0, 0.28);
+        border-radius: 10px;
+        padding: 8px 14px;
+        box-shadow: none;
+      }
+
+      .admin-dashboard-page .recent-activity .section-header {
+        margin-bottom: 10px;
+      }
+
+      .admin-dashboard-page .recent-activity .section-header span {
+        display: none;
+      }
+
+      .activity-list.rich {
+        gap: 0;
+      }
+
+      .activity-item.rich {
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 12px;
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid #eef2f7;
+        background: #ffffff;
+        padding: 9px 2px;
+      }
+
+      .admin-dashboard-page .project-card {
+        padding: 0 0 14px;
+        gap: 8px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid #e8edf4;
+        background: #ffffff;
+        align-items: center;
+        text-align: center;
+      }
+
+      .project-thumb {
+        width: 100%;
+        aspect-ratio: 16 / 8;
+        object-fit: cover;
+        display: block;
+      }
+
+      .admin-dashboard-page .project-card h3 {
+        font-size: 0.92rem;
+        margin: 6px 10px 0;
+      }
+
+      .admin-dashboard-page .project-card p {
+        font-size: 0.8rem;
+        color: #172c45;
+      }
+
+      .admin-dashboard-page .project-card .project-footer {
+        justify-content: center;
+      }
+
+      .admin-dashboard-page .project-card .project-footer span {
+        display: none;
+      }
+
+      .admin-dashboard-page .project-card .project-footer button {
+        background: var(--orange);
+        color: white;
+        border-radius: 8px;
+        padding: 7px 16px;
+        font-size: 0.8rem;
+      }
+
+      .empty-activity {
+        padding: 22px;
+        color: var(--muted);
+        background: #f8fbff;
+        border: 1px dashed #dfe7f0;
+        border-radius: 16px;
+      }
+
+      @media (max-width: 820px) {
+        .admin-dashboard-page .dashboard-header {
+          align-items: flex-start;
+        }
+
+        .admin-dashboard-page .overview-body {
+          grid-template-columns: 1fr;
+        }
+
+        .admin-dashboard-page .projects-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .activity-item.rich {
+          grid-template-columns: auto 1fr;
+        }
+
+        .activity-time {
+          grid-column: 2;
+          width: fit-content;
+        }
+      }
+    </style>
+  </head>
+  <body class="admin-dashboard-page">
+    <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+      <div class="modal-top">
+        <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+        <div class="modal-profile">
+          <div class="modal-avatar" style="background: var(--orange); color: white;">A</div>
+          <h3>Platform Admin</h3>
+          <p class="muted">System Administrator</p>
+        </div>
+      </div>
+      <nav class="modal-menu">
+        <a href="admin.html" class="menu-item active"><span class="icon">📊</span><span class="label">Dashboard Overview</span></a>
+        <a href="admin-students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Students</span></a>
+        <a href="admin-ideas.html" class="menu-item"><span class="icon">💡</span><span class="label">Projects</span></a>
+        <a href="admin-investors.html" class="menu-item"><span class="icon">💰</span><span class="label">Investors</span></a>
+        <a href="admin-schedule.html" class="menu-item"><span class="icon">📈</span><span class="label">Applications</span></a>
+        <a href="admin-messages.html" class="menu-item"><span class="icon">📨</span><span class="label">Messages</span></a>
+        <a href="admin-documents.html" class="menu-item"><span class="icon">📄</span><span class="label">Documents</span></a>
+        <a href="profile.html?id=admin" class="menu-item"><span class="icon">👤</span><span class="label">Admin Profile</span></a>
+      </nav>
+      <div class="modal-footer">
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div class="dashboard-layout">
+<header class="navbar">
+  <div class="navbar-left">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <a href="admin.html" class="logo">Startup<span>Collab</span></a>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
+
+      <main class="dashboard-main">
+        <section class="summary-row">
+          <article
+            class="summary-card orange"
+            onclick="window.location.href = 'admin-students.html'"
+          >
+            <div class="card-head">
+              <span>Students</span>
+              <strong id="total-students">0</strong>
+            </div>
+            <p>Total Registered</p>
+          </article>
+          <article
+            class="summary-card purple"
+            onclick="window.location.href = 'admin-ideas.html'"
+          >
+            <div class="card-head">
+              <span>Projects</span>
+              <strong id="total-projects">0</strong>
+            </div>
+            <p>Total Submitted</p>
+          </article>
+          <article
+            class="summary-card green"
+            onclick="window.location.href = 'admin-investors.html'"
+          >
+            <div class="card-head">
+              <span>Investors</span>
+              <strong id="total-investors">0</strong>
+            </div>
+            <p>Total Registered</p>
+          </article>
+          <article
+            class="summary-card blue"
+            onclick="window.location.href = 'admin-schedule.html'"
+          >
+            <div class="card-head">
+              <span>Applications</span>
+              <strong id="total-apps">0</strong>
+            </div>
+            <p>This Month</p>
+          </article>
+          <article
+            class="summary-card pink"
+            onclick="window.location.href = 'admin-messages.html'"
+          >
+            <div class="card-head">
+              <span>Messages</span>
+              <strong id="total-messages">0</strong>
+            </div>
+            <p>Contact Submissions</p>
+          </article>
+          <article
+            class="summary-card red"
+            onclick="window.location.href = 'admin-documents.html'"
+          >
+            <div class="card-head">
+              <span>Documents</span>
+              <strong id="total-docs">0</strong>
+            </div>
+            <p>Submitted Files</p>
+          </article>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="project-overview card">
+            <div class="section-header">
+              <div>
+                <h2>Projects Overview</h2>
+                <span>Track application status and funding stages.</span>
+              </div>
+              <button
+                class="btn-outline"
+                onclick="window.location.href = 'admin-ideas.html'"
+              >
+                View All
+              </button>
+            </div>
+
+            <div class="overview-body">
+              <div class="chart-card">
+                <canvas id="overviewChart"></canvas>
+                <div class="donut-center">
+                  <div>
+                    <strong id="overview-total-projects">0</strong>
+                    <span>Total Projects</span>
+                  </div>
+                </div>
+              </div>
+              <div class="overview-legend">
+                <div>
+                  <span class="legend-dot orange"></span>Funding Seeking
+                  <strong id="legend-funding">0</strong>
+                </div>
+                <div>
+                  <span class="legend-dot yellow"></span>In Review
+                  <strong id="legend-review">0</strong>
+                </div>
+                <div>
+                  <span class="legend-dot green"></span>Approved
+                  <strong id="legend-approved">0</strong>
+                </div>
+                <div>
+                  <span class="legend-dot pink"></span>Rejected
+                  <strong id="legend-rejected">0</strong>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="recent-activity card">
+            <div class="section-header">
+              <div>
+                <h2>Recent Activities</h2>
+                <span
+                  >Student project uploads and investor request updates.</span
+                >
+              </div>
+              <div class="search-box" style="margin-right: 15px;">
+                <input
+                  id="activitySearch"
+                  type="text"
+                  placeholder="Search recent activity..."
+                  oninput="renderRecentActivities()"
+                />
+              </div>
+              <button
+                class="btn-primary orange-view-btn"
+                onclick="window.location.href = 'admin-ideas.html'"
+              >
+                View All
+              </button>
+            </div>
+            <div id="activity-list" class="activity-list rich"></div>
+          </article>
+        </section>
+
+        <section class="top-projects card projects-card">
+          <div class="section-header">
+            <div>
+              <h2>Top Projects</h2>
+              <span>High-priority ideas from the community.</span>
+            </div>
+          </div>
+          <div id="top-projects" class="projects-grid"></div>
+        </section>
+
+        <section class="pending-card card" style="margin-bottom: 20px;">
+          <div class="section-header">
+            <div>
+              <h2>Pending Student Registrations</h2>
+              <span>Approve or reject student accounts.</span>
+            </div>
+          </div>
+          <div class="pending-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>University</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="pending-students-list"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="pending-card card" style="margin-bottom: 20px;">
+          <div class="section-header">
+            <div>
+              <h2>Pending Investor Registrations</h2>
+              <span>Approve or reject investor accounts.</span>
+            </div>
+          </div>
+          <div class="pending-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Firm</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="pending-investors-list"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="pending-card card" style="margin-bottom: 20px;">
+          <div class="section-header">
+            <div>
+              <h2>Pending Project Ideas</h2>
+              <span>Review and approve student startup ideas.</span>
+            </div>
+          </div>
+          <div class="pending-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Project Title</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="pending-ideas-list"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h4>Startup Connect</h4>
+          <p>
+            Delivering startup verification, approvals and investor matching.
+          </p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <p><a href="admin.html">Dashboard</a></p>
+          <p><a href="admin-students.html">Students</a></p>
+          <p><a href="admin-investors.html">Investors</a></p>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <p>Email: admin@startupcollab.in</p>
+          <p>Phone: +91 98765 12345</p>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <div class="social-media">
+            <a href="#">F</a>
+            <a href="#">X</a>
+            <a href="#">I</a>
+            <a href="#">in</a>
+          </div>
+        </div>
+      </div>
+      <p class="copy">&copy; 2026 Startup Connect.</p>
+    </footer>
+
+    <script>
+      const dashboardProjects = [
+        {
+          title: "AI Study Buddy",
+          owner: "Aarav Sharma",
+          category: "AI",
+          status: "Funding Seeking",
+          image:
+            "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=420&q=80",
+        },
+        {
+          title: "HealthCare AI",
+          owner: "Ananya Verma",
+          category: "HealthTech",
+          status: "In Review",
+          image:
+            "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=420&q=80",
+        },
+        {
+          title: "Green Energy",
+          owner: "Vikram Singh",
+          category: "CleanTech",
+          status: "Funding Seeking",
+          image:
+            "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=420&q=80",
+        },
+        {
+          title: "Smart Farming",
+          owner: "Priya Nair",
+          category: "AgriTech",
+          status: "In Review",
+          image:
+            "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=420&q=80",
+        },
+        {
+          title: "EcoTrack",
+          owner: "Neha Patel",
+          category: "Sustainability",
+          status: "Approved",
+          image:
+            "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=420&q=80",
+        },
+        {
+          title: "EduConnect",
+          owner: "Rahul Gupta",
+          category: "EdTech",
+          status: "Rejected",
+          image:
+            "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=420&q=80",
+        },
+        {
+          title: "FinPal",
+          owner: "Amrita Singh",
+          category: "FinTech",
+          status: "Funding Seeking",
+          image:
+            "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=420&q=80",
+        },
+        {
+          title: "RoboFarm",
+          owner: "Kavya Iyer",
+          category: "AgriTech",
+          status: "Approved",
+          image:
+            "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&w=420&q=80",
+        },
+        {
+          title: "MedLink",
+          owner: "Sameer Khan",
+          category: "HealthTech",
+          status: "Funding Seeking",
+          image:
+            "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=420&q=80",
+        },
+        {
+          title: "SkillBridge",
+          owner: "Usha Gupta",
+          category: "EdTech",
+          status: "In Review",
+          image:
+            "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=420&q=80",
+        },
+      ];
+
+      const dashboardActivities = [
+        {
+          initials: "AS",
+          avatar: "https://i.pravatar.cc/80?img=12",
+          student: "Aarav Sharma",
+          project: "AI Study Buddy",
+          investor: "Rajesh Kumar",
+          title: "Aarav Sharma submitted a new project",
+          details: "AI Study Buddy",
+          status: "Project Upload",
+          time: "10:30 AM",
+        },
+        {
+          initials: "AV",
+          avatar: "https://i.pravatar.cc/80?img=32",
+          student: "Ananya Verma",
+          project: "HealthCare AI",
+          investor: "Vikram Singh",
+          title: "Ananya Verma updated project details",
+          details: "HealthCare AI",
+          status: "Investor Request",
+          time: "09:45 AM",
+        },
+        {
+          initials: "VS",
+          avatar: "https://i.pravatar.cc/80?img=15",
+          student: "Vikram Singh",
+          project: "Green Energy Solution",
+          investor: "Anjali Verma",
+          title: "Vikram Singh applied for funding",
+          details: "Green Energy Solution",
+          status: "Investor Request",
+          time: "09:20 AM",
+        },
+        {
+          initials: "NP",
+          avatar: "https://i.pravatar.cc/80?img=47",
+          student: "Neha Patel",
+          project: "EcoTrack",
+          investor: "Shreya Iyer",
+          title: "Neha Patel sent message to investor",
+          details: "EcoTrack",
+          status: "Project Update",
+          time: "08:50 AM",
+        },
+        {
+          initials: "PN",
+          avatar: "https://i.pravatar.cc/80?img=44",
+          student: "Priya Nair",
+          project: "Smart Farming",
+          investor: "Divya Nair",
+          title: "Priya Nair added a new idea",
+          details: "Smart Farming",
+          status: "Project Upload",
+          time: "08:20 AM",
+        },
+      ];
+
+      function escapeHtml(value) {
+        return String(value ?? "").replace(
+          /[&<>"']/g,
+          (character) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[character],
+        );
+      }
+
+      function getStudents() {
+        return window.AdminStudentStore
+          ? window.AdminStudentStore.getAll()
+          : [];
+      }
+
+      function getInvestors() {
+        return window.AdminInvestorStore
+          ? window.AdminInvestorStore.getAll()
+          : [];
+      }
+
+      function renderDashboardCounts() {
+        const studentCount = getStudents().length;
+        const investorCount = getInvestors().length;
+        const projectCount = dashboardProjects.length;
+
+        const messageCount = window.AdminMessageStore
+          ? window.AdminMessageStore.getAll().length
+          : 0;
+
+        let documentCount = 6;
+        try {
+          const savedDocs = localStorage.getItem('admin_documents');
+          if (savedDocs) {
+            documentCount = JSON.parse(savedDocs).length;
+          }
+        } catch (e) {
+          console.warn('Load documents count error', e);
+        }
+
+        document.getElementById("total-students").textContent = studentCount;
+        document.getElementById("total-investors").textContent = investorCount;
+        document.getElementById("total-projects").textContent = projectCount;
+        document.getElementById("total-apps").textContent =
+          studentCount + investorCount + projectCount;
+        
+        const msgEl = document.getElementById("total-messages");
+        if (msgEl) msgEl.textContent = messageCount;
+        const docEl = document.getElementById("total-docs");
+        if (docEl) docEl.textContent = documentCount;
+      }
+
+      function renderProjectOverview() {
+        const counts = {
+          funding: dashboardProjects.filter(
+            (project) => project.status === "Funding Seeking",
+          ).length,
+          review: dashboardProjects.filter(
+            (project) => project.status === "In Review",
+          ).length,
+          approved: dashboardProjects.filter(
+            (project) => project.status === "Approved",
+          ).length,
+          rejected: dashboardProjects.filter(
+            (project) => project.status === "Rejected",
+          ).length,
+        };
+
+            document.getElementById("legend-funding").textContent = counts.funding;
+        document.getElementById("legend-review").textContent = counts.review;
+        document.getElementById("legend-approved").textContent =
+          counts.approved;
+        document.getElementById("legend-rejected").textContent =
+          counts.rejected;
+        document.getElementById("overview-total-projects").textContent =
+          dashboardProjects.length;
+
+        const ctx = document.getElementById("overviewChart");
+        if (!ctx || !window.Chart) return;
+
+        if (window.overviewPie) {
+          window.overviewPie.destroy();
+        }
+
+        window.overviewPie = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: ["Funding Seeking", "In Review", "Approved", "Rejected"],
+            datasets: [
+              {
+                data: [
+                  counts.funding,
+                  counts.review,
+                  counts.approved,
+                  counts.rejected,
+                ],
+                backgroundColor: ["#ff7a00", "#f5a623", "#32b768", "#e91e63"],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            cutout: "62%",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+          },
+        });
+      }
+
+      function renderRecentActivities() {
+        const activityMount = document.getElementById("activity-list");
+        const query = document
+          .getElementById("activitySearch")
+          .value.trim()
+          .toLowerCase();
+        const filteredActivities = dashboardActivities.filter((activity) => {
+          const text =
+            `${activity.student} ${activity.project} ${activity.investor} ${activity.title} ${activity.details} ${activity.status}`.toLowerCase();
+          return text.includes(query);
+        });
+
+        if (filteredActivities.length === 0) {
+          activityMount.innerHTML =
+            '<div class="empty-activity">No recent activity matches this search.</div>';
+          return;
+        }
+
+        activityMount.innerHTML = filteredActivities
+          .map(
+            (activity) => `
+                <div class="activity-item rich">
+                    <img class="activity-avatar" src="${escapeHtml(activity.avatar)}" alt="">
+                    <div class="activity-copy">
+                        <strong>${escapeHtml(activity.title)}</strong>
+                        <span>${escapeHtml(activity.details)}</span>
+                    </div>
+                    <span class="activity-time">${escapeHtml(activity.time)}</span>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function renderTopProjects() {
+        const topMount = document.getElementById("top-projects");
+        topMount.innerHTML = dashboardProjects
+          .slice(0, 5)
+          .map(
+            (project) => `
+                <div class="project-card">
+                    <img class="project-thumb" src="${escapeHtml(project.image)}" alt="">
+                    <h3>${escapeHtml(project.title)}</h3>
+                    <p>${escapeHtml(project.owner)}</p>
+                    <div class="project-footer">
+                        <span>${escapeHtml(project.status)}</span>
+                        <button onclick="window.location.href='admin-ideas.html'">View</button>
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function statusClass(status) {
+        const normalized = String(status || "").toLowerCase();
+
+        if (
+          normalized === "active" ||
+          normalized === "verified" ||
+          normalized === "approved"
+        ) {
+          return "status-verified";
+        }
+
+        if (normalized === "rejected" || normalized === "inactive") {
+          return "status-rejected";
+        }
+
+        return "status-pending";
+      }
+
+      function updateStudentStatus(id, newStatus) {
+        if(window.AdminStudentStore) {
+          window.AdminStudentStore.update(id, { status: newStatus });
+          renderPendingVerifications();
+          renderDashboardCounts();
+        }
+      }
+
+      function updateInvestorStatus(id, newStatus) {
+        if(window.AdminInvestorStore) {
+          window.AdminInvestorStore.update(id, { status: newStatus });
+          renderPendingVerifications();
+          renderDashboardCounts();
+        }
+      }
+
+      function updateIdeaStatus(title, newStatus) {
+        const idea = dashboardProjects.find(p => p.title === title);
+        if (idea) {
+          idea.status = newStatus;
+          renderPendingVerifications();
+          renderProjectOverview();
+          renderTopProjects();
+        }
+      }
+
+      function renderPendingVerifications() {
+        // Students
+        const studentsList = document.getElementById("pending-students-list");
+        const pendingStudents = getStudents().filter((student) => student.status !== "ACTIVE" && student.status !== "Rejected");
+        if (pendingStudents.length === 0) {
+          studentsList.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #888;">No pending student registrations</td></tr>';
+        } else {
+          studentsList.innerHTML = pendingStudents.map(student => `
+            <tr>
+              <td>${escapeHtml(student.name)}</td>
+              <td>${escapeHtml(student.university)}</td>
+              <td><span class="status-pill ${statusClass(student.status)}">${escapeHtml(student.status)}</span></td>
+              <td style="display: flex; gap: 8px;">
+                <button class="btn-verify" style="background: #32b768; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;" onclick="updateStudentStatus(${student.id}, 'ACTIVE')">Approve</button>
+                <button class="btn-verify" style="background: #e91e63; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;" onclick="updateStudentStatus(${student.id}, 'Rejected')">Reject</button>
+              </td>
+            </tr>
+          `).join("");
+        }
+
+        // Investors
+        const investorsList = document.getElementById("pending-investors-list");
+        const pendingInvestors = getInvestors().filter((investor) => investor.status !== "ACTIVE" && investor.status !== "Rejected");
+        if (pendingInvestors.length === 0) {
+          investorsList.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #888;">No pending investor registrations</td></tr>';
+        } else {
+          investorsList.innerHTML = pendingInvestors.map(investor => `
+            <tr>
+              <td>${escapeHtml(investor.name)}</td>
+              <td>${escapeHtml(investor.firm)}</td>
+              <td><span class="status-pill ${statusClass(investor.status)}">${escapeHtml(investor.status)}</span></td>
+              <td style="display: flex; gap: 8px;">
+                <button class="btn-verify" style="background: #32b768; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;" onclick="updateInvestorStatus(${investor.id}, 'ACTIVE')">Approve</button>
+                <button class="btn-verify" style="background: #e91e63; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;" onclick="updateInvestorStatus(${investor.id}, 'Rejected')">Reject</button>
+              </td>
+            </tr>
+          `).join("");
+        }
+
+        // Ideas
+        const ideasList = document.getElementById("pending-ideas-list");
+        const pendingIdeas = dashboardProjects.filter(p => p.status === "In Review" || p.status === "Funding Seeking");
+        if (pendingIdeas.length === 0) {
+          ideasList.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #888;">No pending ideas</td></tr>';
+        } else {
+          ideasList.innerHTML = pendingIdeas.map(idea => `
+            <tr>
+              <td>${escapeHtml(idea.title)}</td>
+              <td>${escapeHtml(idea.owner)}</td>
+              <td><span class="status-pill ${statusClass(idea.status)}">${escapeHtml(idea.status)}</span></td>
+              <td style="display: flex; gap: 8px;">
+                <button class="btn-verify" style="background: #32b768; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;" onclick="updateIdeaStatus('${idea.title.replace(/'/g, "\\'")}', 'Approved')">Approve</button>
+                <button class="btn-verify" style="background: #e91e63; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;" onclick="updateIdeaStatus('${idea.title.replace(/'/g, "\\'")}', 'Rejected')">Reject</button>
+              </td>
+            </tr>
+          `).join("");
+        }
+      }
+
+      function handleLogout() {
+        if (confirm("Logout from Admin Panel?")) {
+          sessionStorage.clear();
+          window.location.href = "login.html";
+        }
+      }
+
+      function initializeAdminDashboard() {
+        renderDashboardCounts();
+        renderProjectOverview();
+        renderRecentActivities();
+        renderTopProjects();
+        renderPendingVerifications();
+      }
+    </script>
+    <script>
+      window.addEventListener("storage", initializeAdminDashboard);
+      document.addEventListener("DOMContentLoaded", initializeAdminDashboard);
+    </script>
+  </body>
+</html>

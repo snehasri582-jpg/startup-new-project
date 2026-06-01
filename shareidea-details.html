@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StartupCollab - Idea Details</title>
+  <link rel="stylesheet" href="view.css" />
+  <link rel="stylesheet" href="sidebar.css" />
+</head>
+<body>
+
+<header class="navbar">
+  <div class="navbar-left">
+
+    <div class="logo">Startup<span>Collab</span></div>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
+
+<aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+  <div class="modal-top">
+    <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+    <div class="modal-profile">
+      <div class="modal-avatar">👨</div>
+      <h3>Student Pro</h3>
+      <p class="muted">Aspiring Entrepreneur</p>
+    </div>
+  </div>
+
+  <nav class="modal-menu">
+    <a href="studenthome.html" class="menu-item"><span class="label">Home</span></a>
+    <a href="investors.html" class="menu-item"><span class="label">Network</span></a>
+    <a href="shareidea.html" class="menu-item active"><span class="label">Startup Ideas</span></a>
+    <a href="chat.html" class="menu-item"><span class="label">Messages</span></a>
+    <a href="tracking.html" class="menu-item"><span class="label">Submit Report</span></a>
+    <a href="contact2.html" class="menu-item"><span class="label">Customer Care</span></a>
+
+    <a href="profile.html" class="menu-item"><span class="label">My Profile</span></a>
+  </nav>
+
+  <div class="modal-footer">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    <div class="socials">
+      <a href="#" class="s">f</a>
+      <a href="#" class="s">𝕏</a>
+      <a href="#" class="s">📷</a>
+      <a href="#" class="s">in</a>
+    </div>
+  </div>
+</aside>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+<main class="projects-section" style="padding: 100px 40px 40px; max-width: 1200px; margin: 0 auto; min-height: calc(100vh - 64px);">
+  <div id="detailsMount" style="width: 100%;"></div>
+</main>
+
+<div class="modal" id="modal" style="display:none;"></div>
+
+<script src="shareidea-details.js"></script>
+<script src="studenthome.js"></script>
+</body>
+</html>

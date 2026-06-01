@@ -1,0 +1,213 @@
+.dashboard-modal {
+  width: 300px;
+  max-width: 85vw;
+  background: linear-gradient(180deg,#070707 0%, #0f0f0f 100%);
+  color: #fff;
+  border-radius: 0;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 2000;
+  padding: 24px 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  visibility: visible;
+  opacity: 1;
+  overflow-y: auto;
+}
+
+.dashboard-modal.open{
+  transform: translateX(0);
+}
+
+.dashboard-modal .modal-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+}
+
+.modal-close {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: #ff8a00;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal-profile {
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.modal-avatar-link {
+  text-decoration: none;
+  display: block;
+  border-radius: 50%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-avatar-link:hover {
+  transform: scale(1.05);
+}
+
+.modal-avatar {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: #ff8a00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 6px 20px rgba(255, 138, 0, 0.15);
+  overflow: hidden;
+  border: 2px solid rgba(255, 138, 0, 0.3);
+}
+
+.modal-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-profile h3 {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.modal-profile h3 a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.modal-profile h3 a:hover {
+  color: #ff6a00;
+}
+
+.modal-profile .muted {
+  color: #bdb0a6;
+  font-size: 12px;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.sidebar-profile-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #ff6a00;
+  background: rgba(255, 106, 0, 0.12);
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 106, 0, 0.2);
+}
+
+.sidebar-profile-edit-btn:hover {
+  background: #ff6a00;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(255, 106, 0, 0.2);
+}
+
+
+.modal-menu{display:flex;flex-direction:column;gap:0;padding-top:16px;border-left:none;padding-left:0;align-items:stretch}
+.modal-menu .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  margin: 0;
+  border-radius: 0;
+  color: #bdb0a6;
+  text-decoration: none;
+  justify-content: flex-start;
+  text-align: left;
+  border-left: none;
+  transition: all 0.2s ease;
+}
+
+.modal-menu .menu-item .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.modal-menu .menu-item .label{flex:1;font-size:15px;font-weight:600}
+.modal-menu .menu-item.active {
+  background: #382013;
+  color: #ff6a00;
+}
+
+.modal-menu .menu-item:hover {
+  background: rgba(255,138,0,0.08);
+  color: #ff6a00;
+}
+
+.modal-footer{margin-top:auto;display:flex;flex-direction:column;gap:16px;padding: 0 24px;}
+
+/* Dashboard Logout Button Alignment */
+.modal-footer .logout-btn {
+  width: 100%;
+  background: #ff5500;
+  border: none;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.modal-footer .logout-btn:hover {
+  background: #e04b00;
+  transform: translateY(-1px);
+}
+
+.socials{display:flex;gap:8px;justify-content:center}
+.socials .s{width:36px;height:36px;border-radius:50%;background:#161010;color:#ffb88a;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+
+/* Backdrop */
+.sidebar-backdrop{position:fixed;inset:0;background:transparent;z-index:1900;display:none}
+.sidebar-backdrop.open{display:block}
+
+/* Page Push Logic - Slides the content along with the sidebar */
+body {
+  transition: margin-left 0.3s ease;
+  overflow-x: hidden;
+}
+
+body.sidebar-open {
+  margin-left: 300px;
+}
+
+/* Shift the fixed navbar alongside the content */
+.navbar {
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+body.sidebar-open .navbar {
+  transform: translateX(300px);
+}
+

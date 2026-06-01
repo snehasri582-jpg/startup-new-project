@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Report | Startup Collab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="tracking.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="global-slider.css">
+
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="navbar-left">
+    <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+    <a href="studenthome.html" class="logo" style="text-decoration: none;">Startup<span>Collab</span></a>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
+
+<aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+  <div class="modal-top">
+    <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+    <div class="modal-profile">
+      <div class="modal-avatar">🎓</div>
+      <h3>Student Pro</h3>
+      <p class="muted">Aspiring Entrepreneur</p>
+    </div>
+  </div>
+
+  <nav class="modal-menu">
+    <a href="studenthome.html" class="menu-item"><span class="label">Home</span></a>
+    <a href="investors.html" class="menu-item"><span class="label">Network</span></a>
+    <a href="shareidea.html" class="menu-item"><span class="label">Startup Ideas</span></a>
+    <a href="chat.html" class="menu-item"><span class="label">Messages</span></a>
+    <a href="tracking.html" class="menu-item active"><span class="label">Submit Report</span></a>
+    <a href="contact2.html" class="menu-item"><span class="label">Customer Care</span></a>
+    <a href="notifications.html" class="menu-item"><span class="label">Updates & Approvals</span></a>
+
+    <a href="profile.html" class="menu-item"><span class="label">My Profile</span></a>
+  </nav>
+
+  <div class="modal-footer">
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    <div class="socials">
+      <a href="#" class="s">f</a>
+      <a href="#" class="s">𝕏</a>
+      <a href="#" class="s">📷</a>
+      <a href="#" class="s">in</a>
+    </div>
+  </div>
+</aside>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+<!-- SIMPLE HEADING -->
+<div class="container mt-5 mb-4 text-start">
+  <h1 style="font-weight: 600; color: #333;">Submit Report</h1>
+  <p style="color: #666;">Upload your weekly project updates to keep investors informed.</p>
+</div>
+
+<!-- STATS -->
+<section class="stats container mb-4">
+   <a href="pending.html" class="card card-orange">
+     <h3>Pending Approval</h3>
+     <strong>2</strong>
+     <p>Awaiting Admin Review</p>
+   </a>
+   <a href="approved.html" class="card card-green">
+     <h3>Approved</h3>
+     <strong>4</strong>
+     <p>Updates Viewed</p>
+   </a>
+   <a href="investors.html" class="card card-purple">
+     <h3>Investors Engaged</h3>
+     <strong>11</strong>
+     <p>Viewed Your Ideas</p>
+   </a>
+</section>
+
+<!-- WEEKLY PROGRESS FORM -->
+<section class="weekly-report-section container mt-2 mb-5">
+  <div class="weekly-report-card bg-white p-4 rounded shadow-sm border" style="width: 100%; max-width: 100%;">
+    <h2 class="h4 mb-3" style="color: #ff6a00; font-weight: 700;">Fill Weekly Progress Report</h2>
+    <p class="text-muted small mb-4">Complete this form every week to keep your investors updated on your startup's development and financial health.</p>
+    
+    <form id="progressUpdateForm">
+      <div class="row g-3">
+        <!-- Section 1: Overview & Details -->
+        <div class="col-md-12">
+          <label class="form-label small fw-bold text-uppercase">Project Overview & Current Status</label>
+          <textarea class="form-control shadow-none" id="projOverview" rows="2" placeholder="Brief summary of where the project stands this week..." required></textarea>
+        </div>
+        
+        <div class="col-md-12">
+          <label class="form-label small fw-bold text-uppercase">Project Details / Live Links</label>
+          <input type="text" class="form-control shadow-none" id="projLinks" placeholder="Links to App demo, Website, Design or Repository">
+        </div>
+
+        <!-- Section 2: Progress -->
+        <div class="col-md-6">
+          <label class="form-label small fw-bold text-uppercase">Development Progress (%)</label>
+          <input type="number" class="form-control shadow-none" id="devPercent" min="0" max="100" placeholder="e.g., 75" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label small fw-bold text-uppercase">Estimated Completion Time</label>
+          <input type="text" class="form-control shadow-none" id="timeRemaining" placeholder="e.g., 3 months">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label small fw-bold text-uppercase">Key Achievements (Developing App/Website Process)</label>
+          <textarea class="form-control shadow-none" id="achievements" rows="3" placeholder="What core features or technical milestones did you hit this week?" required></textarea>
+        </div>
+
+        <!-- Section 3: Blockers & Marketing -->
+        <div class="col-md-6">
+          <label class="form-label small fw-bold text-uppercase">Challenges & Solutions</label>
+          <textarea class="form-control shadow-none" id="blockers" rows="3" placeholder="What issues did you face and how did the team resolve them?"></textarea>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label small fw-bold text-uppercase">Growth Doubts</label>
+          <textarea class="form-control shadow-none" id="marketingDoubts" rows="3" placeholder="Any concerns or questions regarding user acquisition and marketing strategy?"></textarea>
+        </div>
+
+        <!-- Section 4: Next Steps & Team -->
+        <div class="col-md-6">
+          <label class="form-label small fw-bold text-uppercase">Plans for Next Week</label>
+          <textarea class="form-control shadow-none" id="futurePlans" rows="3" placeholder="Top priorities for the coming week..." required></textarea>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label small fw-bold text-uppercase">Team Members & Contributions</label>
+          <textarea class="form-control shadow-none" id="teamUpdates" rows="3" placeholder="List who worked on what tasks this week..." required></textarea>
+        </div>
+
+        <!-- Section 5: Financials -->
+        <div class="col-12 border-top pt-3 mt-4">
+          <h3 class="h6 fw-bold mb-3" style="color: #ff6a00;">💰 Weekly Financial Summary</h3>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Amount Spent This Week (₹)</label>
+              <div class="input-group">
+                <span class="input-group-text">₹</span>
+                <input type="number" class="form-control shadow-none" id="weeklySpend" placeholder="0.00">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Expense Category</label>
+              <select class="form-select shadow-none" id="spendCategory">
+                <option value="marketing">Marketing & Sales</option>
+                <option value="infrastructure">Hosting & Servers</option>
+                <option value="development">Dev Tools & Licenses</option>
+                <option value="hiring">Hiring / Team Salaries</option>
+                <option value="other">Other Operations</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 6: File Attachment (Uses existing selection logic) -->
+        <div class="col-12 mt-4">
+          <label class="form-label small fw-bold text-uppercase">Attach Progress Report / Assets (Optional)</label>
+          <div class="file-upload-box border rounded p-4 text-center bg-light" style="border-style: dashed !important; border-width: 2px !important; cursor: pointer;" onclick="selectFile()">
+             <input type="file" id="fileInput" hidden accept=".pdf,.doc,.docx">
+             <span class="d-block fs-2">📁</span>
+             <p class="mb-0 small">Click to upload supporting documents</p>
+             <small class="text-muted d-block mt-1">Max 10MB (PDF, DOC, DOCX)</small>
+          </div>
+          <div id="fileInfo" class="mt-2 text-success fw-bold small"></div>
+        </div>
+
+        <!-- Submit -->
+        <div class="col-12 mt-4">
+          <button type="button" class="submit-btn w-100 py-3 mt-0" style="background: #ff6a00; color: #fff; font-weight: 700; border: none; border-radius: 8px;" onclick="submitUpdate()">Submit Weekly Report</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- PROJECT SECTION -->
+<section class="project container mb-5 mt-4">
+  <div class="project-header">
+    <h2>Apply My Job</h2>
+    <button onclick="viewIdeas()">View My Ideas</button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>Status</th>
+          <th>Progress Report</th>
+          <th>Investors Viewed</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Week 6</td>
+          <td><span class="badge pending">PENDING</span></td>
+          <td>Week 6 Progress.pdf</td>
+          <td>2 hrs ago</td>
+          <td><button class="btn-outline" onclick="resubmit()">Resubmit</button></td>
+        </tr>
+        <tr>
+          <td>Week 5</td>
+          <td><span class="badge approved">APPROVED</span></td>
+          <td>Week 5 Progress.pdf</td>
+          <td>22</td>
+          <td><button class="btn" onclick="window.location.href='report.html?id=week5'">View Report</button></td>
+        </tr>
+        <tr>
+          <td>Week 4</td>
+          <td><span class="badge approved">APPROVED</span></td>
+          <td>Week 4 Progress.pdf</td>
+          <td>18</td>
+          <td><button class="btn" onclick="window.location.href='report.html?id=week4'">View Report</button></td>
+        </tr>
+        <tr>
+          <td>Week 3</td>
+          <td><span class="badge approved">APPROVED</span></td>
+          <td>Week 3 Progress.pdf</td>
+          <td>15</td>
+          <td><button class="btn" onclick="window.location.href='report.html?id=week3'">View Report</button></td>
+        </tr>
+        <tr>
+          <td>Week 2</td>
+          <td><span class="badge approved">APPROVED</span></td>
+          <td>Week 2 Progress.pdf</td>
+          <td>20</td>
+          <td><button class="btn" onclick="window.location.href='report.html?id=week2'">View Report</button></td>
+        </tr>
+        <tr>
+          <td>Week 1</td>
+          <td><span class="badge approved">APPROVED</span></td>
+          <td>Week 1 Progress.pdf</td>
+          <td>18</td>
+          <td><button class="btn" onclick="window.location.href='report.html?id=week1'">View Report</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h4>StartupCollab</h4>
+      <p>Empowering student innovation and investment.</p>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="day-1/index.html">Home</a></p>
+      <p><a href="day-1/about.html">About</a></p>
+      <p><a href="day-1/contact.html">Contact</a></p>
+    </div>
+
+    <div>
+      <h4>Apps</h4>
+      <p><a href="https://play.google.com" target="_blank">Google Play</a></p>
+      <p><a href="https://apps.apple.com" target="_blank">App Store</a></p>
+      <p><a href="https://web.telegram.org" target="_blank">Telegram</a></p>
+    </div>
+
+    <div>
+      <h4>Customer Care</h4>
+      <p>Email: support@startupcollab.in</p>
+      <p>Phone: +91 98765 43210</p>
+      <div class="social-media">
+        <a href="https://facebook.com" target="_blank" title="Facebook">f</a>
+        <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+</footer>
+
+    <script src="sidebar.js"></script>
+    <script src="tracking.js"></script>
+</body>
+</html>

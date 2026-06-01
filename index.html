@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>StartupCollab | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="global-slider.css" />
+
+  <link rel="stylesheet" href="global-slider.css" />
+</head>
+
+<body>
+
+  <header class="navbar">
+    <a href="index.html" class="logo">Startup<span>Collab</span></a>
+    <button class="mobile-menu-btn" onclick="this.nextElementSibling.classList.toggle('open')">☰</button>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Launch Your Startup to Success</h1>
+      <p>Connect with co-founders, mentors, and investors.</p>
+      <div class="hero-tagline">
+        <span>Empower your innovation journey</span>
+        <span>Build something extraordinary today</span>
+      </div>
+      <div class="hero-btns">
+        <button class="btn primary" onclick="window.location.href='login.html'">Get Started</button>
+      </div>
+    </div>
+
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" />
+    </div>
+  </section>
+
+  </div>
+  </section>
+
+  <section class="how-section">
+    <div class="how-title">
+      <span></span>
+      <h2>How It Works</h2>
+      <span></span>
+    </div>
+
+    <div class="how-steps">
+
+      <!-- STEP 1 -->
+      <div class="how-step">
+        <div class="how-icon">�</div>
+        <h3>1. Share Your Idea</h3>
+        <p class="step-content">
+          Students submit their innovative startup ideas with detailed descriptions, market analysis, and funding
+          requirements. Our platform makes it easy to showcase your vision to potential investors and collaborators.
+        </p>
+        <button class="show-more-btn" onclick="toggleStepDetails(this)">Show More</button>
+      </div>
+
+      <div class="arrow">›</div>
+
+      <!-- STEP 2 -->
+      <div class="how-step">
+        <div class="how-icon">🤝</div>
+        <h3>2. Connect & Collaborate</h3>
+        <p class="step-content">
+          Meet with investors, find team members, and receive mentorship. Use our messaging platform to discuss
+          opportunities, exchange ideas, and build meaningful professional relationships with like-minded innovators.
+        </p>
+        <button class="show-more-btn" onclick="toggleStepDetails(this)">Show More</button>
+      </div>
+
+      <div class="arrow">›</div>
+
+      <!-- STEP 3 -->
+      <div class="how-step">
+        <div class="how-icon">💰</div>
+        <h3>3. Secure Funding</h3>
+        <p class="step-content">
+          Investors browse vetted startups and provide funding for promising projects. Track your investments, monitor
+          progress, and watch your portfolio grow while supporting the next generation of entrepreneurs.
+        </p>
+        <button class="show-more-btn" onclick="toggleStepDetails(this)">Show More</button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- SUCCESS STORIES -->
+  <section class="section light">
+    <div class="section-title">
+      <span></span>
+      <h2>Success Stories</h2>
+      <span></span>
+    </div>
+
+    <div class="stories">
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&fit=crop&q=80" alt="Freshworks">
+        <p>“StartupCollab played a vital role in connecting our early developer team with SaaS mentors who helped us scale globally.”</p>
+        <strong>- Girish Mathrubootham, Freshworks</strong>
+      </div>
+
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&fit=crop&q=80" alt="Amazon">
+        <p>“Connecting with student innovators through the platform helped us seed initial pilot integrations for cloud and AI products.”</p>
+        <strong>- AWS India Team, Amazon</strong>
+      </div>
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&fit=crop&q=80" alt="Oracle">
+        <p>“We discovered exceptional young talent working on next-gen database solutions and provided cloud incubation support.”</p>
+        <strong>- Startup Cloud Accelerator, Oracle</strong>
+      </div>
+
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&fit=crop&q=80" alt="Wipro">
+        <p>“An excellent portal for discovering deep-tech prototypes. Wipro Ventures has successfully mentored multiple student groups here.”</p>
+        <strong>- Wipro Ventures</strong>
+      </div>
+
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&fit=crop&q=80" alt="Zerodha">
+        <p>“We met our early technical team members through this platform, enabling us to bootstrap the largest retail brokerage in India.”</p>
+        <strong>- Nithin Kamath, Zerodha</strong>
+      </div>
+
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=150&fit=crop&q=80" alt="Ola">
+        <p>“Connecting with early-stage investors and campus innovators gave us the initial momentum to build a mobility network for a billion Indians.”</p>
+        <strong>- Bhavish Aggarwal, Ola</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN COMMUNITY -->
+  <section class="join">
+    <h2>Join Our Community of Innovators</h2>
+    <button class="btn primary" onclick="window.location.href='login.html'">Sign Up Now</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h4>StartupCollab</h4>
+        <p>Empowering student innovation and investment.</p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="#">Home</a></p>
+        <p><a href="about.html">About</a></p>
+        <p><a href="contact.html">Contact</a></p>
+      </div>
+
+      <div>
+        <h4>Apps</h4>
+        <p><a href="https://play.google.com" target="_blank">Google Play</a></p>
+        <p><a href="https://apps.apple.com" target="_blank">App Store</a></p>
+        <p><a href="https://web.telegram.org" target="_blank">Telegram</a></p>
+      </div>
+
+      <div>
+        <h4>Customer Care</h4>
+        <p>Email: support@startupcollab.in</p>
+        <p>Phone: +91 98765 43210</p>
+        <div class="social-media">
+          <a href="https://facebook.com" target="_blank" title="Facebook">f</a>
+          <a href="https://twitter.com" target="_blank" title="Twitter">𝕏</a>
+          <a href="https://instagram.com" target="_blank" title="Instagram">📷</a>
+          <a href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="copy">© 2025 StartupCollab. All rights reserved.</p>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+
+</html>

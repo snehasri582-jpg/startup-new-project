@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Documents | Startup Collab Admin</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="sidebar.css">
+</style>
+</head>
+<body>
+    <!-- Sidebar Modal (same as other admin pages) -->
+    <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+        <div class="modal-top">
+            <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+            <div class="modal-profile">
+                <!-- Dynamically filled by sidebar.js -->
+            </div>
+        </div>
+        <nav class="modal-menu">
+            <!-- Dynamically filled by sidebar.js -->
+        </nav>
+        <div class="modal-footer">
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div class="dashboard-layout">
+        <!-- HEADER NAVBAR -->
+        <header class="navbar">
+            <div class="navbar-left">
+                <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+                <a href="admin.html" class="logo">Startup<span>Collab</span></a>
+            </div>
+            <div class="navbar-right">
+                <button class="logout-btn" onclick="handleLogout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <div class="dashboard-main">
+            <!-- Filter Controls -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+                <div class="section-header" style="margin: 0;">
+                    <h2>Submitted Documents Store</h2>
+                    <span>Review, download, and verify files submitted by student innovators and angel investors.</span>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <select id="roleFilter" onchange="filterDocs()" style="padding: 8px 16px; border: 1px solid #ebd9cf; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                        <option value="all">All Roles</option>
+                        <option value="Student">Students Only</option>
+                        <option value="Investor">Investors Only</option>
+                    </select>
+                    <select id="statusFilter" onchange="filterDocs()" style="padding: 8px 16px; border: 1px solid #ebd9cf; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                        <option value="all">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Documents Table Card -->
+            <section class="card">
+                <div class="pending-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Submitter Name</th>
+                                <th>Role</th>
+                                <th>Project / Entity</th>
+                                <th>Document Type</th>
+                                <th>File Link</th>
+                                <th>Submitted Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="documentsList">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="sidebar.js"></script>
+    <script>
+        // Sample default document store data saved in localStorage for persistence
+        const DEFAULT_DOCUMENTS = [
+            {
+                id: 1,
+                name: "Amit Mehra",
+                role: "Student",
+                project: "EcoCharge 🌱",
+                docType: "Weekly Progress PDF",
+                fileName: "Week_3_Metrics_Update.pdf",
+                date: "2026-05-30",
+                status: "Approved"
+            },
+            {
+                id: 2,
+                name: "Sneha Reddy",
+                role: "Student",
+                project: "UPI PayPulse 📱",
+                docType: "Pitch Deck Proposal",
+                fileName: "UPI_PayPulse_PitchDeck.pdf",
+                date: "2026-05-29",
+                status: "Pending"
+            },
+            {
+                id: 3,
+                name: "Namita Thapar",
+                role: "Investor",
+                project: "Emcure Pharmaceuticals",
+                docType: "Accreditation Proof",
+                fileName: "Accreditation_Doc_Namita.pdf",
+                date: "2026-05-28",
+                status: "Approved"
+            },
+            {
+                id: 4,
+                name: "Priya Singh",
+                role: "Student",
+                project: "EcoWeave 🍃",
+                docType: "Weekly Progress PDF",
+                fileName: "Week_1_Materials_Report.pdf",
+                date: "2026-05-27",
+                status: "Pending"
+            },
+            {
+                id: 5,
+                name: "Aman Gupta",
+                role: "Investor",
+                project: "boAt Lifestyle",
+                docType: "KYC verification",
+                fileName: "Aman_Gupta_KYC_Proof.pdf",
+                date: "2026-05-26",
+                status: "Approved"
+            },
+            {
+                id: 6,
+                name: "Rohan Patel",
+                role: "Student",
+                project: "Swasthya Kiosk 🏥",
+                docType: "Accredited Lab Report",
+                fileName: "Kiosk_Vitals_Certification.pdf",
+                date: "2026-05-25",
+                status: "Rejected"
+            }
+        ];
+
+        let documents = JSON.parse(localStorage.getItem('admin_documents')) || DEFAULT_DOCUMENTS;
+
+        function saveDocs() {
+            localStorage.setItem('admin_documents', JSON.stringify(documents));
+        }
+
+        function renderDocs(list = documents) {
+            const tbody = document.getElementById('documentsList');
+            if (!tbody) return;
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 24px; color: #999;">No documents found.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = list.map(doc => {
+                const statusClass = doc.status === "Approved" ? "status-approved" : 
+                                    doc.status === "Pending" ? "status-pending" : "status-rejected";
+                const roleBadgeStyle = doc.role === "Student" ? 
+                    "background: #e3f2fd; color: #0d47a1; padding: 4px 8px; border-radius: 4px; font-weight:700; font-size:11px;" : 
+                    "background: #fff3e0; color: #e65100; padding: 4px 8px; border-radius: 4px; font-weight:700; font-size:11px;";
+
+                return `
+                    <tr>
+                        <td><strong>${escapeHtml(doc.name)}</strong></td>
+                        <td><span style="${roleBadgeStyle}">${doc.role}</span></td>
+                        <td>${escapeHtml(doc.project)}</td>
+                        <td>${escapeHtml(doc.docType)}</td>
+                        <td><a href="#" onclick="alert('Downloading: ${doc.fileName}')" style="color: #ff6a00; font-weight:600; text-decoration:none;">📄 ${escapeHtml(doc.fileName)}</a></td>
+                        <td>${doc.date}</td>
+                        <td><span class="status-badge ${statusClass}">${doc.status}</span></td>
+                        <td>
+                            <div style="display: flex; gap: 6px;">
+                                ${doc.status === 'Pending' ? `
+                                    <button class="btn-action" onclick="approveDoc(${doc.id})" style="background: #2e7d32; color: white;">Approve</button>
+                                    <button class="btn-action delete" onclick="rejectDoc(${doc.id})">Reject</button>
+                                ` : `
+                                    <button class="btn-action" onclick="alert('Doc metadata: Name: ${doc.fileName}\\nType: ${doc.docType}\\nUploaded by: ${doc.name}')">Info</button>
+                                `}
+                                <button class="btn-action" onclick="deleteDoc(${doc.id})" style="background: #9e9e9e; color: white;">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function filterDocs() {
+            const role = document.getElementById('roleFilter').value;
+            const status = document.getElementById('statusFilter').value;
+
+            const filtered = documents.filter(doc => {
+                const matchesRole = role === "all" || doc.role === role;
+                const matchesStatus = status === "all" || doc.status === status;
+                return matchesRole && matchesStatus;
+            });
+
+            renderDocs(filtered);
+        }
+
+        function approveDoc(id) {
+            const doc = documents.find(d => d.id === id);
+            if (doc) {
+                doc.status = 'Approved';
+                saveDocs();
+                filterDocs();
+                alert(`✅ Document "${doc.fileName}" approved successfully.`);
+            }
+        }
+
+        function rejectDoc(id) {
+            const doc = documents.find(d => d.id === id);
+            if (doc) {
+                doc.status = 'Rejected';
+                saveDocs();
+                filterDocs();
+                alert(`❌ Document "${doc.fileName}" rejected.`);
+            }
+        }
+
+        function deleteDoc(id) {
+            if (confirm("Delete this document submission permanently?")) {
+                documents = documents.filter(d => d.id !== id);
+                saveDocs();
+                filterDocs();
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDocs();
+        });
+    </script>
+</body>
+</html>

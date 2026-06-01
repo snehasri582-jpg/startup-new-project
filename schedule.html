@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Startup Collab - Schedule Meeting</title>
+  <link rel="stylesheet" href="sidebar.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --primary: #ff6a00;
+      --primary-hover: #e55a00;
+      --bg: #faf8f6;
+      --white: #ffffff;
+      --dark: #333333;
+      --border: #e0e0e0;
+      --text-muted: #666666;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--dark);
+      padding-top: 64px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+      padding: 0 32px;
+      background: #ffffff;
+      border-bottom: 3px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    .logo { color: #000; font-size: 22px; font-weight: bold; text-decoration: none;}
+    .logo span { color: var(--primary); }
+    .logout-btn {
+      background: linear-gradient(135deg, var(--primary), #ff8c00);
+      color: #fff; border: none; padding: 10px 18px; border-radius: 10px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      box-shadow: 0 8px 18px rgba(255, 106, 0, 0.18);
+    }
+    .logout-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    /* FORM LAYOUT */
+    .form-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 32px 40px;
+    }
+
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .form-header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #111;
+    }
+    .back-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .back-btn:hover { background: #f9f9f9; color: #111; }
+
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .form-row {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .form-label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #111;
+    }
+    .form-input, .form-select {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.3s;
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.1);
+    }
+
+    .radio-group, .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 4px;
+    }
+    .radio-label, .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* CUSTOM ORANGE RADIO/CHECKBOX */
+    input[type="radio"], input[type="checkbox"] {
+      accent-color: var(--primary);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+      margin: 24px 0 12px 0;
+      padding-top: 16px;
+    }
+
+    .helper-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .btn-save {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 32px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-save:hover { background: var(--primary-hover); }
+    .btn-cancel {
+      background: white;
+      color: #333;
+      border: 1px solid var(--border);
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-cancel:hover { background: #f9f9f9; }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+      <a href="investorhome.html" class="logo">Startup<span>Collab</span></a>
+    </div>
+    <div class="navbar-right">
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR (Modal Style) -->
+  <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+    <div class="modal-top">
+      <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+      <div class="modal-profile">
+        <div class="modal-avatar">🗓️</div>
+        <h3>Investor Pro</h3>
+        <p class="muted">Angel Investor</p>
+      </div>
+    </div>
+
+    <nav class="modal-menu">
+      <a href="investorhome.html" class="menu-item"><span class="icon">🏠</span><span class="label">Home</span></a>
+      <a href="view.html" class="menu-item"><span class="icon">💡</span><span class="label">View Ideas</span></a>
+      <a href="chat2.html" class="menu-item"><span class="icon">💬</span><span class="label">Messages</span></a>
+      <a href="myinvest.html" class="menu-item"><span class="icon">💼</span><span class="label">My Investments</span></a>
+      <a href="investor-updates.html" class="menu-item"><span class="icon">🔔</span><span class="label">Updates & Documents</span></a>
+      <a href="students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Student Network</span></a>
+      <a href="schedule.html" class="menu-item active"><span class="icon">🗓️</span><span class="label">Schedule</span></a>
+      <a href="contact3.html" class="menu-item"><span class="icon">📞</span><span class="label">Customer Care</span></a>
+    </nav>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+  <!-- SCHEDULE FORM -->
+  <main class="form-container">
+    <div class="form-header">
+      <h1>Schedule Meeting</h1>
+      <a href="investorhome.html" class="back-btn">Back to page</a>
+    </div>
+
+    <form id="scheduleForm" onsubmit="handleSchedule(event)">
+      <!-- TOPIC -->
+      <div class="form-group">
+        <label class="form-label">Topic</label>
+        <input type="text" id="topicInput" class="form-input" value="Investor Pitch & Discussion" required>
+      </div>
+
+      <!-- START & DURATION -->
+      <div class="form-row" style="margin-bottom: 20px;">
+        <div class="form-group" style="flex: 2; margin: 0;">
+          <label class="form-label">Start:</label>
+          <div style="display: flex; gap: 10px;">
+            <input type="date" id="dateInput" class="form-input" required style="flex: 1;">
+            <input type="time" class="form-input" value="17:00" required>
+          </div>
+        </div>
+        <div class="form-group" style="flex: 1.5; margin: 0;">
+          <label class="form-label">Duration:</label>
+          <div style="display: flex; gap: 10px;">
+            <select class="form-select" style="flex: 1;">
+              <option>0 hour</option>
+              <option selected>1 hour</option>
+              <option>2 hours</option>
+            </select>
+            <select class="form-select" style="flex: 1;">
+              <option selected>0 minute</option>
+              <option>15 minutes</option>
+              <option>30 minutes</option>
+              <option>45 minutes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECURRING & TIMEZONE -->
+      <div class="form-row" style="justify-content: space-between; margin-bottom: 10px;">
+        <label class="checkbox-label">
+          <input type="checkbox"> Recurring meeting
+        </label>
+        <span class="helper-text" style="margin:0; font-size: 13px;">Time Zone: India Standard Time (IST) ▾</span>
+      </div>
+
+      <!-- MEETING ID -->
+      <div class="section-title">Meeting ID</div>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="meetId" checked> Generate Automatically
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="meetId"> Personal Meeting ID 414 208 4682
+        </label>
+      </div>
+
+      <!-- SECURITY -->
+      <div class="section-title">Security</div>
+      <div class="form-group" style="margin-bottom: 12px; display: block;">
+        <label class="checkbox-label">
+          <input type="checkbox" checked> Passcode
+          <input type="text" class="form-input" value="Startup24" style="width: 120px; padding: 4px 8px; margin-left: 8px;">
+        </label>
+        <div class="helper-text" style="margin-left: 24px;">Only users who have the invite link or passcode can join the meeting</div>
+      </div>
+      <div class="form-group" style="display: block;">
+        <label class="checkbox-label">
+          <input type="checkbox" checked> Waiting Room
+        </label>
+        <div class="helper-text" style="margin-left: 24px;">Only users admitted by the host can join the meeting</div>
+      </div>
+
+      <!-- VIDEO -->
+      <div class="section-title">Video</div>
+      <div class="form-row" style="gap: 60px;">
+        <div>
+          <span style="font-size: 14px; font-weight: 600; margin-right: 12px;">Host:</span>
+          <label class="radio-label" style="display:inline-flex;">
+            <input type="radio" name="hostVideo" checked> On
+          </label>
+          <label class="radio-label" style="display:inline-flex; margin-left: 12px;">
+            <input type="radio" name="hostVideo"> Off
+          </label>
+        </div>
+        <div>
+          <span style="font-size: 14px; font-weight: 600; margin-right: 12px;">Participants:</span>
+          <label class="radio-label" style="display:inline-flex;">
+            <input type="radio" name="partVideo" checked> On
+          </label>
+          <label class="radio-label" style="display:inline-flex; margin-left: 12px;">
+            <input type="radio" name="partVideo"> Off
+          </label>
+        </div>
+      </div>
+
+      <!-- AUDIO -->
+      <div class="section-title">Audio</div>
+      <div class="radio-group" style="gap: 30px;">
+        <label class="radio-label">
+          <input type="radio" name="audio"> Telephone
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="audio"> Computer Audio
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="audio" checked> Telephone and Computer Audio
+        </label>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" onclick="window.location.href='investorhome.html'">Cancel</button>
+        <button type="submit" class="btn-save">Submit</button>
+      </div>
+
+    </form>
+  </main>
+
+  <script src="sidebar.js"></script>
+  <script src="schedule.js"></script>
+  <script>
+    // Set default date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('dateInput').value = today;
+  </script>
+</body>
+</html>

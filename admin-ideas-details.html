@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | Startup Connect Admin</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <script src="sidebar.js"></script>
+    <script src="admin-ideas-store.js"></script>
+    <style>
+        /* ── Profile Header ── */
+        .project-header {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            margin-bottom: 36px;
+        }
+
+        .project-icon-large {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ff7a00, #ff5a00);
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 56px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .project-info { flex: 1; }
+
+        .project-info h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+            color: var(--text);
+        }
+
+        .project-info p {
+            margin: 6px 0;
+            color: var(--muted);
+            font-size: 0.97rem;
+        }
+
+        .project-info p strong { color: var(--text); }
+
+        /* ── Info Grid ── */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 28px;
+        }
+
+        .info-block {
+            background: #f8fbff;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #edf2f8;
+        }
+
+        .info-block strong {
+            display: block;
+            color: var(--orange);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+
+        .info-block p {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ── Description Block ── */
+        .desc-block {
+            margin-top: 28px;
+            background: #f8fbff;
+            border: 1px solid #edf2f8;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .desc-block h3 {
+            margin: 0 0 10px;
+            color: var(--text);
+        }
+
+        .desc-block p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* ── Action Buttons ── */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* ── Applications Badge ── */
+        .apps-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #ff7a00, #ff5a00);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 720px) {
+            .project-header { flex-direction: column; }
+            .project-grid   { grid-template-columns: 1fr; }
+            .action-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+      <div class="modal-top">
+        <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+        <div class="modal-profile">
+          <div class="modal-avatar" style="background: var(--orange); color: white;">A</div>
+          <h3>Platform Admin</h3>
+          <p class="muted">System Administrator</p>
+        </div>
+      </div>
+      <nav class="modal-menu">
+        <a href="admin.html"          class="menu-item"><span class="icon">📊</span><span class="label">Dashboard Overview</span></a>
+        <a href="admin-students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Students</span></a>
+        <a href="admin-ideas.html"    class="menu-item active"><span class="icon">💡</span><span class="label">Projects</span></a>
+        <a href="admin-investors.html" class="menu-item"><span class="icon">💰</span><span class="label">Investors</span></a>
+        <a href="admin-schedule.html" class="menu-item"><span class="icon">📈</span><span class="label">Applications</span></a>
+        <a href="profile.html?id=admin" class="menu-item"><span class="icon">👤</span><span class="label">Admin Profile</span></a>
+      </nav>
+      <div class="modal-footer">
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div class="dashboard-layout">
+
+      <!-- NAVBAR -->
+      <header class="navbar">
+        <div class="navbar-left">
+          <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+          <a href="admin.html" class="logo">Startup<span>Collab</span></a>
+        </div>
+        <div class="navbar-right">
+          <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        </div>
+      </header>
+
+      <div class="dashboard-main">
+
+        <!-- DETAIL CARD -->
+        <section class="card" id="details-mount">
+          <div style="text-align:center; padding:40px;">
+            <p>Loading project details...</p>
+          </div>
+        </section>
+
+        <!-- BACK BUTTON -->
+        <div style="margin-top: 20px;">
+          <button class="btn-outline" onclick="window.location.href='admin-ideas.html'">← Back to Projects</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div><h4>StartupConnect</h4><p>All-in-one startup ecosystem platform.</p></div>
+        <div>
+          <h4>Quick Links</h4>
+          <p><a href="admin.html">Dashboard</a></p>
+          <p><a href="admin-ideas.html">Projects</a></p>
+          <p><a href="admin-investors.html">Investors</a></p>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <p>Email: admin@startupconnect.com</p>
+          <p>Phone: +91 98765 12345</p>
+        </div>
+        <div>
+          <h4>Social Media</h4>
+          <div class="social-media">
+            <a href="#" target="_blank" title="Facebook">f</a>
+            <a href="#" target="_blank" title="Twitter">𝕏</a>
+            <a href="#" target="_blank" title="Instagram">📷</a>
+            <a href="#" target="_blank" title="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+      <p class="copy">© 2025 StartupConnect Admin Panel. All rights reserved.</p>
+    </footer>
+
+    <script>
+      const ideaStore = window.AdminIdeasStore;
+
+      // ── Category emoji map ──
+      const categoryIcon = {
+        'Sustainability': '🌱', 'SaaS': '☁️', 'HealthTech': '❤️',
+        'AgriTech': '🌾', 'EdTech': '📚', 'FinTech': '💳',
+        'Web3': '🔗', 'AI': '🤖', 'Robotics': '🤖', 'General': '💡'
+      };
+
+      function renderIdeaDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const id     = parseInt(params.get('id'));
+        const idea   = ideaStore.findById(id);
+        const mount  = document.getElementById('details-mount');
+
+        if (!idea) {
+          mount.innerHTML = `
+            <div style="text-align:center; padding:40px;">
+              <h2>Project not found</h2>
+              <p><a href="admin-ideas.html">← Back to Projects</a></p>
+            </div>`;
+          return;
+        }
+
+        const icon        = categoryIcon[idea.category] || '💡';
+        const statusClass = ideaStore.statusClass(idea.status);
+
+        mount.innerHTML = `
+          <div class="project-header">
+            <div class="project-icon-large">${icon}</div>
+            <div class="project-info">
+              <h1>${ideaStore.escapeHtml(idea.title)}</h1>
+              <p><strong>Student:</strong> ${ideaStore.escapeHtml(idea.student)}</p>
+              <p><strong>Category:</strong> ${ideaStore.escapeHtml(idea.category)}</p>
+              <p>
+                <strong>Status:</strong>
+                <span class="status-pill ${statusClass}">${ideaStore.escapeHtml(idea.status)}</span>
+              </p>
+              <p style="margin-top:12px;">
+                <span class="apps-badge">📥 ${idea.applications ?? 0} Applications</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="project-grid">
+            <div class="info-block">
+              <strong>Project Title</strong>
+              <p>${ideaStore.escapeHtml(idea.title)}</p>
+            </div>
+            <div class="info-block">
+              <strong>Student Name</strong>
+              <p>${ideaStore.escapeHtml(idea.student)}</p>
+            </div>
+            <div class="info-block">
+              <strong>Category</strong>
+              <p>${ideaStore.escapeHtml(idea.category)}</p>
+            </div>
+            <div class="info-block">
+              <strong>Funding Stage</strong>
+              <p>${ideaStore.escapeHtml(idea.stage)}</p>
+            </div>
+            <div class="info-block">
+              <strong>Status</strong>
+              <p><span class="status-pill ${statusClass}">${ideaStore.escapeHtml(idea.status)}</span></p>
+            </div>
+            <div class="info-block">
+              <strong>Total Applications</strong>
+              <p>${idea.applications ?? 0}</p>
+            </div>
+          </div>
+
+          <div class="desc-block">
+            <h3>Project Description</h3>
+            <p>${ideaStore.escapeHtml(idea.description) || 'No description available.'}</p>
+          </div>
+
+          <div class="action-buttons">
+            ${idea.status === 'PENDING' ? `
+              <button class="btn-primary" onclick="approveIdea(${idea.id})">✅ Approve Project</button>
+            ` : ''}
+            <button class="btn-outline" onclick="rejectIdea(${idea.id})">❌ Reject</button>
+            <button class="btn-outline" onclick="editIdeaDetails(${idea.id})">✏️ Edit Details</button>
+          </div>
+        `;
+      }
+
+      function approveIdea(id) {
+        if (confirm('Approve this project?')) {
+          ideaStore.update(id, { status: 'APPROVED' });
+          alert('Project approved!');
+          renderIdeaDetails();
+        }
+      }
+
+      function rejectIdea(id) {
+        if (confirm('Reject this project?')) {
+          ideaStore.update(id, { status: 'REJECTED' });
+          alert('Project rejected!');
+          window.location.href = 'admin-ideas.html';
+        }
+      }
+
+      function editIdeaDetails(id) {
+        const idea = ideaStore.findById(id);
+        if (!idea) return;
+        const updates = ideaStore.promptForIdeaUpdates(idea);
+        if (!updates) return;
+        ideaStore.update(id, updates);
+        renderIdeaDetails();
+        alert('Project updated successfully!');
+      }
+
+      function handleLogout() {
+        if (confirm('Logout from Admin Panel?')) window.location.href = 'index.html';
+      }
+
+      window.addEventListener('storage', renderIdeaDetails);
+      document.addEventListener('DOMContentLoaded', renderIdeaDetails);
+    </script>
+</body>
+</html>

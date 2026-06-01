@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages | Startup Connect Admin</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <script src="admin-messages-store.js"></script>
+    <script src="sidebar.js"></script>
+</head>
+<body>
+    <!-- Sidebar Modal (same as other admin pages) -->
+    <aside class="dashboard-modal" id="dashboardSidebar" aria-hidden="true">
+        <div class="modal-top">
+            <button class="modal-close" onclick="closeSidebar()" aria-label="Close">×</button>
+            <div class="modal-profile">
+                <div class="modal-avatar" style="background: var(--orange); color: white;">A</div>
+                <h3>Platform Admin</h3>
+                <p class="muted">System Administrator</p>
+            </div>
+        </div>
+        <nav class="modal-menu">
+            <a href="admin.html" class="menu-item"><span class="icon">📊</span><span class="label">Dashboard Overview</span></a>
+            <a href="admin-students.html" class="menu-item"><span class="icon">🎓</span><span class="label">Students</span></a>
+            <a href="admin-ideas.html" class="menu-item"><span class="icon">💡</span><span class="label">Projects</span></a>
+            <a href="admin-investors.html" class="menu-item"><span class="icon">💰</span><span class="label">Investors</span></a>
+            <a href="admin-messages.html" class="menu-item active"><span class="icon">📨</span><span class="label">Messages</span></a>
+            <a href="admin-schedule.html" class="menu-item"><span class="icon">📈</span><span class="label">Applications</span></a>
+            <a href="profile.html?id=admin" class="menu-item"><span class="icon">👤</span><span class="label">Admin Profile</span></a>
+        </nav>
+        <div class="modal-footer">
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div class="dashboard-layout">
+        <header class="navbar">
+            <div class="navbar-left">
+                <button id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open dashboard menu">☰</button>
+                <a href="admin.html" class="logo">Startup<span>Collab</span></a>
+            </div>
+            <div class="navbar-right">
+                <button class="logout-btn" onclick="handleLogout()">Logout</button>
+            </div>
+        </header>
+
+        <div class="dashboard-main">
+            <section class="card" style="margin-bottom: 24px;">
+                <div class="section-header">
+                    <h2>Contact Center Messages</h2>
+                    <span>All messages submitted via the Contact Us page.</span>
+                </div>
+                <div class="pending-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th>Date &amp; Time</th>
+                                <th>Channel</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messages-list">
+                            <!-- Filled by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // admin-messages.html
+// Updated renderMessages to use correct date field and ensure HTML escaping
+function renderMessages() {
+    const tbody = document.getElementById('messages-list');
+    const messages = window.AdminMessageStore.getAll();
+    if (!tbody) return;
+    if (messages.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No messages received.</td></tr>`;
+        return;
+    }
+    tbody.innerHTML = messages.map(msg => `
+        <tr>
+            <td><strong>${window.AdminMessageStore.escapeHtml(msg.name)}</strong></td>
+            <td>${window.AdminMessageStore.escapeHtml(msg.email)}</td>
+            <td>${window.AdminMessageStore.escapeHtml(msg.subject || '')}</td>
+            <td>${window.AdminMessageStore.escapeHtml(msg.message)}</td>
+            <td>${window.AdminMessageStore.escapeHtml(msg.date)}</td>
+            <td>${window.AdminMessageStore.escapeHtml(msg.channel)}</td>
+            <td>
+                <button class="btn-action" onclick="viewMessageDetail(${msg.id})">View</button>
+                <button class="btn-action" onclick="contactMessage(${msg.id})">Contact</button>
+                <button class="btn-action delete" onclick="deleteMessage(${msg.id})">Delete</button>
+            </td>
+        </tr>`).join('');
+}
+
+function viewMessageDetail(id) {
+    // Simple alert detail view – can be expanded to a modal.
+    const msg = window.AdminMessageStore.findById(id);
+    if (!msg) return;
+    alert(`From: ${msg.name}\nEmail: ${msg.email}\nSubject: ${msg.subject || 'N/A'}\n\nMessage:\n${msg.message}\n\nChannel: ${msg.channel}\nDate: ${msg.date}`);
+}
+
+function contactMessage(id) {
+    const msg = window.AdminMessageStore.findById(id);
+    if (!msg) return;
+    const subject = encodeURIComponent('Re: ' + (msg.subject || 'Your inquiry'));
+    const body = encodeURIComponent(`Hi ${msg.name},\n\nWe have received your message regarding "${msg.subject}" and would like to help resolve the issue. Please let us know a convenient time to discuss further.\n\nBest regards,\nStartup Connect Support`);
+    // Open default mail client
+    window.location.href = `mailto:${msg.email}?subject=${subject}&body=${body}`;
+}
+
+function deleteMessage(id) {
+    if (!confirm('Delete this message permanently?')) return;
+    window.AdminMessageStore.remove(id);
+    renderMessages();
+}
+
+document.addEventListener('DOMContentLoaded', renderMessages);
+    </script>
+</body>
+</html>
