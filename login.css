@@ -506,6 +506,8 @@ nav a:hover {
 @media (max-width: 768px) {
   .mobile-menu-btn {
     display: block;
+    order: 1;
+    margin-right: 10px;
   }
   .navbar {
     flex-wrap: wrap;
