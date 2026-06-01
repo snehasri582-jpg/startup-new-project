@@ -123,6 +123,16 @@ body{background:#f6efe9;color:var(--text);padding-top:64px;}
   gap: 12px;
 }
 
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+}
+
+.logo span {
+  color: #ff6a00;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;
