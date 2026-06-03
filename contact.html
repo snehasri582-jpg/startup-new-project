@@ -551,6 +551,25 @@ nav a:hover {
 /* =====================================================
    RESPONSIVE
 ===================================================== */
+@media (max-width: 480px) {
+  .container {
+    padding-top: 20px !important;
+  }
+
+  .hero {
+    min-height: 250px;
+    padding: 30px 16px;
+  }
+
+  .hero-content h1 {
+    font-size: 24px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 768px) {
   .mobile-menu-btn {
     display: block;
@@ -596,6 +615,10 @@ nav a:hover {
   nav a:hover, nav a.active {
     background: rgba(255,106,0,0.08);
     color: #ff6a00;
+  }
+
+  .container {
+    padding-top: 16px !important;
   }
 
   .hero {

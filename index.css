@@ -488,16 +488,33 @@ nav a:hover{color:#ff6a00}
 
   .stories {
     flex-direction: column;
+    align-items: center;
     gap: 16px;
+    padding: 0 8px;
   }
 
   .story {
     width: 100%;
+    max-width: 320px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
   }
 
   .story img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 12px;
+  }
+
+  .story p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .story strong {
+    font-size: 12px;
   }
 
   .join {
@@ -630,11 +647,17 @@ nav a:hover{color:#ff6a00}
   .stories {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 16px;
   }
 
   .story {
-    width: calc(50% - 10px);
+    width: calc(50% - 8px);
+    padding: 16px;
+  }
+
+  .story img {
+    width: 60px;
+    height: 60px;
   }
 
   .join {
@@ -714,12 +737,17 @@ nav a:hover{color:#ff6a00}
   }
 
   .stories {
-    flex-direction: row;
+    display: flex;
+    justify-content: center;
     gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .story {
     width: 260px;
+    flex-shrink: 0;
   }
 
   .join {
@@ -755,26 +783,51 @@ nav a:hover{color:#ff6a00}
 }
 
 /* STORIES */
-.stories{
-  display:flex;
-  justify-content:center;
-  gap:30px;
+.stories {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.story{
-  width:260px;
-  background:#fff;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 8px 20px rgba(0,0,0,.1);
+
+.story {
+  width: 260px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.story img{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  margin-bottom:10px;
-  background:#e0e0e0;
-  object-fit:cover;
-  display:block;
+
+.story:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.15);
+}
+
+.story img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  background: #e0e0e0;
+  object-fit: cover;
+  display: block;
+}
+
+.story p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  color: #555;
+  font-style: italic;
+}
+
+.story strong {
+  font-size: 13px;
+  color: #333;
+  font-weight: 600;
 }
 
 /* JOIN */
